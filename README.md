@@ -15,7 +15,19 @@
    - `npm ci`
    - `SITE_BASE=/DiggysCardWorldSite npm run build`（`prebuild` 会把根目录 `diggy_levels/` 拷进 `public/`）
    - 用 `actions/deploy-pages` 发布 `dist/`
-3. 仓库 Settings → Pages → Source 需为 **GitHub Actions**（首次可用 `gh` 打开）
+3. 仓库 Settings → Pages → Source 选 **GitHub Actions**
+
+### 首次启用工作流（重要）
+
+当前用来推代码的 GitHub OAuth 令牌**没有 `workflow` 权限**，无法直接把 `.yml` 写进 `.github/workflows/`。请你在网页上做一次：
+
+1. 打开仓库 → **Add file** → **Create new file**
+2. 路径填：`.github/workflows/deploy-pages.yml`
+3. 把本仓 `ci/deploy-pages.yml` 的全部内容粘贴进去 → Commit
+4. Settings → Pages → Build and deployment → Source：**GitHub Actions**
+5. 之后每次推 `main` 就会自动部署
+
+在工作流生效前，可用 `gh-pages` 分支做一次手工发布（本 README 首次迁移时已尝试发布）。
 
 本地预览：
 
