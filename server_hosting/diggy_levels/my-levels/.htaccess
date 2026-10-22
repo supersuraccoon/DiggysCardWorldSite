@@ -1,0 +1,16 @@
+# Diggy my-levels · CORS on JSON files (put this inside my-levels/)
+# LiteSpeed often applies .htaccess per-directory; parent diggy_levels/.htaccess may be enough,
+# but uploading both is safer on shared hosts.
+
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type, Accept"
+  Header set Access-Control-Max-Age "86400"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_METHOD} OPTIONS
+  RewriteRule ^ - [R=204,L]
+</IfModule>

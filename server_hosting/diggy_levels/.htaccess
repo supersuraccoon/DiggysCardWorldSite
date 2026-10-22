@@ -1,0 +1,17 @@
+# Diggy my-levels · CORS for static JSON (LiteSpeed / Apache)
+# Upload this file to diggy_levels/ (and optionally also to my-levels/).
+# Shared hosts may ignore AllowOverride; if curl -I still has no ACAO, use api.php?action=list / get.
+
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type, Accept"
+  Header set Access-Control-Max-Age "86400"
+</IfModule>
+
+# Preflight: return empty 204 when Rewrite is allowed
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_METHOD} OPTIONS
+  RewriteRule ^ - [R=204,L]
+</IfModule>

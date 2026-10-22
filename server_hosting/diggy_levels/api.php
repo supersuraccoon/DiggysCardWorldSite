@@ -7,12 +7,13 @@
  *
  * PHP 5.3 兼容（LiteSpeed / 旧主机）。勿改成 PHP 7 短数组 [] / ?? / http_response_code。
  *
- * 接口合同（给编辑器）：
+ * 接口合同（给编辑器 / 游戏）：
  *   POST  body = 整关 JSON（须含 id）     → 写 my-levels/{id}.json + 更新 index.json
  *   POST  body = {"action":"delete","id"} → 删文件并从 index 去掉
  *   DELETE ?id=xxx 或 POST ?action=delete → 同上
- *   GET   ?action=list                    → 返回 index.json 内容
- *   单关 / 列表也可直接静态 GET my-levels/*.json（需目录可写、文件可读）
+ *   GET   ?action=list                    → 返回与 index.json 同结构（带 CORS）
+ *   GET   ?action=get&id=xxx              → 代理读 my-levels/{id}.json 原文（带 CORS）
+ *   静态 GET my-levels/*.json 也可；若缺 CORS 头，游戏改走 list/get
  */
 
 header('Access-Control-Allow-Origin: *');
@@ -191,11 +192,31 @@ if (!diggy_ensure_dir($dir)) {
     diggy_json(500, array('ok' => false, 'error' => '无法创建 my-levels 目录，请在面板确认 diggy_levels/my-levels 可写'));
 }
 
-/* ---------- GET list / ping ---------- */
+/* ---------- GET list / get / ping ---------- */
 if ($method === 'GET') {
+    if ($action === 'get') {
+        $id = diggy_safe_id($idQuery);
+        if ($id === false) {
+            diggy_json(400, array('ok' => false, 'error' => '缺少或非法 id；用 ?action=get&id='));
+        }
+        $path = $dir . '/' . $id . '.json';
+        if (!file_exists($path)) {
+            diggy_json(404, array('ok' => false, 'error' => '关卡不存在：' . $id));
+        }
+        $raw = @file_get_contents($path);
+        if ($raw === false || $raw === '') {
+            diggy_json(500, array('ok' => false, 'error' => '读取失败：' . $id . '.json'));
+        }
+        /* 直接回原文，形状与静态 my-levels/{id}.json 一致（带本文件 CORS 头） */
+        diggy_status(200);
+        header('Content-Type: application/json; charset=utf-8');
+        echo $raw;
+        exit;
+    }
     if ($action === 'list' || $action === '') {
         $index = diggy_read_index($indexPath);
         if ($action === 'list') {
+            /* 与静态 index.json 同结构，供 localhost 跨域读（静态文件可能无 CORS） */
             diggy_status(200);
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($index);
@@ -207,10 +228,10 @@ if ($method === 'GET') {
             'php' => PHP_VERSION,
             'dir' => 'my-levels/',
             'levelCount' => count($index['levels']),
-            'hint' => 'POST 整关 JSON 保存；POST {"action":"delete","id"} 删除；GET ?action=list 列表',
+            'hint' => 'POST 整关 JSON 保存；POST {"action":"delete","id"} 删除；GET ?action=list 列表；GET ?action=get&id= 读单关',
         ));
     }
-    diggy_json(400, array('ok' => false, 'error' => '未知 action；用 ?action=list'));
+    diggy_json(400, array('ok' => false, 'error' => '未知 action；用 ?action=list 或 ?action=get&id='));
 }
 
 /* ---------- DELETE ---------- */
