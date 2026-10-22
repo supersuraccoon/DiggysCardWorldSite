@@ -674,6 +674,23 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
           <button className="btn small" onClick={() => setEditId(null)}>← 返回列表</button>
           <span className="status-pill">🏠 {lv.title}</span>
           <span className="mono muted small">{lv.id}</span>
+          <span className="status-pill" title="保存/删除/拉取走哪条通道">
+            通道：
+            <select
+              value={cloudTarget}
+              disabled={ghBusy}
+              onChange={(e) => chooseTarget(e.target.value)}
+              style={{ marginLeft: 4, maxWidth: 140 }}
+            >
+              <option value="host">自家服务器</option>
+              <option value="github">GitHub</option>
+            </select>
+          </span>
+          <span className={`status-pill ${cloudTarget === 'host' ? '' : (patOn ? '' : 'dirty')}`}>
+            {cloudTarget === 'host'
+              ? <>☁ 服务器（无需 Token）</>
+              : patOn ? <>☁ GitHub @{ghLogin}</> : <>☁ GitHub：未连接</>}
+          </span>
           <span className="grow" />
           <button className="btn small" onClick={undo} disabled={!past.length} title="Ctrl+Z">↶ 撤销</button>
           <button className="btn small" onClick={redo} disabled={!future.length}>↷ 重做</button>
@@ -682,8 +699,8 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
           </button>
           {cloudTarget === 'github' && !patOn && canSaveDir && !dirHandle && <button className="btn small" onClick={pickFolder}>📂 打开文件夹</button>}
           {cloudTarget === 'github' && !patOn && <button className="btn small" onClick={() => setTokenOpen(true)}>连接 GitHub</button>}
-          {cloudTarget === 'host' && (
-            <span className="muted small" title={HOST_BASE}>通道：自家服务器</span>
+          {cloudTarget === 'github' && patOn && (
+            <button className="btn small" onClick={disconnectCloud} disabled={ghBusy}>断开 GitHub</button>
           )}
         </div>
       </div>
