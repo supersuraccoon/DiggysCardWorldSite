@@ -11,6 +11,10 @@ import {
   cloudPutLevel, cloudPutIndex, cloudDeleteLevel, pullAllLevels,
   putFile, levelPath, pagesWaitHint, LEVEL_BASE_PAGES,
 } from '../../lib/githubMyLevels.js';
+import {
+  HOST_BASE, hostPutLevel, hostDeleteLevel, pullAllLevelsFromHost,
+  hostWaitHint, defaultCloudTarget, setCloudTarget,
+} from '../../lib/hostMyLevels.js';
 import { STAT_ICONS } from '../../lib/icons.js';
 import { Palette } from './Palette.jsx';
 
@@ -53,7 +57,15 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
   const [ghLogin, setGhLogin] = useState('');
   const [ghBusy, setGhBusy] = useState(false);
   const [tokenOpen, setTokenOpen] = useState(false);
-  const cloudOn = !!ghLogin;
+  const [cloudTarget, setCloudTargetState] = useState('host'); // 'github' | 'host'
+  const patOn = !!ghLogin;
+  /** 当前通道是否可写云端：host 无需 Token；github 需已连接 */
+  const cloudOn = cloudTarget === 'host' || patOn;
+
+  const chooseTarget = (t) => {
+    setCloudTargetState(t);
+    setCloudTarget(t);
+  };
 
   useEffect(() => {
     try {
@@ -68,7 +80,9 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
       }
     } catch { /* ignore */ }
     setCanSaveDir('showDirectoryPicker' in window);
-    if (hasToken()) setGhLogin(getCachedLogin() || '已连接');
+    const hasPat = hasToken();
+    if (hasPat) setGhLogin(getCachedLogin() || '已连接');
+    setCloudTargetState(defaultCloudTarget({ hasPat }));
     setLoaded(true);
   }, []);
 
@@ -252,8 +266,9 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
     try {
       const login = await verifyToken(token);
       setGhLogin(login || '已连接');
+      chooseTarget('github');
       setTokenOpen(false);
-      flash(`☁ 已连接 @${login || 'user'}（仅本机保存 Token）`);
+      flash(`☁ 已连接 @${login || 'user'}（仅本机保存 Token；通道已切到 GitHub）`);
     } catch (e) {
       flash('连接失败：' + e.message, 'err');
     } finally {
@@ -261,27 +276,35 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
     }
   };
 
+  const mergePulled = (got, label) => {
+    if (!got.length) {
+      flash(`${label}还没有关卡（或 index 为空）`);
+      return;
+    }
+    commit((cur) => {
+      const m = new Map(cur.map((l) => [l.id, l]));
+      for (const g of got) m.set(g.id, g);
+      const order = got.map((g) => g.id);
+      const rest = [...m.values()].filter((l) => !order.includes(l.id));
+      return [...order.map((id) => m.get(id)), ...rest];
+    });
+    flash(`☁ 已从${label}拉取 ${got.length} 个关卡`);
+  };
+
   const pullFromCloud = async () => {
-    if (!confirm('从公开仓拉取「我的关卡」？同 id 会覆盖本机列表（可以撤销）。')) return;
+    const fromHost = cloudTarget === 'host';
+    const tip = fromHost
+      ? '从自家服务器拉取「我的关卡」？同 id 会覆盖本机列表（可以撤销）。'
+      : '从 GitHub 公开仓拉取「我的关卡」？同 id 会覆盖本机列表（可以撤销）。';
+    if (!confirm(tip)) return;
     setGhBusy(true);
     try {
-      const { levels: raw } = await pullAllLevels();
+      const { levels: raw } = fromHost ? await pullAllLevelsFromHost() : await pullAllLevels();
       const got = raw
         .filter((d) => d && d.schemaVersion === SCHEMA_VERSION && Array.isArray(d.cells))
         .filter((d) => !d.table || d.table === '我的关卡')
         .map(normalizeMyLevel);
-      if (!got.length) {
-        flash('云端还没有关卡（或 index 为空）');
-        return;
-      }
-      commit((cur) => {
-        const m = new Map(cur.map((l) => [l.id, l]));
-        for (const g of got) m.set(g.id, g);
-        const order = got.map((g) => g.id);
-        const rest = [...m.values()].filter((l) => !order.includes(l.id));
-        return [...order.map((id) => m.get(id)), ...rest];
-      });
-      flash(`☁ 已从云端拉取 ${got.length} 个关卡`);
+      mergePulled(got, fromHost ? '自家服务器' : 'GitHub 公开仓');
     } catch (e) {
       flash('拉取失败：' + e.message, 'err');
     } finally {
@@ -292,13 +315,27 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
   const deleteLevel = async (id) => {
     const src = levels.find((l) => l.id === id);
     if (!src) return;
-    const tip = cloudOn
-      ? `删除「${src.title}」？将从本机列表去掉，并尝试从 GitHub 公开仓删除 ${id}.json。`
-      : `删除「${src.title}」？本机列表会去掉；若已打开文件夹也会尝试删掉 ${id}.json。`;
+    const tip = cloudTarget === 'host'
+      ? `删除「${src.title}」？将从本机列表去掉，并尝试从自家服务器删除 ${id}.json。`
+      : cloudOn
+        ? `删除「${src.title}」？将从本机列表去掉，并尝试从 GitHub 公开仓删除 ${id}.json。`
+        : `删除「${src.title}」？本机列表会去掉；若已打开文件夹也会尝试删掉 ${id}.json。`;
     if (!confirm(tip)) return;
     const nextList = levels.filter((l) => l.id !== id);
     commit(() => nextList);
     if (editId === id) setEditId(null);
+    if (cloudTarget === 'host') {
+      setGhBusy(true);
+      try {
+        await hostDeleteLevel(id);
+        flash(`☁ 已从自家服务器删除 ${id}.json。${hostWaitHint()}`);
+      } catch (e) {
+        flash(`已从本机列表移除；服务器删除失败：${e.message}`, 'err');
+      } finally {
+        setGhBusy(false);
+      }
+      return;
+    }
     if (cloudOn) {
       setGhBusy(true);
       try {
@@ -400,11 +437,23 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
     if (errs.length && !confirm(`还有 ${errs.length} 个错误（红色）。仍然保存吗？`)) return;
     const levelText = formatMyLevelJson(src);
     const indexText = formatMyIndexJson(levels.map(myLevelMeta));
+    if (cloudTarget === 'host') {
+      setGhBusy(true);
+      try {
+        await hostPutLevel(src);
+        flash(`☁ 已保存到自家服务器 ${src.id}.json。${hostWaitHint()}`);
+      } catch (e) {
+        flash('服务器保存失败：' + e.message, 'err');
+      } finally {
+        setGhBusy(false);
+      }
+      return;
+    }
     if (cloudOn) {
       setGhBusy(true);
       try {
         await cloudPutLevel(src.id, levelText, indexText);
-        flash(`☁ 已保存 ${src.id}.json。${pagesWaitHint()}`);
+        flash(`☁ 已推到 GitHub ${src.id}.json。${pagesWaitHint()}`);
       } catch (e) {
         flash('云端保存失败：' + e.message, 'err');
       } finally {
@@ -427,6 +476,18 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
   const saveAll = async () => {
     const bad = levels.reduce((n, l) => n + (checks[l.id] || []).filter((c) => c.sev === 'err').length, 0);
     if (bad && !confirm(`还有 ${bad} 个错误。仍然全部保存吗？`)) return;
+    if (cloudTarget === 'host') {
+      setGhBusy(true);
+      try {
+        for (const l of levels) await hostPutLevel(l);
+        flash(`☁ 已全部写到自家服务器（${levels.length} 关）。${hostWaitHint()}`);
+      } catch (e) {
+        flash('服务器全部保存失败：' + e.message, 'err');
+      } finally {
+        setGhBusy(false);
+      }
+      return;
+    }
     if (cloudOn) {
       setGhBusy(true);
       try {
@@ -434,7 +495,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
           await putFile(levelPath(l.id), formatMyLevelJson(l), `chore(levels): save ${l.id}`);
         }
         await cloudPutIndex(formatMyIndexJson(levels.map(myLevelMeta)), { message: 'chore(levels): update index after save all' });
-        flash(`☁ 已保存 ${levels.length} 个关卡。${pagesWaitHint()}`);
+        flash(`☁ 已推到 GitHub（${levels.length} 关）。${pagesWaitHint()}`);
       } catch (e) {
         flash('云端全部保存失败：' + e.message, 'err');
       } finally {
@@ -491,29 +552,57 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
         <div className="ed-bar sketch le-bar">
           <div className="ed-row">
             <span className="status-pill">{levels.length ? <>🏠 本机 <b>{levels.length}</b> 个关卡</> : <>🏠 还没有关卡</>}</span>
-            <span className={`status-pill ${cloudOn ? '' : 'dirty'}`}>{cloudOn ? <>☁ 已连接 @{ghLogin}</> : <>☁ 云端：未连接</>}</span>
+            <span className="status-pill" title="保存/删除/拉取走哪条通道">
+              通道：
+              <select
+                value={cloudTarget}
+                disabled={ghBusy}
+                onChange={(e) => chooseTarget(e.target.value)}
+                style={{ marginLeft: 4, maxWidth: 140 }}
+              >
+                <option value="host">自家服务器</option>
+                <option value="github">GitHub</option>
+              </select>
+            </span>
+            <span className={`status-pill ${cloudTarget === 'host' ? '' : (patOn ? '' : 'dirty')}`}>
+              {cloudTarget === 'host'
+                ? <>☁ 服务器（无需 Token）</>
+                : patOn ? <>☁ GitHub @{ghLogin}</> : <>☁ GitHub：未连接</>}
+            </span>
             <span className="muted small">{dirHandle ? `文件夹：${dirHandle.name}` : '未打开文件夹'}{savedAt ? ` · 自动存本机 ${new Date(savedAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}` : ''}</span>
             <span className="grow" />
-            {cloudOn
-              ? <button className="btn small" onClick={disconnectCloud} disabled={ghBusy}>断开云端</button>
-              : <button className="btn small yellow" onClick={() => setTokenOpen(true)} disabled={ghBusy}>连接 GitHub</button>}
-            <button className="btn small" onClick={pullFromCloud} disabled={ghBusy} title="只读，无需 Token">☁ 从云端拉取</button>
+            {cloudTarget === 'github' && (patOn
+              ? <button className="btn small" onClick={disconnectCloud} disabled={ghBusy}>断开 GitHub</button>
+              : <button className="btn small yellow" onClick={() => setTokenOpen(true)} disabled={ghBusy}>连接 GitHub</button>)}
+            <button
+              className="btn small"
+              onClick={pullFromCloud}
+              disabled={ghBusy}
+              title={cloudTarget === 'host' ? '从 supersuraccoon-cocos2d.com 拉列表' : '从公开仓拉列表（只读）'}
+            >
+              {cloudTarget === 'host' ? '☁ 从服务器拉取' : '☁ 从 GitHub 拉取'}
+            </button>
             <button className="btn small yellow" onClick={() => setNewOpen(true)}>＋ 新建关卡</button>
             {canSaveDir && <button className="btn small" onClick={pickFolder} title={`选 notes/配置表（或 json、${MY_LEVEL_DIR}）· 离线兜底`}>📂 打开文件夹</button>}
-            {dirHandle && !cloudOn && <button className="btn small" onClick={refreshIndex}>刷新索引</button>}
+            {dirHandle && cloudTarget === 'github' && !patOn && <button className="btn small" onClick={refreshIndex}>刷新索引</button>}
             <button className="btn small" onClick={() => fileRef.current?.click()}>导入 JSON</button>
             <input ref={fileRef} type="file" accept=".json,application/json" multiple hidden onChange={(e) => { const f = [...(e.target.files || [])]; if (f.length) importFiles(f); e.target.value = ''; }} />
-            <button className="btn small" onClick={saveAll} disabled={!levels.length || ghBusy}>{cloudOn ? '☁ 全部保存到云端' : dirHandle ? '💾 全部保存' : '⬇ 全部（zip）'}</button>
+            <button className="btn small" onClick={saveAll} disabled={!levels.length || ghBusy}>
+              {cloudTarget === 'host' ? '☁ 全部保存到服务器' : patOn ? '☁ 全部保存到 GitHub' : dirHandle ? '💾 全部保存' : '⬇ 全部（zip）'}
+            </button>
           </div>
         </div>
         <div className="le-panel sketch" style={{ marginTop: 12 }}>
-          <h4>我的关卡 <span className="muted small">一关一个 JSON · 公开仓 diggy_levels · 游戏直接读 JSON</span></h4>
+          <h4>我的关卡 <span className="muted small">一关一个 JSON · 双通道 · 游戏直接读 JSON</span></h4>
           <p className="muted small" style={{ marginTop: 4 }}>
-            云端写入公开仓 <code>diggy_levels/my-levels/</code>。游戏推荐 <code>LEVEL_BASE={LEVEL_BASE_PAGES}</code>（fetch 加 <code>?t=</code>）；jsDelivr 仅作 CORS 回退。
-            未连接时仍可用本机文件夹或下载作离线兜底。新建后需点保存才会上传。
+            <b>自家服务器</b>（默认，iPad 友好，无需 Token）：写到 <code>{HOST_BASE}</code>，游戏 <code>LEVEL_BASE</code> 同址，可立刻刷新。
+            若 api.php 尚未上传，保存会失败并 toast，本机列表不会丢。
+            <br />
+            <b>GitHub</b>：需连接 PAT，写入公开仓 <code>diggy_levels/my-levels/</code>；游戏可用 <code>LEVEL_BASE={LEVEL_BASE_PAGES}</code>（加 <code>?t=</code>）。
+            两通道列表不自动互通。本机文件夹 / 下载仍作离线兜底。
           </p>
           {!levels.length && (
-            <p className="muted">点「新建关卡」开始；或「从云端拉取」/「打开文件夹」读已有关卡。</p>
+            <p className="muted">点「新建关卡」开始；或按当前通道「拉取」/「打开文件夹」读已有关卡。</p>
           )}
           {levels.length > 0 && (
             <table className="tbl le-sum">
@@ -545,7 +634,9 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
                         <button className="btn small yellow" onClick={() => { setEditId(l.id); setHl(null); }}>编辑</button>{' '}
                         <button className="btn small" onClick={() => setRenameId(l.id)}>改名</button>{' '}
                         <button className="btn small" onClick={() => duplicateLevel(l.id)}>复制</button>{' '}
-                        <button className="btn small" onClick={() => saveOne(l.id)} disabled={ghBusy}>{cloudOn ? '☁保存' : dirHandle ? '保存' : '⬇'}</button>{' '}
+                        <button className="btn small" onClick={() => saveOne(l.id)} disabled={ghBusy}>
+                          {cloudTarget === 'host' ? '☁保存' : patOn ? '☁保存' : dirHandle ? '保存' : '⬇'}
+                        </button>{' '}
                         <button className="btn small" onClick={() => deleteLevel(l.id)} disabled={ghBusy}>删除</button>
                       </td>
                     </tr>
@@ -586,9 +677,14 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
           <span className="grow" />
           <button className="btn small" onClick={undo} disabled={!past.length} title="Ctrl+Z">↶ 撤销</button>
           <button className="btn small" onClick={redo} disabled={!future.length}>↷ 重做</button>
-          <button className="btn small yellow" onClick={() => saveOne(lv.id)} disabled={ghBusy}>{cloudOn ? '☁ 保存到云端' : dirHandle ? '💾 保存' : '⬇ 下载 JSON'}</button>
-          {!cloudOn && canSaveDir && !dirHandle && <button className="btn small" onClick={pickFolder}>📂 打开文件夹</button>}
-          {!cloudOn && <button className="btn small" onClick={() => setTokenOpen(true)}>连接 GitHub</button>}
+          <button className="btn small yellow" onClick={() => saveOne(lv.id)} disabled={ghBusy}>
+            {cloudTarget === 'host' ? '☁ 保存到服务器' : patOn ? '☁ 保存到 GitHub' : dirHandle ? '💾 保存' : '⬇ 下载 JSON'}
+          </button>
+          {cloudTarget === 'github' && !patOn && canSaveDir && !dirHandle && <button className="btn small" onClick={pickFolder}>📂 打开文件夹</button>}
+          {cloudTarget === 'github' && !patOn && <button className="btn small" onClick={() => setTokenOpen(true)}>连接 GitHub</button>}
+          {cloudTarget === 'host' && (
+            <span className="muted small" title={HOST_BASE}>通道：自家服务器</span>
+          )}
         </div>
       </div>
 
