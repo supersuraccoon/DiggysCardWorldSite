@@ -134,3 +134,213 @@
   .le-worlds { position: static; max-height: none; }
   .le-panels, .le-settings { grid-template-columns: 1fr; }
 }
+
+
+/* 我的关卡侧栏列表（桌面竖排） */
+.le-mylevels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 8px 8px;
+}
+.le-mylv {
+  width: 100%;
+  text-align: left;
+  padding: 6px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== 窄屏 / iPhone：我的关卡 + 关卡编辑器 ===== */
+@media (max-width: 767px) {
+  .le input, .le select, .le textarea { font-size: .85rem; padding: 3px 6px; border-radius: 6px; }
+  .le h4 { font-size: 1.05rem; margin-bottom: 4px; gap: 4px; }
+  .le-tabs { margin-bottom: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .seg.big { display: inline-flex; min-width: max-content; }
+  .seg.big button { font-size: .88rem; padding: 4px 10px; }
+  .le-bar { top: calc(var(--nav-h) + 4px); }
+  .le-help { display: none !important; }
+
+  .le-body {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  /* 关卡列表：横滑芯片，少占高度 */
+  .le-worlds {
+    position: static;
+    max-height: none;
+    padding: 4px 0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 var(--ink);
+    overflow: visible;
+  }
+  .ml-editing .le-worlds .le-wbtn { display: none; }
+  .ml-editing .le-mylevels-list,
+  .le-mylevels-list {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    padding: 6px 8px;
+  }
+  .ml-editing .le-mylv,
+  .le-mylv {
+    width: auto;
+    flex: 0 0 auto;
+    max-width: 9.5em;
+    padding: 4px 10px;
+    font-size: .88rem;
+  }
+  /* 冒险关卡世界列表：横排关卡钮 */
+  .le-levels { grid-template-columns: repeat(5, minmax(36px, 1fr)); gap: 4px; padding: 4px 8px 8px; }
+  .le-lv { font-size: .9rem; padding: 2px 0; border-radius: 6px; }
+  .le-wname { font-size: .95rem; }
+  .le-wno { width: 22px; height: 22px; flex-basis: 22px; font-size: .85rem; }
+  .le-wbtn { padding: 4px 8px; gap: 6px; }
+
+  .le-center { gap: 8px; }
+  .le-head { gap: 6px; }
+  .le-head h3 { font-size: 1.15rem; }
+  .le-head .mono { font-size: .72rem; }
+
+  .le-tools {
+    padding: 6px 8px;
+    gap: 5px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  .le-tools .seg button { font-size: .8rem; padding: 2px 6px; }
+  .seg-ico { width: 14px; height: 18px; margin-right: 2px; vertical-align: -3px; }
+  .sz input { width: 48px; }
+  .flabel { font-size: .9rem; }
+
+  /* 棋盘：按视口宽算格子，尽量放大 */
+  .le-board-wrap {
+    padding: 6px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  .le-board {
+    --cw: clamp(42px, calc((100vw - 36px - 16px) / var(--cols)), 68px);
+    grid-template-columns: 14px repeat(var(--cols), var(--cw));
+    gap: 3px;
+  }
+  .le-axis { font-size: .62rem; }
+  .le-mini { font-size: .55rem; }
+  .le-unknown { font-size: 1.2rem; }
+
+  .le-panels { grid-template-columns: 1fr; gap: 8px; }
+  .le-panel { padding: 8px 10px; border-radius: 10px; box-shadow: 2px 2px 0 var(--ink); }
+  .le-checks { font-size: .82rem; }
+  .le-checks li { padding: 2px 6px; margin-bottom: 2px; }
+  .le-stats { font-size: .82rem; gap: 4px 10px; margin-top: 6px; padding-top: 6px; }
+  .le-stats b { font-size: 1rem; }
+  .le-settings { grid-template-columns: 1fr; gap: 8px; }
+
+  /* 素材栏：贴底抽屉，可横滑；少占主编辑区 */
+  .le-palette {
+    position: sticky;
+    bottom: 0;
+    z-index: 25;
+    max-height: 34vh;
+    padding: 6px 8px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -2px 0 var(--ink), 2px 2px 0 var(--ink);
+    background: var(--card);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .pal .search { font-size: .85rem; padding: 3px 6px; margin-bottom: 2px; }
+  .pal h4 { font-size: .95rem; margin: 6px 0 4px; }
+  .pgrid {
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    gap: 4px;
+  }
+  .pitem { padding: 2px 1px; border-radius: 8px; box-shadow: 1px 1px 0 rgba(31,27,22,.25); }
+  .pimg { width: 40px; height: 40px; }
+  .pname { font-size: .72rem; }
+  .psub { font-size: .55rem; }
+
+  /* 列表页表格：横向滚动，操作钮更紧 */
+  .le-sum { font-size: .78rem; }
+  .le-sum th, .le-sum td { padding: 3px 4px; }
+  .tbl-wrap, .le-panel .tbl { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+/* iPhone / 窄屏横屏：侧栏收成扁条，棋盘吃满高度 */
+@media (max-width: 900px) and (orientation: landscape) {
+  .le-tabs { margin-bottom: 4px; }
+  .seg.big button { font-size: .8rem; padding: 2px 8px; }
+  .le-help { display: none !important; }
+  .le-body { gap: 6px; margin-top: 4px; }
+  /* 「我的关卡」编辑态：中栏棋盘 + 右素材扁抽屉 */
+  .ml-editing .le-body {
+    grid-template-columns: minmax(0, 1fr) minmax(140px, 28vw);
+    align-items: stretch;
+  }
+  /* 关卡列表横滑顶栏 */
+  .ml-editing .le-worlds {
+    grid-column: 1 / -1;
+    position: static;
+    max-height: none;
+    padding: 2px 0;
+  }
+  .ml-editing .le-worlds .le-wbtn { display: none; }
+  .ml-editing .le-mylevels-list {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 5px;
+    padding: 4px 6px;
+  }
+  .ml-editing .le-mylv {
+    width: auto;
+    flex: 0 0 auto;
+    max-width: 8em;
+    padding: 2px 8px;
+    font-size: .8rem;
+  }
+  .le-center { gap: 5px; min-width: 0; }
+  .le-head h3 { font-size: 1rem; }
+  .le-tools { padding: 4px 6px; gap: 3px; }
+  .le-tools .seg button { font-size: .74rem; padding: 1px 5px; }
+  .le-board-wrap { padding: 4px; }
+  .le-panel { padding: 5px 7px; }
+  .le-settings { grid-template-columns: 1fr; gap: 4px; }
+  /* 我的关卡横屏专用：棋盘宽 + 右抽屉 */
+  .ml-editing .le-board {
+    --cw: clamp(32px, min(calc((100vw - 28vw - 48px) / var(--cols)), calc((100vh - 150px) / (var(--cols) * 1.35))), 56px);
+    grid-template-columns: 12px repeat(var(--cols), var(--cw));
+    gap: 2px;
+  }
+  .ml-editing .le-panels { grid-template-columns: 1fr 1fr; gap: 6px; max-height: 22vh; overflow: auto; }
+  .ml-editing .le-palette {
+    grid-column: auto;
+    position: sticky;
+    top: calc(var(--nav-h) + 4px);
+    max-height: calc(100vh - var(--nav-h) - 12px);
+    padding: 4px 6px;
+    border-radius: 10px;
+    overflow: auto;
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  .ml-editing .pgrid { grid-template-columns: repeat(2, 1fr); gap: 3px; }
+  .ml-editing .pimg { width: 34px; height: 34px; }
+  .ml-editing .pname { font-size: .65rem; }
+  .ml-editing .psub { display: none; }
+  .ml-editing .pal h4 { font-size: .85rem; margin: 4px 0 2px; }
+  .ml-editing .pal .search { font-size: .78rem; padding: 2px 4px; }
+}
+
+/* 极矮横屏（真机 Safari 横持 ~390×844 旋转后约 844×390） */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 430px) {
+  .ml-editing .le-panels { display: none; } /* 极矮横屏：先保画布 */
+  .ml-editing .le-board {
+    --cw: clamp(30px, min(calc((100vw - 28vw - 40px) / var(--cols)), calc((100vh - 110px) / 7.2)), 48px);
+  }
+  .ml-editing .le-palette { max-height: calc(100vh - var(--nav-h) - 8px); }
+  .ed-bar, .le-bar { padding: 3px 5px; }
+}

@@ -594,7 +594,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
         </div>
         <div className="le-panel sketch" style={{ marginTop: 12 }}>
           <h4>我的关卡 <span className="muted small">一关一个 JSON · 双通道 · 游戏直接读 JSON</span></h4>
-          <p className="muted small" style={{ marginTop: 4 }}>
+          <p className="muted small le-help" style={{ marginTop: 4 }}>
             <b>自家服务器</b>（默认，iPad 友好，无需 Token）：写到 <code>{HOST_BASE}</code>，游戏 <code>LEVEL_BASE</code> 同址，可立刻刷新。
             若 api.php 尚未上传，保存会失败并 toast，本机列表不会丢。
             <br />
@@ -668,7 +668,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
 
   // ================= EDITOR =================
   return (
-    <div className="le">
+    <div className="le ml-editing">
       <div className="ed-bar sketch le-bar">
         <div className="ed-row">
           <button className="btn small" onClick={() => setEditId(null)}>← 返回列表</button>
@@ -713,12 +713,11 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
               <span className="le-wname">我的关卡</span>
               <span className="le-wmeta">{levels.length}</span>
             </div>
-            <div className="le-levels" style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '0 8px 8px' }}>
+            <div className="le-levels le-mylevels-list">
               {levels.map((l) => {
                 const bad = (checks[l.id] || []).some((x) => x.sev === 'err');
                 return (
-                  <button key={l.id} className={`le-lv ${l.id === editId ? 'on' : ''} ${isEmptyLevel(l) ? 'empty' : ''} ${bad ? 'bad' : ''}`}
-                    style={{ width: '100%', textAlign: 'left', padding: '6px 8px' }}
+                  <button key={l.id} className={`le-lv le-mylv ${l.id === editId ? 'on' : ''} ${isEmptyLevel(l) ? 'empty' : ''} ${bad ? 'bad' : ''}`}
                     onClick={() => { setEditId(l.id); setHl(null); }}
                     title={l.id}>
                     {l.title}
@@ -727,7 +726,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
               })}
             </div>
           </div>
-          <p className="hint" style={{ padding: '0 10px 8px' }}>主题只借官方世界美术，不占冒险进度。</p>
+          <p className="hint le-help" style={{ padding: '0 10px 8px' }}>主题只借官方世界美术，不占冒险进度。</p>
         </aside>
 
         <section className="le-center">
@@ -794,7 +793,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
                 }),
               ])}
             </div>
-            <p className="hint">与冒险关卡同一套工具。保存产物是 JSON，游戏直接读取，不再转 Prefab。</p>
+            <p className="hint le-help">与冒险关卡同一套工具。保存产物是 JSON，游戏直接读取，不再转 Prefab。</p>
           </div>
 
           <div className="le-panels">

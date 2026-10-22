@@ -16,7 +16,7 @@ const href = (p) => u(p, root);
   <link rel="icon" type="image/png" href={href('/images/emotes/mole_happy.png')} />
   <link rel="preload" href={href('/fonts/lemi-subset.woff')} as="font" type="font/woff" crossorigin />
 </head>
-<body>
+<body class={page ? `page-${page}` : undefined}>
   <header class={`banner ${banner}`}>
     <img class="bg" src={href(bannerImg)} alt="" style={`object-position:${bannerPos}`} />
     <div class="shade"></div>

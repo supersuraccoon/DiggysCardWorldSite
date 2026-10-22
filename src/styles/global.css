@@ -158,3 +158,40 @@ code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background:
 .tag { display: inline-block; font-size: .8rem; border: 1.5px solid var(--ink); border-radius: 999px; padding: 0 9px; background: var(--card); line-height: 1.6; }
 .tag.y { background: var(--yellow); }
 .tag.dash { border-style: dashed; color: var(--graphite); }
+
+
+/* ===== 窄屏 / iPhone（竖+横）编辑器空间优先 ===== */
+@media (max-width: 767px) {
+  :root { --nav-h: 48px; }
+  body { font-size: 14px; line-height: 1.55; }
+  .wrap { padding: 0 12px; }
+  .section { padding: 20px 0; }
+  .btn { font-size: .92rem; padding: 5px 12px; gap: 4px; box-shadow: 2px 2px 0 var(--ink); }
+  .btn.small { font-size: .78rem; padding: 2px 8px; }
+  .nav .brand { font-size: 1rem; gap: 6px; }
+  .nav .brand img { width: 30px; height: 30px; }
+  .nav li a { font-size: .95rem; padding: 5px 10px; }
+  .banner.short { height: 112px; min-height: 0; }
+  .banner.short .logo { font-size: 1.55rem; -webkit-text-stroke: 1px var(--ink); text-shadow: 2px 2px 0 var(--ink); }
+  .banner .sub { font-size: .85rem; padding: 1px 8px; margin-top: 2px; }
+  .banner .inner { padding-bottom: 10px; }
+  .footer { margin-top: 16px; padding: 14px 0 20px; }
+  .footer img { width: 40px; }
+  /* 编辑器页：banner 再压矮，把高度留给棋盘 */
+  body.page-editor .banner.short { height: 72px; }
+  body.page-editor .banner.short .logo { font-size: 1.25rem; }
+  body.page-editor .banner .sub { display: none; }
+  body.page-editor .footer { display: none; }
+  body.page-editor .section { padding-top: 10px; padding-bottom: 12px; }
+}
+
+/* iPhone 横屏：顶栏更扁，banner 几乎收掉 */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  :root { --nav-h: 40px; }
+  body.page-editor .banner { display: none; }
+  body.page-editor .footer { display: none; }
+  body.page-editor .section { padding: 6px 0 10px; }
+  .nav .brand img { width: 26px; height: 26px; }
+  .nav .brand { font-size: .92rem; }
+  .btn.small { font-size: .74rem; padding: 1px 7px; }
+}
