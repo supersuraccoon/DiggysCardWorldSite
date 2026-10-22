@@ -1,0 +1,15 @@
+# Diggy multi rooms · CORS on room JSON (put inside rooms/)
+# Parent diggy_multi/.htaccess may be enough; both is safer on shared hosts.
+
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type, Accept"
+  Header set Access-Control-Max-Age "86400"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_METHOD} OPTIONS
+  RewriteRule ^ - [R=204,L]
+</IfModule>
