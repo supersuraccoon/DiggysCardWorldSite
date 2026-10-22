@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import { PANELS, WORLDS } from '../data/comic.js';
+import { u, pageRoot } from '../lib/site.js';
+const root = pageRoot(Astro.url.pathname);
+const link = (p) => u(p, root);
+const tilt = (i) => `${((i * 37) % 5 - 2) * 0.45}deg`;
+---
+<Base page="world" title="卡牌世界" bannerImg="/images/comic/banner_wide_2.jpg" bannerSub="黑白的世界，被偷走的颜色" bannerPos="center 42%">
+  <section class="section">
+    <div class="wrap story">
+      <div>
+        <h2 class="ink-title">故事的开头</h2>
+        <p class="lead">一个暴风雨的夜晚，一阵龙卷风把小鼹鼠从地洞小屋里卷上了天。等他醒过来，身下是一张张卡牌——这里是<b>卡牌世界</b>。</p>
+        <p>可是这个世界没有颜色。花是灰的，小鸟是灰的，连哭鼻子的小刺猬也是灰的。大家说，是一团<b>影子</b>干的：它们从宇宙深处的黑洞里来，把整个世界的颜色都偷走了。</p>
+        <p>影子逃走的时候撞倒了鼹鼠，地上只留下一支试管，里面还剩<b class="mark">一点点绿</b>。</p>
+        <p>于是小鼹鼠举起试管，向八个世界出发。每走过一个世界，就把一种颜色找回来。</p>
+      </div>
+      <figure class="panel" style="--r:1.2deg">
+        <img src={link('/images/comic/panel_16.jpg')} alt="鼹鼠举起试管" />
+        <figcaption>“我去把颜色找回来！”</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="ink-title">八个世界</h2>
+      <p class="muted">世界卡平时是黑白的。<b>把鼠标放上去</b>（手机上点一下），看看颜色回来时的样子。</p>
+      <div class="worlds">
+        {WORLDS.map((w) => (
+          <button class="world" type="button" aria-label={w.name}>
+            <div class="wcard">
+              <img class="bw" src={link(`/images/worlds/world_${w.key}_bw.webp`)} alt={`${w.name}（黑白）`} loading="lazy" />
+              <img class="color" src={link(`/images/worlds/world_${w.key}_color.webp`)} alt="" loading="lazy" />
+              <div class="wtitle">{w.name}</div>
+            </div>
+            <div class="wno">世界 {w.no}</div>
+            <div class="wline">{w.line}</div>
+          </button>
+        ))}
+        <div class="world locked">
+          <div class="wcard">
+            <img src={link('/images/worlds/world_09_castle_locked.webp')} alt="被云雾遮住的世界" loading="lazy" />
+            <div class="wtitle">？？？</div>
+          </div>
+          <div class="wno">隐藏世界</div>
+          <div class="wline">云雾里好像有一座尖尖的城堡……谁也去不了。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="ink-title">开场漫画 · 全 17 格</h2>
+      <p class="muted">前三格的地球是彩色的；到了卡牌世界，一切都变成黑白，只有被偷走的颜色和试管里的绿还亮着。</p>
+      <div class="comic">
+        {PANELS.map((p, i) => (
+          <figure class={`panel ${p.n === 17 ? 'wide' : ''}`} style={`--r:${tilt(i)}`}>
+            <img src={link(p.src)} alt={p.caption} loading="lazy" />
+            <figcaption><span class="no">{p.n}</span>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+<script>
+  // 手机上点一下切换颜色
+  document.querySelectorAll('.world:not(.locked)').forEach((el) => el.addEventListener('click', () => el.classList.toggle('on')));
+</script>
+<style>
+  .story { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+  @media (max-width: 860px) { .story { grid-template-columns: 1fr; } }
+  .worlds { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 30px 24px; margin-top: 28px; }
+  .worlds > * { width: 196px; }
+  .world { all: unset; cursor: pointer; display: block; text-align: center; }
+  .wcard { position: relative; aspect-ratio: 600 / 870; transition: transform .2s; filter: drop-shadow(3px 4px 0 rgba(31,27,22,.25)); }
+  .wcard img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .wcard .color { opacity: 0; transition: opacity .45s ease; }
+  .world:hover .wcard, .world.on .wcard { transform: translateY(-6px) rotate(-1.5deg); }
+  .world:hover .color, .world.on .color { opacity: 1; }
+  .wtitle { position: absolute; left: 0; right: 0; top: 84.5%; font-family: var(--font-head); font-size: 1.45rem; color: var(--ink); }
+  .wno { font-family: var(--font-head); font-size: 1.15rem; margin-top: 8px; }
+  .wline { font-size: .92rem; color: var(--graphite); line-height: 1.5; }
+  .locked { cursor: default; }
+  .locked .wcard { filter: drop-shadow(3px 4px 0 rgba(31,27,22,.25)) grayscale(1); }
+  .locked:hover .wcard { animation: shake .4s; }
+  @keyframes shake { 25% { transform: translateX(-3px) } 75% { transform: translateX(3px) } }
+  .comic { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px 20px; margin-top: 28px; }
+  @media (max-width: 1000px) { .comic { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .comic { grid-template-columns: 1fr; } }
+  .comic .panel figcaption { font-size: .95rem; }
+  .comic .wide { grid-column: 1 / -1; }
+  .comic .wide img { aspect-ratio: auto; }
+</style>

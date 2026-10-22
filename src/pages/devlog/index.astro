@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { u, pageRoot } from '../../lib/site.js';
+const root = pageRoot(Astro.url.pathname);
+const link = (p) => u(p, root);
+const posts = (await getCollection('devlog')).sort((a, b) => b.data.date - a.data.date);
+const fmt = (d) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+---
+<Base page="devlog" title="开发日志" bannerImg="/images/comic/panel_09.jpg" bannerSub="一步一步，把卡牌世界搭起来" bannerPos="center 72%">
+  <section class="section">
+    <div class="wrap">
+      <p class="muted">每篇日志就是 <code>src/content/devlog/</code> 里的一个 Markdown 文件。</p>
+      <div class="timeline">
+        {posts.map((p) => (
+          <a class="entry sketch" href={link(`/devlog/${p.id}/`)}>
+            <div class="when">{fmt(p.data.date)}</div>
+            {p.data.cover && <img src={link(p.data.cover)} alt="" loading="lazy" />}
+            <div>
+              <h3>{p.data.title}</h3>
+              <p class="muted">{p.data.summary}</p>
+              <div>{p.data.tags.map((t) => <span class="tag" style="margin-right:6px">{t}</span>)}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .timeline { display: flex; flex-direction: column; gap: 26px; margin-top: 20px; border-left: 3px dashed var(--ink); padding-left: 28px; }
+  .entry { display: grid; grid-template-columns: 110px 130px 1fr; gap: 20px; align-items: center; padding: 16px 20px; text-decoration: none; position: relative; }
+  .entry::before { content: ''; position: absolute; left: -41px; top: 28px; width: 20px; height: 20px; background: var(--yellow); border: 3px solid var(--ink); border-radius: 50%; }
+  .entry:hover { background: var(--card); transform: translateX(4px); }
+  .entry .when { font-family: var(--font-head); font-size: 1.15rem; }
+  .entry img { width: 130px; height: 100px; object-fit: contain; background: #fff; border: 2px solid var(--ink); }
+  @media (max-width: 700px) { .entry { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,216 @@
+{
+  "source": "tools/prepare_level_art.py",
+  "terrain": [
+    {
+      "id": "floor",
+      "name": "地板",
+      "prefab": "terrain_floor_prefab",
+      "walkable": true,
+      "img": "images/level/terrain/floor.png"
+    },
+    {
+      "id": "wall",
+      "name": "墙",
+      "prefab": "terrain_wall_prefab",
+      "walkable": false,
+      "img": "images/level/terrain/wall.png"
+    },
+    {
+      "id": "pit",
+      "name": "坑",
+      "prefab": "terrain_hole_prefab",
+      "walkable": false,
+      "img": "images/level/terrain/pit.png"
+    },
+    {
+      "id": "stairs",
+      "name": "下楼楼梯",
+      "prefab": "terrain_down_prefab",
+      "walkable": true,
+      "img": "images/level/terrain/stairs.png"
+    }
+  ],
+  "equipment": [
+    {
+      "id": "sword",
+      "name": "牙签宝剑",
+      "prefab": "equipment_sword_prefab",
+      "heart": 0,
+      "tooth": 2,
+      "armor": 0,
+      "price": 3,
+      "where": "桌上、商店",
+      "shopOnly": false,
+      "img": "images/level/equip/sword.png"
+    },
+    {
+      "id": "lid",
+      "name": "锅盖",
+      "prefab": "equipment_lid_prefab",
+      "heart": 0,
+      "tooth": 0,
+      "armor": 1,
+      "price": 3,
+      "where": "桌上、商店",
+      "shopOnly": false,
+      "img": "images/level/equip/lid.png"
+    },
+    {
+      "id": "armor_mittens",
+      "name": "毛线手套",
+      "prefab": "equipment_armor_mittens_prefab",
+      "heart": 0,
+      "tooth": 0,
+      "armor": 3,
+      "price": 5,
+      "where": "桌上、商店",
+      "shopOnly": false,
+      "img": "images/level/equip/armor_mittens.png"
+    },
+    {
+      "id": "armor_rain_boots",
+      "name": "水水雨鞋",
+      "prefab": "equipment_armor_rain_boots_prefab",
+      "heart": 0,
+      "tooth": 2,
+      "armor": 2,
+      "price": 5,
+      "where": "桌上、商店",
+      "shopOnly": false,
+      "img": "images/level/equip/armor_rain_boots.png"
+    },
+    {
+      "id": "weapon_rolling_pin",
+      "name": "生气擀面杖",
+      "prefab": "equipment_weapon_rolling_pin_prefab",
+      "heart": 1,
+      "tooth": 3,
+      "armor": 0,
+      "price": 8,
+      "where": "桌上、商店",
+      "shopOnly": false,
+      "img": "images/level/equip/weapon_rolling_pin.png"
+    },
+    {
+      "id": "weapon_slingshot",
+      "name": "调皮弹弓",
+      "prefab": "equipment_weapon_slingshot_prefab",
+      "heart": 0,
+      "tooth": 3,
+      "armor": 3,
+      "price": 10,
+      "where": "桌上、商店",
+      "shopOnly": false,
+      "img": "images/level/equip/weapon_slingshot.png"
+    },
+    {
+      "id": "weapon_spider_sword",
+      "name": "蜘蛛宝剑",
+      "prefab": "equipment_weapon_spider_sword_prefab",
+      "heart": 3,
+      "tooth": 3,
+      "armor": 3,
+      "price": 20,
+      "where": "仅商店",
+      "shopOnly": true,
+      "img": "images/level/equip/weapon_spider_sword.png"
+    },
+    {
+      "id": "a_bunny_slippers",
+      "name": "兔子拖鞋",
+      "prefab": "equipment_a_bunny_slippers_prefab",
+      "heart": 3,
+      "tooth": 0,
+      "armor": 1,
+      "price": 10,
+      "where": "仅商店",
+      "shopOnly": true,
+      "img": "images/level/equip/a_bunny_slippers.png"
+    },
+    {
+      "id": "a_quilt_vest",
+      "name": "安全背心",
+      "prefab": "equipment_a_quilt_vest_prefab",
+      "heart": 3,
+      "tooth": 0,
+      "armor": 3,
+      "price": 15,
+      "where": "仅商店",
+      "shopOnly": true,
+      "img": "images/level/equip/a_quilt_vest.png"
+    }
+  ],
+  "items": [
+    {
+      "id": "chest",
+      "name": "黑色宝箱",
+      "kind": "chest",
+      "price": 4,
+      "prefab": "item_chest_prefab",
+      "img": "images/level/item/chest.png",
+      "desc": "踩到弹出四选一"
+    }
+  ],
+  "store": [
+    {
+      "id": "duck",
+      "name": "黄头鸭的商店",
+      "kind": "store",
+      "price": 0,
+      "prefab": "item_duck_prefab",
+      "img": "images/level/item/duck.png",
+      "desc": "踩到开一次商店，牌消失"
+    }
+  ],
+  "deal": {
+    "monsters": [
+      "bug",
+      "boo",
+      "bat",
+      "monster_alarm_clock",
+      "monster_clothespin_crab",
+      "monster_dust_bunny",
+      "monster_vacuum_snake",
+      "sock_item",
+      "monster_toilet",
+      "eraser_item",
+      "spike_throw",
+      "cactus_thrower",
+      "lamp_cyclops",
+      "remote_imp",
+      "slipper_croc",
+      "yarn_cat"
+    ],
+    "equipment": [
+      "sword",
+      "lid",
+      "armor_mittens",
+      "armor_rain_boots",
+      "weapon_rolling_pin",
+      "weapon_slingshot"
+    ],
+    "shopEquipment": [
+      "weapon_spider_sword",
+      "a_bunny_slippers",
+      "a_quilt_vest"
+    ],
+    "items": [
+      "chest"
+    ],
+    "store": [
+      "duck"
+    ],
+    "shop": [
+      "sword",
+      "lid",
+      "chest",
+      "armor_mittens",
+      "armor_rain_boots",
+      "weapon_rolling_pin",
+      "weapon_slingshot",
+      "weapon_spider_sword",
+      "a_bunny_slippers",
+      "a_quilt_vest"
+    ]
+  }
+}

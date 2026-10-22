@@ -1,0 +1,193 @@
+---
+import Base from '../layouts/Base.astro';
+import refs from '../data/refs.json';
+import { statusIcon, STAT_ICONS } from '../lib/icons.js';
+import { u, pageRoot } from '../lib/site.js';
+const root = pageRoot(Astro.url.pathname);
+const link = (p) => u(p, root);
+// 内容取自游戏仓库 notes/（origin/main）。没定下来的写成「设计中」，不编新规则。
+const TOC = [
+  ['explore', '探索 / 翻牌'], ['battle', '战斗'], ['event', '事件'], ['equip', '装备'], ['item', '道具'],
+  ['throw', '投掷'], ['skill', '技能'], ['status', '状态'], ['pet', '伙伴'],
+];
+const buffs = refs.statuses.filter((s) => s.implemented && s.polarity === 'buff');
+const debuffs = refs.statuses.filter((s) => s.implemented && s.polarity === 'debuff');
+const paused = refs.statuses.filter((s) => !s.implemented);
+const EQUIP = ['牙签宝剑', '锅盖', '毛线手套', '水水雨鞋', '生气擀面杖', '调皮弹弓', '蜘蛛宝剑', '兔子拖鞋', '安全背心'];
+---
+<Base page="systems" title="卡牌系统" bannerImg="/images/comic/banner_wide_4.jpg" bannerPos="center 30%" bannerSub="翻牌、打怪、开宝箱、收伙伴">
+  <div class="wrap toc-wrap">
+    <nav class="toc sketch">
+      {TOC.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+    </nav>
+  </div>
+
+  <section class="section sys" id="explore">
+    <div class="wrap row">
+      <div class="art"><img src={link('/images/game/floor_back.png')} alt="牌背" /><img src={link('/images/game/stairs.png')} alt="楼梯" /></div>
+      <div>
+        <h2 class="ink-title">探索 / 翻牌</h2>
+        <p class="lead"><b>翻开一张牌，就是一次行动。</b></p>
+        <ul>
+          <li>每一层是一张摆满卡牌的桌子。鼹鼠每回合走一步，怪物也会跟着动。</li>
+          <li>已经翻开、安全的格子可以自动走过去；遇到没翻开的牌和怪物会停下。</li>
+          <li>地形也是牌：地板、墙、洞。洞只有会飞的怪（比如折角蝙蝠）能过去。</li>
+          <li>每层有且只有一个<b>楼梯</b>，鼹鼠站上去就过层；心掉到 0 就输了。</li>
+        </ul>
+        <div class="chips"><img src={link('/images/game/wall.png')} alt="墙" title="墙" /><img src={link('/images/game/hole.png')} alt="洞" title="洞" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sys" id="battle">
+    <div class="wrap row rev">
+      <div>
+        <h2 class="ink-title">战斗</h2>
+        <p class="lead">撞上去就是打。回合制，你一下，它一下。</p>
+        <div class="stats">
+          <div><img src={link(STAT_ICONS.heart)} alt="" /><b>心</b>生命，掉到 0 就倒下</div>
+          <div><img src={link(STAT_ICONS.tooth)} alt="" /><b>牙</b>攻击力，咬一下扣多少</div>
+          <div><img src={link(STAT_ICONS.armor)} alt="" /><b>甲</b>护甲，先挡掉伤害</div>
+          <div><img src={link(STAT_ICONS.gold)} alt="" /><b>金</b>打倒后掉的金币</div>
+        </div>
+        <ul>
+          <li>鼹鼠的回合：朝怪物走一步就是攻击，扣掉它的心，这一回合结束。怪物不会马上反击。</li>
+          <li>怪物的回合：贴着鼹鼠的怪物会咬；其他的按自己的<b>追击方式</b>走一步——<span class="tag">傻傻不动</span> <span class="tag">追击</span> <span class="tag">随机走</span> <span class="tag">逃跑</span>。</li>
+          <li>打倒怪物拿到金币，可以去黄鸭子的商店买东西。</li>
+        </ul>
+      </div>
+      <div class="art"><img src={link('/images/roles/bug.png')} alt="铁皮甲虫" /><img src={link('/images/roles/bat.png')} alt="折角蝙蝠" /></div>
+    </div>
+  </section>
+
+  <section class="section sys" id="event">
+    <div class="wrap row">
+      <div class="art"><img src={link('/images/game/chest.png')} alt="黑色宝箱" /><img src={link('/images/game/duck.png')} alt="黄鸭子" class="duck" /></div>
+      <div>
+        <h2 class="ink-title">事件</h2>
+        <p class="lead">事件卡不进背包，踩上去就会发生点什么。</p>
+        <h3>黑色宝箱 · 四选一</h3>
+        <p>踩到宝箱，会让你选：<span class="tag">打开</span> <span class="tag">离开</span> <span class="tag">吃掉</span> <span class="tag">蹲上去</span>。每个选项都可能是好事，也可能是坏事——有时候最傻的选项反而是对的。</p>
+        <h3><span class="mark">黄鸭子</span>的商店</h3>
+        <p>踩到黄鸭子，就能逛一次商店，用金币买装备和宝箱。逛完它就离开了。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sys" id="equip">
+    <div class="wrap row rev">
+      <div>
+        <h2 class="ink-title">装备</h2>
+        <p class="lead">捡到或买到的装备，能加心、加牙、加甲。</p>
+        <ul>
+          <li>现在有 9 件：{EQUIP.join('、')}。</li>
+          <li>有的在桌上就能捡到，有的只在商店里卖。</li>
+          <li>装备会用坏。耐久不显示数字，看卡牌<b>破损的样子</b>就知道还能用多久。</li>
+          <li>装备上还可以挂状态和技能，比如锅盖自带一层护盾。</li>
+        </ul>
+      </div>
+      <div class="art grid4"><img src={link('/images/game/sword.png')} alt="牙签宝剑" /><img src={link('/images/game/lid.png')} alt="锅盖" /><img src={link('/images/game/mittens.png')} alt="毛线手套" /><img src={link('/images/game/rolling_pin.png')} alt="生气擀面杖" /></div>
+    </div>
+  </section>
+
+  <section class="section sys" id="item">
+    <div class="wrap row">
+      <div class="art"><img src={link('/images/game/bandage.png')} alt="" /></div>
+      <div>
+        <h2 class="ink-title">道具 <span class="tag dash">设计中</span></h2>
+        <p class="lead">放进背包、用的时候拿出来的小东西。</p>
+        <p>道具卡还在设计：大概会进背包、同一种可以叠在一起、点一下使用。比如一瓶加血瓶。具体怎么用，等做出来再告诉大家。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sys" id="throw">
+    <div class="wrap row rev">
+      <div>
+        <h2 class="ink-title">投掷 <span class="tag dash">设计中</span></h2>
+        <p class="lead">远程攻击不是一种新的攻击，而是「普攻可以打到谁」。</p>
+        <p>拿着弹弓这样的武器，就能打到不在身边的怪物。能打多远、能不能打一片，由「射程」「溅射」「弹射」这几种状态决定。界面已经画好了，规则还在等着接入游戏。</p>
+      </div>
+      <div class="art"><img src={link('/images/game/slingshot.png')} alt="调皮弹弓" /><img src={link('/images/game/crosshair.png')} alt="" class="small" /></div>
+    </div>
+  </section>
+
+  <section class="section sys" id="skill">
+    <div class="wrap">
+      <h2 class="ink-title">技能</h2>
+      <p class="lead">状态才是真正的效果；技能是一张「什么时候、对谁、怎么施加」的包装牌。</p>
+      <p>英雄、怪物、装备都能带技能，一张牌最多带 3 个。主动技能有冷却；怪物放技能前，头上会冒出<b>意图气泡</b>提醒你。现在已经做好 {refs.skills.length} 个技能：</p>
+      <div class="skills">
+        {refs.skills.map((s) => (
+          <div class="skill sketch">
+            <div class="sname">{s.name}</div>
+            <div class="sdesc">{s.desc}</div>
+            <div class="smeta"><span class="tag">{s.side === 'ally' ? '对友' : '对敌'}</span>{s.cooldown ? <span class="tag">冷却 {s.cooldown}</span> : <span class="tag">被动</span>}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section sys" id="status">
+    <div class="wrap">
+      <h2 class="ink-title">状态</h2>
+      <p class="lead">增益和减益。装备、道具、怪物身上都能挂，一张牌最多显示 3 个图标。</p>
+      <h3>增益</h3>
+      <div class="icons">{buffs.map((s) => <figure><img src={link(statusIcon(s.id))} alt="" loading="lazy" /><figcaption>{s.name}</figcaption></figure>)}</div>
+      <h3>减益</h3>
+      <div class="icons">{debuffs.map((s) => <figure><img src={link(statusIcon(s.id))} alt="" loading="lazy" /><figcaption>{s.name}</figcaption></figure>)}</div>
+      <h3>投掷用 <span class="tag dash">设计中</span></h3>
+      <div class="icons dim">{paused.map((s) => <figure><img src={link(statusIcon(s.id, false))} alt="" loading="lazy" /><figcaption>{s.name}</figcaption></figure>)}</div>
+    </div>
+  </section>
+
+  <section class="section sys" id="pet">
+    <div class="wrap row">
+      <div class="art"><img src={link('/images/roles/yarn_cat.png')} alt="毛球猫" /><img src={link('/images/game/recruit_heart.png')} alt="" class="small" /></div>
+      <div>
+        <h2 class="ink-title">伙伴 <span class="tag">开发中</span></h2>
+        <p class="lead">把打到只剩一点心的可爱小怪，收成自己的伙伴。</p>
+        <ul>
+          <li>小怪快被打倒时，可能会冒出一个气泡，问你要不要收下它。收下就不掉金币，拒绝就继续打。</li>
+          <li>伙伴包最多放 6 只，第 1 格那只跟着鼹鼠走，不占格子、不挡路。</li>
+          <li>伙伴用的是它自己的技能，全部自动放，不用你操作。</li>
+          <li>伙伴的心掉到 0 不会死，休息几回合就回来了。</li>
+        </ul>
+        <p class="muted">数值都还是临时的，哪些怪能收也还在调整。</p>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .toc-wrap { position: relative; margin-top: 28px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 6px 4px; padding: 10px 16px; justify-content: center; }
+  .toc a { font-family: var(--font-head); font-size: 1.05rem; text-decoration: none; padding: 2px 10px; }
+  .row { display: grid; grid-template-columns: 300px 1fr; gap: 44px; align-items: center; }
+  .row.rev { grid-template-columns: 1fr 300px; }
+  @media (max-width: 820px) { .row, .row.rev { grid-template-columns: 1fr; } }
+  .art { display: flex; gap: 12px; justify-content: center; align-items: flex-end; }
+  .art img { width: 46%; max-width: 150px; object-fit: contain; filter: drop-shadow(3px 4px 0 rgba(31,27,22,.18)); }
+  .art img.small { width: 28%; }
+  .art img.duck { width: 40%; }
+  .art.grid4 { display: grid; grid-template-columns: 1fr 1fr; }
+  .art.grid4 img { width: 100%; }
+  ul { padding-left: 1.2em; }
+  li { margin-bottom: .35em; }
+  .chips { display: flex; gap: 10px; }
+  .chips img { width: 70px; border: 2px solid var(--ink); }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; margin: 10px 0 16px; }
+  .stats div { display: flex; align-items: center; gap: 8px; }
+  .stats img { width: 34px; height: 34px; }
+  .stats b { font-family: var(--font-head); font-weight: normal; font-size: 1.35rem; margin-right: 4px; }
+  .skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+  .skill { padding: 12px 16px; box-shadow: 3px 3px 0 var(--ink); }
+  .sname { font-family: var(--font-head); font-size: 1.2rem; }
+  .sdesc { font-size: .92rem; color: var(--ink-soft); min-height: 3em; }
+  .smeta { display: flex; gap: 6px; margin-top: 6px; }
+  .icons { display: flex; flex-wrap: wrap; gap: 10px 8px; margin: 6px 0 22px; }
+  .icons figure { margin: 0; width: 76px; text-align: center; }
+  .icons img { width: 60px; height: 60px; margin: auto; object-fit: contain; }
+  .icons figcaption { font-family: var(--font-head); font-size: .95rem; }
+  .icons.dim { opacity: .65; }
+</style>

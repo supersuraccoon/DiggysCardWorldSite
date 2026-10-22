@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import { u, pageRoot } from '../lib/site.js';
+const root = pageRoot(Astro.url.pathname);
+const link = (p) => u(p, root);
+// 账号链接还没给，先占位。拿到后改这里的 href 和 handle，把 todo 去掉。
+const LINKS = [
+  { name: 'B 站', handle: '待填', href: '#', todo: true },
+  { name: '抖音', handle: '待填', href: '#', todo: true },
+  { name: '小红书', handle: '待填', href: '#', todo: true },
+  { name: '微博', handle: '待填', href: '#', todo: true },
+  { name: 'X (Twitter)', handle: '待填', href: '#', todo: true },
+  { name: 'GitHub', handle: '待填', href: '#', todo: true },
+  { name: '邮箱', handle: '待填', href: '#', todo: true },
+];
+---
+<Base page="follow" title="关注我们" bannerImg="/images/comic/banner_wide_3.jpg" bannerSub="来和小鼹鼠打个招呼" bannerPos="center 20%">
+  <section class="section">
+    <div class="wrap follow">
+      <div>
+        <h2 class="ink-title">关注我们</h2>
+        <p class="lead">游戏还在一点一点地画、一点一点地写。想第一时间看到新怪物、新世界和新漫画，就来这里找我们吧。</p>
+        <p class="notice sketch hatch"><b>📌 待填：</b>下面的账号链接都是占位，等鼹鼠把账号发给我们再填上。</p>
+        <div class="links">
+          {LINKS.map((l) => (
+            <a class={`link sketch ${l.todo ? 'todo' : ''}`} href={l.href} aria-disabled={l.todo ? 'true' : undefined}>
+              <span class="lname">{l.name}</span>
+              <span class="lhandle">{l.handle}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="side">
+        <img src={link('/images/emotes/mole_love.png')} alt="" />
+        <img src={link('/images/game/duck_sign.png')} alt="" class="sign" />
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .follow { display: grid; grid-template-columns: 1fr 280px; gap: 40px; align-items: start; }
+  @media (max-width: 760px) { .follow { grid-template-columns: 1fr; } }
+  .notice { padding: 10px 16px; box-shadow: none; }
+  .links { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .link { display: flex; flex-direction: column; padding: 14px 18px; text-decoration: none; box-shadow: 3px 3px 0 var(--ink); }
+  .link .lname { font-family: var(--font-head); font-size: 1.3rem; }
+  .link.todo { border-style: dashed; pointer-events: none; }
+  .link.todo .lhandle { color: var(--danger); font-family: var(--font-head); }
+  .side { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .side img { width: 220px; }
+  .side .sign { width: 150px; transform: rotate(4deg); }
+</style>

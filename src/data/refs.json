@@ -1,0 +1,257 @@
+{
+  "skills": [
+    {
+      "kind": 1,
+      "id": "venom_lick",
+      "name": "毒液舔舔",
+      "desc": "造成 1 点伤害，中毒 3 回合。",
+      "side": "foe",
+      "cooldown": 3
+    },
+    {
+      "kind": 2,
+      "id": "venom_bite",
+      "name": "毒液咬咬",
+      "desc": "造成 2 点伤害，中毒 5 回合。",
+      "side": "foe",
+      "cooldown": 5
+    },
+    {
+      "kind": 3,
+      "id": "venom_bomb",
+      "name": "毒液炸弹",
+      "desc": "造成 5 点伤害，中毒 10 回合。",
+      "side": "foe",
+      "cooldown": 8
+    },
+    {
+      "kind": 4,
+      "id": "venom_fang",
+      "name": "毒牙牙",
+      "desc": "打中时 50% 中毒 3 回合。",
+      "side": "foe",
+      "cooldown": 0
+    },
+    {
+      "kind": 5,
+      "id": "pot_lid_up",
+      "name": "锅盖举举",
+      "desc": "把锅盖举起来，护盾 2，持续 3 回合。",
+      "side": "ally",
+      "cooldown": 3
+    },
+    {
+      "kind": 6,
+      "id": "frying_pan",
+      "name": "平底锅咚",
+      "desc": "当——造成 1 点伤害，眩晕 2 回合。",
+      "side": "foe",
+      "cooldown": 6
+    },
+    {
+      "kind": 7,
+      "id": "dong_drum",
+      "name": "咚咚鼓",
+      "desc": "咚！周围的敌人眩晕 1 回合。",
+      "side": "foe",
+      "cooldown": 4
+    },
+    {
+      "kind": 8,
+      "id": "pat_head",
+      "name": "摸摸头",
+      "desc": "摸摸头，给心最少的队友回 2 心。含自己",
+      "side": "ally",
+      "cooldown": 4
+    }
+  ],
+  "statuses": [
+    {
+      "kind": 1,
+      "id": "shield",
+      "name": "护盾",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 2,
+      "id": "dodge",
+      "name": "闪避",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 3,
+      "id": "lifesteal",
+      "name": "吸血",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 4,
+      "id": "crit",
+      "name": "暴击",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 5,
+      "id": "thorns",
+      "name": "荆棘",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 6,
+      "id": "immune",
+      "name": "免疫",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 7,
+      "id": "revive",
+      "name": "复活",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 8,
+      "id": "regen",
+      "name": "回血",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 9,
+      "id": "atk",
+      "name": "加攻",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 10,
+      "id": "hp",
+      "name": "加血",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 11,
+      "id": "reflect",
+      "name": "反弹",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 12,
+      "id": "combo",
+      "name": "连击",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 13,
+      "id": "poison",
+      "name": "中毒",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 14,
+      "id": "weak",
+      "name": "虚弱",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 15,
+      "id": "sunder",
+      "name": "破甲",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 16,
+      "id": "silence",
+      "name": "沉默",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 17,
+      "id": "confuse",
+      "name": "混乱",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 18,
+      "id": "bleed",
+      "name": "流血",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 19,
+      "id": "stun",
+      "name": "眩晕",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 20,
+      "id": "knockback",
+      "name": "击退",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 21,
+      "id": "range",
+      "name": "射程",
+      "polarity": "buff",
+      "implemented": false
+    },
+    {
+      "kind": 22,
+      "id": "splash",
+      "name": "溅射",
+      "polarity": "buff",
+      "implemented": false
+    },
+    {
+      "kind": 23,
+      "id": "bounce",
+      "name": "弹射",
+      "polarity": "buff",
+      "implemented": false
+    }
+  ],
+  "hunts": [
+    {
+      "key": "idle",
+      "label": "傻傻不动",
+      "code": 0,
+      "usesInterval": false
+    },
+    {
+      "key": "chase",
+      "label": "追击",
+      "code": 1,
+      "usesInterval": true
+    },
+    {
+      "key": "wander",
+      "label": "随机走",
+      "code": 2,
+      "usesInterval": false
+    },
+    {
+      "key": "flee",
+      "label": "逃跑",
+      "code": 3,
+      "usesInterval": false
+    }
+  ]
+}

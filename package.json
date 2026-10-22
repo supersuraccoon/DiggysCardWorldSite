@@ -1,0 +1,26 @@
+{
+  "name": "diggy-site",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/relativize-dist.mjs",
+    "preview": "astro preview",
+    "sync": "node scripts/sync-from-game.mjs",
+    "md2json": "node scripts/roles-convert.mjs md2json",
+    "json2md": "node scripts/roles-convert.mjs json2md",
+    "font": "python3 tools/subset_font.py",
+    "art": "python3 tools/prepare_art.py",
+    "prebuild": "node scripts/copy-diggy-levels.mjs"
+  },
+  "engines": {
+    "node": ">=20.3.0"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "astro": "^5.18.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

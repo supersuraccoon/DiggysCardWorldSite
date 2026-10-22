@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+import { NAV, SITE_NAME, PITCH, u, pageRoot } from '../lib/site.js';
+const { title, page, banner = 'short', bannerImg = '/images/comic/banner_depart.jpg', bannerTitle, bannerSub, bannerPos = 'center 60%' } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE_NAME}` : SITE_NAME;
+const root = pageRoot(Astro.url.pathname);
+const href = (p) => u(p, root);
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={PITCH} />
+  <link rel="icon" type="image/png" href={href('/images/emotes/mole_happy.png')} />
+  <link rel="preload" href={href('/fonts/lemi-subset.woff')} as="font" type="font/woff" crossorigin />
+</head>
+<body>
+  <header class={`banner ${banner}`}>
+    <img class="bg" src={href(bannerImg)} alt="" style={`object-position:${bannerPos}`} />
+    <div class="shade"></div>
+    <div class="wrap inner">
+      {banner === 'tall'
+        ? <h1 class="logo"><span class="y">黄鼹鼠</span>的卡牌世界</h1>
+        : <h1 class="logo">{bannerTitle ?? title}</h1>}
+      <div class="sub">{bannerSub ?? (banner === 'tall' ? 'Diggy\u2019s Card World' : SITE_NAME)}</div>
+    </div>
+  </header>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href={href('/')}><img src={href('/images/emotes/mole_happy.png')} alt="" />{SITE_NAME}</a>
+      <button class="btn small menu-btn" type="button" onclick="document.getElementById('nav').classList.toggle('open')">菜单</button>
+      <ul>
+        {NAV.map((n) => <li><a href={href(n.href)} class={n.key === page ? 'active' : ''}>{n.label}</a></li>)}
+      </ul>
+    </div>
+  </nav>
+  <main><slot /></main>
+  <footer class="footer">
+    <div class="wrap">
+      <img src={href('/images/game/duck.png')} alt="黄鸭子" />
+      <div>
+        <div style="font-family:var(--font-head);font-size:1.2rem">{SITE_NAME}</div>
+        <div class="muted">Cocos Creator 2.4.13 · 铅笔手绘 · 开发中。画：鼹鼠 ／ 代码：Grok Build</div>
+      </div>
+      <div style="margin-left:auto" class="muted">© 2026 黄鼹鼠的卡牌世界</div>
+    </div>
+  </footer>
+</body>
+</html>

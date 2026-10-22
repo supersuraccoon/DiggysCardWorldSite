@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import EditorsHub from '../components/editor/EditorsHub.jsx';
+import shipped from '../data/角色设定.json';
+import refs from '../data/refs.json';
+import images from '../data/images.json';
+import roles from '../data/角色设定.json';
+import palette from '../data/palette.json';
+import deal from '../data/地下城发牌.json';
+import { pageRoot } from '../lib/site.js';
+import '../styles/editor.css';
+import '../styles/level-editor.css';
+const root = pageRoot(Astro.url.pathname);
+
+const files = import.meta.glob('../data/levels/*.json', { eager: true, import: 'default' });
+const shippedWorlds = Object.fromEntries(Object.values(files).map((d) => [d.world.id, d]));
+const filled = Object.values(shippedWorlds).reduce((n, d) => n + d.levels.filter((l) => l.cells.some((c) => c.mole || c.catalog || c.ground !== 'floor')).length, 0);
+const dealMonsters = shipped.roles.filter((r) => r.group === 'deal').length;
+const catalogOnly = shipped.roles.filter((r) => r.group === 'catalogOnly').length;
+---
+<Base page="editor" title="编辑器" bannerImg="/images/comic/panel_08.jpg" bannerSub="卡牌 · 冒险关卡 · 地下城发牌 · 我的关卡" bannerPos="center 42%">
+  <section class="section" style="padding-top:28px">
+    <div class="wrap-wide">
+      <div class="ed-intro">
+        <p>四个编辑器合在一页，用上面的页签切换：<b>卡牌</b>（英雄 1 个、已做成牌的怪 {dealMonsters} 只、图鉴未成牌 {catalogOnly} 只）、
+        <b>冒险关卡</b>（网站数据里已摆好 {filled} 层）、<b>地下城发牌</b>、<b>我的关卡</b>（一关一 JSON，和官方关卡分开）。
+        改动会自动存在<b>这台电脑的浏览器</b>里；导出 / 保存到文件夹后放回游戏仓库的 <code>notes/配置表/json/</code>。</p>
+        <p class="muted small">网站数据更新于 {new Date(shipped.updatedAt).toLocaleDateString('zh-CN')}（来源：{shipped.source}）。编辑器只用网站自己复制的一份数据和图片，不会去读游戏工程。旧地址 <code>/level-editor/</code> 会转到本页「冒险关卡」页签。</p>
+      </div>
+      <EditorsHub
+        client:load
+        rolesShipped={shipped}
+        refs={refs}
+        images={images}
+        shippedWorlds={shippedWorlds}
+        roles={roles}
+        palette={palette}
+        deal={deal}
+        base={root}
+        initialTab="cards"
+      />
+    </div>
+  </section>
+</Base>

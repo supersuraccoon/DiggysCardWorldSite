@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import EditorsHub from '../components/editor/EditorsHub.jsx';
+import shipped from '../data/角色设定.json';
+import refs from '../data/refs.json';
+import images from '../data/images.json';
+import roles from '../data/角色设定.json';
+import palette from '../data/palette.json';
+import deal from '../data/地下城发牌.json';
+import { pageRoot, u } from '../lib/site.js';
+import '../styles/editor.css';
+import '../styles/level-editor.css';
+const root = pageRoot(Astro.url.pathname);
+const editorHref = u('/editor/?tab=levels', root);
+
+const files = import.meta.glob('../data/levels/*.json', { eager: true, import: 'default' });
+const shippedWorlds = Object.fromEntries(Object.values(files).map((d) => [d.world.id, d]));
+---
+<Base page="editor" title="编辑器" bannerImg="/images/comic/panel_17.jpg" bannerSub="已合并到「编辑器」· 冒险关卡页签" bannerPos="center 55%">
+  <section class="section" style="padding-top:28px">
+    <div class="wrap-wide">
+      <div class="ed-intro">
+        <p>世界/关卡编辑器已并进顶栏的 <a href={editorHref}><b>编辑器</b></a> 页（页签：卡牌 / 冒险关卡 / 地下城发牌 / 我的关卡）。本地址保留，默认打开「冒险关卡」。</p>
+      </div>
+      <EditorsHub
+        client:load
+        rolesShipped={shipped}
+        refs={refs}
+        images={images}
+        shippedWorlds={shippedWorlds}
+        roles={roles}
+        palette={palette}
+        deal={deal}
+        base={root}
+        initialTab="levels"
+      />
+    </div>
+  </section>
+  <script is:inline define:vars={{ editorHref }}>
+    // 书签 /level-editor/ → 规范地址 /editor/?tab=levels（相对路径，改文件夹名也没事）
+    try {
+      if (!location.search.includes('stay=1')) {
+        const hash = location.hash || '';
+        location.replace(editorHref + hash);
+      }
+    } catch (e) { /* ignore */ }
+  </script>
+</Base>

@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build / Astro
+dist/
+.astro/
+.cache/
+
+# Generated: diggy_levels is canonical at repo root; prebuild copies into public/
+public/diggy_levels/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.log
+npm-debug.log*
+
+# Temp
+screenshots/*.tmp
+*.tmp

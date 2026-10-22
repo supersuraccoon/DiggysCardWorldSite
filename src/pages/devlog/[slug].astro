@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import { u, pageRoot } from '../../lib/site.js';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('devlog')).sort((a, b) => a.data.date - b.data.date);
+  return posts.map((p, i) => ({ params: { slug: p.id }, props: { post: p, prev: posts[i - 1], next: posts[i + 1] } }));
+}
+
+const root = pageRoot(Astro.url.pathname);
+const link = (p) => u(p, root);
+const { post, prev, next } = Astro.props;
+const { Content } = await render(post);
+const d = post.data.date;
+---
+
+<Base page="devlog" title={post.data.title} bannerTitle="开发日志" bannerSub={post.data.title} bannerImg="/images/comic/panel_09.jpg" bannerPos="center 72%">
+  <section class="section">
+    <article class="wrap article sketch">
+      <div class="muted">{d.getFullYear()} 年 {d.getMonth() + 1} 月 {d.getDate()} 日 · {post.data.tags.join(' / ')}</div>
+      <h2>{post.data.title}</h2>
+      {post.data.cover && <img class="cover" src={link(post.data.cover)} alt="" />}
+      <div class="prose"><Content /></div>
+      <div class="pn">
+        {prev ? <a class="btn small" href={link(`/devlog/${prev.id}/`)}>← {prev.data.title}</a> : <span />}
+        {next ? <a class="btn small" href={link(`/devlog/${next.id}/`)}>{next.data.title} →</a> : <span />}
+      </div>
+    </article>
+  </section>
+</Base>
+<style>
+  .article { max-width: 820px; padding: 28px 40px; }
+  .cover { max-height: 300px; margin: 10px auto 20px; border: 2px solid var(--ink); background: #fff; object-fit: contain; }
+  .prose :global(h2) { font-size: 1.5rem; margin-top: 1.4em; }
+  .prose :global(li) { margin-bottom: .3em; }
+  .pn { display: flex; justify-content: space-between; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+  @media (max-width: 600px) { .article { padding: 20px; } }
+</style>

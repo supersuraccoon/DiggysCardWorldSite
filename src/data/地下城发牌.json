@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "table": "地下城发牌",
+  "source": "assets/scripts/deal.ts（FLOOR_DEAL、DEAL_*）",
+  "updatedAt": "2026-10-21T04:00:00.000Z",
+  "note": "地下城模式（随机发牌）每一层的怪池和数量。null = 这一项没写，用 defaults（和 deal.ts 里 FloorDealSpec 不写一样）；[] 或 0 = 这一层不放。游戏现在仍然只读 deal.ts，这份 JSON 还没有同步脚本。",
+  "defaults": {
+    "monsters": [
+      "bug",
+      "boo",
+      "bat",
+      "monster_alarm_clock",
+      "monster_clothespin_crab",
+      "monster_dust_bunny",
+      "monster_vacuum_snake",
+      "sock_item",
+      "monster_toilet",
+      "eraser_item",
+      "spike_throw",
+      "cactus_thrower",
+      "lamp_cyclops",
+      "remote_imp",
+      "slipper_croc",
+      "yarn_cat"
+    ],
+    "monsterCount": 3,
+    "equipment": [
+      "sword",
+      "lid",
+      "armor_mittens",
+      "armor_rain_boots",
+      "weapon_rolling_pin",
+      "weapon_slingshot"
+    ],
+    "equipmentCount": 2,
+    "items": [
+      "chest"
+    ],
+    "itemCount": 2,
+    "shop": true,
+    "shopGoods": [
+      "sword",
+      "lid",
+      "chest",
+      "armor_mittens",
+      "armor_rain_boots",
+      "weapon_rolling_pin",
+      "weapon_slingshot",
+      "weapon_spider_sword",
+      "a_bunny_slippers",
+      "a_quilt_vest"
+    ]
+  },
+  "floors": [
+    {
+      "floor": 1,
+      "monsters": [
+        "boo",
+        "bat",
+        "monster_toilet"
+      ],
+      "monsterCount": 3,
+      "equipment": [
+        "sword",
+        "lid"
+      ],
+      "equipmentCount": 4,
+      "items": [
+        "chest"
+      ],
+      "itemCount": 1,
+      "shop": null,
+      "shopGoods": null
+    },
+    {
+      "floor": 2,
+      "monsters": [
+        "boo",
+        "monster_alarm_clock",
+        "sock_item"
+      ],
+      "monsterCount": 5,
+      "equipment": [
+        "armor_mittens",
+        "armor_rain_boots"
+      ],
+      "equipmentCount": 2,
+      "items": [
+        "chest"
+      ],
+      "itemCount": 1,
+      "shop": null,
+      "shopGoods": null
+    },
+    {
+      "floor": 3,
+      "monsters": [
+        "boo",
+        "eraser_item",
+        "remote_imp",
+        "slipper_croc"
+      ],
+      "monsterCount": 6,
+      "equipment": [
+        "weapon_rolling_pin",
+        "weapon_slingshot"
+      ],
+      "equipmentCount": 2,
+      "items": [
+        "chest"
+      ],
+      "itemCount": 2,
+      "shop": null,
+      "shopGoods": null
+    },
+    {
+      "floor": 4,
+      "monsters": [
+        "boo",
+        "bug",
+        "monster_dust_bunny",
+        "slipper_croc",
+        "sock_item"
+      ],
+      "monsterCount": 6,
+      "equipment": null,
+      "equipmentCount": 2,
+      "items": [
+        "chest"
+      ],
+      "itemCount": 2,
+      "shop": null,
+      "shopGoods": null
+    },
+    {
+      "floor": 5,
+      "monsters": [
+        "boo",
+        "cactus_thrower",
+        "spike_throw",
+        "monster_vacuum_snake",
+        "monster_clothespin_crab"
+      ],
+      "monsterCount": 7,
+      "equipment": null,
+      "equipmentCount": 3,
+      "items": [
+        "chest"
+      ],
+      "itemCount": 2,
+      "shop": null,
+      "shopGoods": null
+    }
+  ]
+}

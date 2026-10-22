@@ -1,0 +1,19 @@
+{
+  "mole": "images/roles/mole.png",
+  "bug": "images/roles/bug.png",
+  "boo": "images/roles/boo.png",
+  "bat": "images/roles/bat.png",
+  "monster_alarm_clock": "images/roles/monster_alarm_clock.png",
+  "monster_clothespin_crab": "images/roles/monster_clothespin_crab.png",
+  "monster_dust_bunny": "images/roles/monster_dust_bunny.png",
+  "monster_vacuum_snake": "images/roles/monster_vacuum_snake.png",
+  "sock_item": "images/roles/sock_item.png",
+  "monster_toilet": "images/roles/monster_toilet.png",
+  "eraser_item": "images/roles/eraser_item.png",
+  "spike_throw": "images/roles/spike_throw.png",
+  "cactus_thrower": "images/roles/cactus_thrower.png",
+  "lamp_cyclops": "images/roles/lamp_cyclops.png",
+  "remote_imp": "images/roles/remote_imp.png",
+  "slipper_croc": "images/roles/slipper_croc.png",
+  "yarn_cat": "images/roles/yarn_cat.png"
+}

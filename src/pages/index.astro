@@ -1,0 +1,110 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { PANELS } from '../data/comic.js';
+import { PITCH, u, pageRoot } from '../lib/site.js';
+import roles from '../data/角色设定.json';
+import images from '../data/images.json';
+const root = pageRoot(Astro.url.pathname);
+const link = (p) => u(p, root);
+const posts = (await getCollection('devlog')).sort((a, b) => b.data.date - a.data.date).slice(0, 3);
+const featured = [1, 4, 6, 10, 13, 16].map((n) => PANELS[n - 1]);
+const tilts = ['-1.2deg', '0.8deg', '-0.6deg', '1.1deg', '-0.9deg', '0.6deg'];
+const cast = roles.roles.filter((r) => r.group === 'deal' && images[r.id]);
+const fmt = (d) => `${d.getFullYear()} 年 ${d.getMonth() + 1} 月 ${d.getDate()} 日`;
+---
+<Base page="home" banner="tall" bannerPos="center 62%">
+  <section class="section">
+    <div class="wrap pitch">
+      <img class="pitch-mole" src={link('/images/hero/mole.png')} alt="黄鼹鼠" />
+      <div>
+        <h2 class="ink-title">欢迎来到鼹鼠小窝</h2>
+        <p class="lead">{PITCH}</p>
+        <p class="muted">一款铅笔手绘的卡牌地下城小游戏：英雄、怪物、地形、装备、事件，全都是桌上的一张张牌。</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn yellow" href={link('/world/')}>看看卡牌世界 →</a>
+          <a class="btn" href={link('/systems/')}>怎么玩</a>
+          <a class="btn" href={link('/editor/')}>编辑器</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid c3 features">
+        <div class="sketch feature"><img src={link('/images/game/floor_back.png')} alt="" /><h3>翻牌就是行动</h3><p>每翻开一张牌、每走一步，就是一个回合。你动一下，怪物也动一下。</p></div>
+        <div class="sketch sketch-2 feature"><img src={link('/images/game/card_monster.png')} alt="" /><h3>一切都是卡牌</h3><p>英雄、怪物、地形、装备、宝箱、商店……桌上所有东西都是一张牌。</p></div>
+        <div class="sketch feature"><img src={link('/images/emotes/mole_proud.png')} alt="" /><h3>铅笔画的世界</h3><p>黑白的铅笔世界，只有小鼹鼠是黄色的。颜色被偷走了，要靠你找回来。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="ink-title">开场漫画 · 精选</h2>
+      <p class="muted">一共 17 格，完整版在 <a href={link('/world/')}>卡牌世界</a>。</p>
+      <div class="grid comic3" style="margin-top:28px">
+        {featured.map((p, i) => (
+          <figure class="panel tape" style={`--r:${tilts[i]}`}>
+            <img src={link(p.src)} alt={p.caption} loading="lazy" />
+            <figcaption><span class="no">{p.n}</span>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="ink-title">桌上的小怪们</h2>
+      <p class="muted">已经做成牌的 16 只怪物，来打个招呼。全部数值在 <a href={link('/editor/')}>编辑器</a> 里。</p>
+      <div class="cast">
+        {cast.map((r, i) => (
+          <a class="cast-item" href={link(`/editor/#${r.id}`)} style={`--r:${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg`}>
+            <img src={link('/' + images[r.id])} alt={r.name} loading="lazy" />
+            <span>{r.name}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="ink-title">最新开发日志</h2>
+      <div class="grid c3" style="margin-top:24px">
+        {posts.map((p) => (
+          <a class="sketch post-card" href={link(`/devlog/${p.id}/`)}>
+            {p.data.cover && <div class="cover hatch"><img src={link(p.data.cover)} alt="" loading="lazy" /></div>}
+            <div class="date">{fmt(p.data.date)}</div>
+            <h3>{p.data.title}</h3>
+            <p class="muted">{p.data.summary}</p>
+          </a>
+        ))}
+      </div>
+      <p style="margin-top:24px"><a class="btn" href={link('/devlog/')}>全部日志 →</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pitch { display: grid; grid-template-columns: 240px 1fr; gap: 36px; align-items: center; }
+  .pitch-mole { width: 240px; filter: drop-shadow(4px 5px 0 rgba(31,27,22,.18)); animation: hop 3.2s ease-in-out infinite; }
+  @keyframes hop { 0%, 70%, 100% { transform: translateY(0) } 78% { transform: translateY(-10px) } 86% { transform: translateY(2px) } }
+  @media (max-width: 700px) { .pitch { grid-template-columns: 1fr; } .pitch-mole { width: 160px; margin: auto; } }
+  .comic3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px) { .comic3 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .comic3 { grid-template-columns: 1fr; } }
+  .feature { padding: 22px 24px 10px; text-align: center; }
+  .feature img { height: 120px; margin: 0 auto 10px; object-fit: contain; }
+  .cast { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 18px 14px; margin-top: 24px; justify-content: center; }
+  .cast-item { text-align: center; text-decoration: none; font-family: var(--font-head); background: #fff; border: 2.5px solid var(--ink); padding: 8px 6px 4px; box-shadow: 3px 3px 0 var(--ink); transform: rotate(var(--r)); transition: transform .15s; }
+  .cast-item:hover { transform: rotate(0) scale(1.06); background: #fff; }
+  .cast-item img { width: 100%; height: 104px; object-fit: contain; object-position: bottom; margin: auto; }
+  .post-card { display: block; text-decoration: none; padding: 16px 20px 6px; }
+  .post-card:hover { background: var(--card); transform: translate(-1px, -2px); }
+  .post-card .cover { height: 150px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--ink); margin-bottom: 10px; overflow: hidden; background-color: #fff; }
+  .post-card .cover img { max-height: 100%; object-fit: contain; }
+  .post-card .date { font-size: .85rem; color: var(--graphite); }
+</style>
