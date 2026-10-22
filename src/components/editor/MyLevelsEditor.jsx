@@ -6,6 +6,11 @@ import {
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
   myLevelMeta, asValidateLevel, MY_LEVEL_DIR,
 } from '../../lib/levels.js';
+import {
+  hasToken, getCachedLogin, clearToken, verifyToken,
+  cloudPutLevel, cloudPutIndex, cloudDeleteLevel, pullAllLevels,
+  putFile, levelPath, pagesWaitHint, LEVEL_BASE_PAGES,
+} from '../../lib/githubMyLevels.js';
 import { STAT_ICONS } from '../../lib/icons.js';
 import { Palette } from './Palette.jsx';
 
@@ -45,6 +50,10 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
   const [renameId, setRenameId] = useState(null);
   const fileRef = useRef(null);
   const stroke = useRef(null);
+  const [ghLogin, setGhLogin] = useState('');
+  const [ghBusy, setGhBusy] = useState(false);
+  const [tokenOpen, setTokenOpen] = useState(false);
+  const cloudOn = !!ghLogin;
 
   useEffect(() => {
     try {
@@ -59,6 +68,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
       }
     } catch { /* ignore */ }
     setCanSaveDir('showDirectoryPicker' in window);
+    if (hasToken()) setGhLogin(getCachedLogin() || '已连接');
     setLoaded(true);
   }, []);
 
@@ -231,16 +241,83 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
     commit((cur) => [...cur, out]);
     flash(`已复制为「${out.title}」`);
   };
+  const disconnectCloud = () => {
+    clearToken();
+    setGhLogin('');
+    flash('已断开云端（本机 Token 已清除）');
+  };
+
+  const connectCloud = async (token) => {
+    setGhBusy(true);
+    try {
+      const login = await verifyToken(token);
+      setGhLogin(login || '已连接');
+      setTokenOpen(false);
+      flash(`☁ 已连接 @${login || 'user'}（仅本机保存 Token）`);
+    } catch (e) {
+      flash('连接失败：' + e.message, 'err');
+    } finally {
+      setGhBusy(false);
+    }
+  };
+
+  const pullFromCloud = async () => {
+    if (!confirm('从公开仓拉取「我的关卡」？同 id 会覆盖本机列表（可以撤销）。')) return;
+    setGhBusy(true);
+    try {
+      const { levels: raw } = await pullAllLevels();
+      const got = raw
+        .filter((d) => d && d.schemaVersion === SCHEMA_VERSION && Array.isArray(d.cells))
+        .filter((d) => !d.table || d.table === '我的关卡')
+        .map(normalizeMyLevel);
+      if (!got.length) {
+        flash('云端还没有关卡（或 index 为空）');
+        return;
+      }
+      commit((cur) => {
+        const m = new Map(cur.map((l) => [l.id, l]));
+        for (const g of got) m.set(g.id, g);
+        const order = got.map((g) => g.id);
+        const rest = [...m.values()].filter((l) => !order.includes(l.id));
+        return [...order.map((id) => m.get(id)), ...rest];
+      });
+      flash(`☁ 已从云端拉取 ${got.length} 个关卡`);
+    } catch (e) {
+      flash('拉取失败：' + e.message, 'err');
+    } finally {
+      setGhBusy(false);
+    }
+  };
+
   const deleteLevel = async (id) => {
     const src = levels.find((l) => l.id === id);
     if (!src) return;
-    if (!confirm(`删除「${src.title}」？本机列表会去掉；若已打开文件夹也会尝试删掉 ${id}.json。`)) return;
-    commit((cur) => cur.filter((l) => l.id !== id));
+    const tip = cloudOn
+      ? `删除「${src.title}」？将从本机列表去掉，并尝试从 GitHub 公开仓删除 ${id}.json。`
+      : `删除「${src.title}」？本机列表会去掉；若已打开文件夹也会尝试删掉 ${id}.json。`;
+    if (!confirm(tip)) return;
+    const nextList = levels.filter((l) => l.id !== id);
+    commit(() => nextList);
     if (editId === id) setEditId(null);
+    if (cloudOn) {
+      setGhBusy(true);
+      try {
+        const indexText = formatMyIndexJson(nextList.map(myLevelMeta));
+        const del = await cloudDeleteLevel(id, indexText);
+        flash(del?.missing
+          ? `☁ 云端无文件，已更新索引。${pagesWaitHint()}`
+          : `☁ 已从公开仓删除 ${id}.json。${pagesWaitHint()}`);
+      } catch (e) {
+        flash(`已从本机列表移除；云端删除失败：${e.message}`, 'err');
+      } finally {
+        setGhBusy(false);
+      }
+      return;
+    }
     if (dirHandle) {
       try {
         await dirHandle.removeEntry(`${id}.json`);
-        await writeIndex(dirHandle, levels.filter((l) => l.id !== id));
+        await writeIndex(dirHandle, nextList);
         flash(`已删除 ${id}.json 并更新 index.json`);
       } catch (e) {
         flash(`已从列表移除；磁盘文件未删（${e.message}）。请手动删服务器/磁盘上的 ${id}.json`, 'err');
@@ -321,22 +398,50 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
     if (!src) return;
     const errs = (checks[id] || []).filter((c) => c.sev === 'err');
     if (errs.length && !confirm(`还有 ${errs.length} 个错误（红色）。仍然保存吗？`)) return;
-    const text = formatMyLevelJson(src);
+    const levelText = formatMyLevelJson(src);
+    const indexText = formatMyIndexJson(levels.map(myLevelMeta));
+    if (cloudOn) {
+      setGhBusy(true);
+      try {
+        await cloudPutLevel(src.id, levelText, indexText);
+        flash(`☁ 已保存 ${src.id}.json。${pagesWaitHint()}`);
+      } catch (e) {
+        flash('云端保存失败：' + e.message, 'err');
+      } finally {
+        setGhBusy(false);
+      }
+      return;
+    }
     if (dirHandle) {
       try {
-        await writeText(dirHandle, `${src.id}.json`, text);
+        await writeText(dirHandle, `${src.id}.json`, levelText);
         await writeIndex(dirHandle, levels);
         flash(`已写入 ${src.id}.json + index.json`);
       } catch (e) { flash('保存失败：' + e.message, 'err'); }
     } else {
-      download(`${src.id}.json`, text, 'application/json');
-      flash('已下载单关 JSON。建议用「打开文件夹」后「保存到文件夹」，以便自动维护 index.json');
+      download(`${src.id}.json`, levelText, 'application/json');
+      flash('已下载单关 JSON。可连接云端后保存到公开仓，或「打开文件夹」写本机。');
     }
   };
 
   const saveAll = async () => {
     const bad = levels.reduce((n, l) => n + (checks[l.id] || []).filter((c) => c.sev === 'err').length, 0);
     if (bad && !confirm(`还有 ${bad} 个错误。仍然全部保存吗？`)) return;
+    if (cloudOn) {
+      setGhBusy(true);
+      try {
+        for (const l of levels) {
+          await putFile(levelPath(l.id), formatMyLevelJson(l), `chore(levels): save ${l.id}`);
+        }
+        await cloudPutIndex(formatMyIndexJson(levels.map(myLevelMeta)), { message: 'chore(levels): update index after save all' });
+        flash(`☁ 已保存 ${levels.length} 个关卡。${pagesWaitHint()}`);
+      } catch (e) {
+        flash('云端全部保存失败：' + e.message, 'err');
+      } finally {
+        setGhBusy(false);
+      }
+      return;
+    }
     if (dirHandle) {
       try {
         for (const l of levels) await writeText(dirHandle, `${l.id}.json`, formatMyLevelJson(l));
@@ -386,20 +491,29 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
         <div className="ed-bar sketch le-bar">
           <div className="ed-row">
             <span className="status-pill">{levels.length ? <>🏠 本机 <b>{levels.length}</b> 个关卡</> : <>🏠 还没有关卡</>}</span>
+            <span className={`status-pill ${cloudOn ? '' : 'dirty'}`}>{cloudOn ? <>☁ 已连接 @{ghLogin}</> : <>☁ 云端：未连接</>}</span>
             <span className="muted small">{dirHandle ? `文件夹：${dirHandle.name}` : '未打开文件夹'}{savedAt ? ` · 自动存本机 ${new Date(savedAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}` : ''}</span>
             <span className="grow" />
+            {cloudOn
+              ? <button className="btn small" onClick={disconnectCloud} disabled={ghBusy}>断开云端</button>
+              : <button className="btn small yellow" onClick={() => setTokenOpen(true)} disabled={ghBusy}>连接 GitHub</button>}
+            <button className="btn small" onClick={pullFromCloud} disabled={ghBusy} title="只读，无需 Token">☁ 从云端拉取</button>
             <button className="btn small yellow" onClick={() => setNewOpen(true)}>＋ 新建关卡</button>
-            {canSaveDir && <button className="btn small" onClick={pickFolder} title={`选 notes/配置表（或 json、${MY_LEVEL_DIR}）`}>📂 打开文件夹</button>}
-            {dirHandle && <button className="btn small" onClick={refreshIndex}>刷新索引</button>}
+            {canSaveDir && <button className="btn small" onClick={pickFolder} title={`选 notes/配置表（或 json、${MY_LEVEL_DIR}）· 离线兜底`}>📂 打开文件夹</button>}
+            {dirHandle && !cloudOn && <button className="btn small" onClick={refreshIndex}>刷新索引</button>}
             <button className="btn small" onClick={() => fileRef.current?.click()}>导入 JSON</button>
             <input ref={fileRef} type="file" accept=".json,application/json" multiple hidden onChange={(e) => { const f = [...(e.target.files || [])]; if (f.length) importFiles(f); e.target.value = ''; }} />
-            <button className="btn small" onClick={saveAll} disabled={!levels.length}>{dirHandle ? '💾 全部保存' : '⬇ 全部（zip）'}</button>
+            <button className="btn small" onClick={saveAll} disabled={!levels.length || ghBusy}>{cloudOn ? '☁ 全部保存到云端' : dirHandle ? '💾 全部保存' : '⬇ 全部（zip）'}</button>
           </div>
         </div>
         <div className="le-panel sketch" style={{ marginTop: 12 }}>
-          <h4>我的关卡 <span className="muted small">一关一个 JSON · 与官方「关卡/」分开 · 游戏直接读 JSON，不经 Prefab</span></h4>
+          <h4>我的关卡 <span className="muted small">一关一个 JSON · 公开仓 diggy_levels · 游戏直接读 JSON</span></h4>
+          <p className="muted small" style={{ marginTop: 4 }}>
+            云端写入公开仓 <code>diggy_levels/my-levels/</code>。游戏推荐 <code>LEVEL_BASE={LEVEL_BASE_PAGES}</code>（fetch 加 <code>?t=</code>）；jsDelivr 仅作 CORS 回退。
+            未连接时仍可用本机文件夹或下载作离线兜底。新建后需点保存才会上传。
+          </p>
           {!levels.length && (
-            <p className="muted">点「新建关卡」开始；或「打开文件夹」读已有的 <code>{MY_LEVEL_DIR}/</code>。保存时会写 <code>{'{id}'}.json</code> 并维护同目录 <code>index.json</code>（不含格子数据）。</p>
+            <p className="muted">点「新建关卡」开始；或「从云端拉取」/「打开文件夹」读已有关卡。</p>
           )}
           {levels.length > 0 && (
             <table className="tbl le-sum">
@@ -431,8 +545,8 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
                         <button className="btn small yellow" onClick={() => { setEditId(l.id); setHl(null); }}>编辑</button>{' '}
                         <button className="btn small" onClick={() => setRenameId(l.id)}>改名</button>{' '}
                         <button className="btn small" onClick={() => duplicateLevel(l.id)}>复制</button>{' '}
-                        <button className="btn small" onClick={() => saveOne(l.id)}>{dirHandle ? '保存' : '⬇'}</button>{' '}
-                        <button className="btn small" onClick={() => deleteLevel(l.id)}>删除</button>
+                        <button className="btn small" onClick={() => saveOne(l.id)} disabled={ghBusy}>{cloudOn ? '☁保存' : dirHandle ? '保存' : '⬇'}</button>{' '}
+                        <button className="btn small" onClick={() => deleteLevel(l.id)} disabled={ghBusy}>删除</button>
                       </td>
                     </tr>
                   );
@@ -447,6 +561,13 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
             title={levels.find((l) => l.id === renameId)?.title || ''}
             onOk={(t) => renameLevel(renameId, t)}
             onCancel={() => setRenameId(null)}
+          />
+        )}
+        {tokenOpen && (
+          <TokenDialog
+            busy={ghBusy}
+            onOk={connectCloud}
+            onCancel={() => setTokenOpen(false)}
           />
         )}
         {toast && <div className={`toast ${toast.kind}`}>{toast.msg}</div>}
@@ -465,8 +586,9 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
           <span className="grow" />
           <button className="btn small" onClick={undo} disabled={!past.length} title="Ctrl+Z">↶ 撤销</button>
           <button className="btn small" onClick={redo} disabled={!future.length}>↷ 重做</button>
-          <button className="btn small yellow" onClick={() => saveOne(lv.id)}>{dirHandle ? '💾 保存' : '⬇ 下载 JSON'}</button>
-          {canSaveDir && !dirHandle && <button className="btn small" onClick={pickFolder}>📂 打开文件夹</button>}
+          <button className="btn small yellow" onClick={() => saveOne(lv.id)} disabled={ghBusy}>{cloudOn ? '☁ 保存到云端' : dirHandle ? '💾 保存' : '⬇ 下载 JSON'}</button>
+          {!cloudOn && canSaveDir && !dirHandle && <button className="btn small" onClick={pickFolder}>📂 打开文件夹</button>}
+          {!cloudOn && <button className="btn small" onClick={() => setTokenOpen(true)}>连接 GitHub</button>}
         </div>
       </div>
 
@@ -621,6 +743,13 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
           <Palette lookup={lookup} palette={palette} base={base} tool={tool} setTool={setTool} />
         </aside>
       </div>
+      {tokenOpen && (
+        <TokenDialog
+          busy={ghBusy}
+          onOk={connectCloud}
+          onCancel={() => setTokenOpen(false)}
+        />
+      )}
       {toast && <div className={`toast ${toast.kind}`}>{toast.msg}</div>}
     </div>
   );
@@ -665,6 +794,41 @@ function RenameDialog({ title: initial, onOk, onCancel }) {
           <button className="btn small" onClick={onCancel}>取消</button>
           <span className="grow" />
           <button className="btn small yellow" disabled={!title.trim()} onClick={() => onOk(title.trim())}>确定</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Fine-grained PAT：仅 DiggysCardWorldSite · Contents 读写。Token 只存本机 localStorage。 */
+function TokenDialog({ busy, onOk, onCancel }) {
+  const [token, setTok] = useState('');
+  return (
+    <div className="modal-bg" onClick={onCancel}>
+      <div className="modal sketch" onClick={(e) => e.stopPropagation()} style={{ width: 'min(520px, 94vw)' }}>
+        <h3>连接 GitHub 云端</h3>
+        <p className="hint">
+          请粘贴 <b>Fine-grained PAT</b>（Resource：仅 <code>DiggysCardWorldSite</code>；权限：Contents Read and write）。
+          Token 只保存在本机浏览器，不会提交到仓库或出现在 URL。
+        </p>
+        <label>Personal Access Token
+          <input
+            type="password"
+            autoComplete="off"
+            spellCheck={false}
+            placeholder="github_pat_…（由所有者填入，勿外传）"
+            value={token}
+            onChange={(e) => setTok(e.target.value)}
+            autoFocus
+          />
+        </label>
+        <p className="muted small">创建入口：GitHub → Settings → Developer settings → Personal access tokens → Fine-grained。</p>
+        <div className="ps-foot">
+          <button className="btn small" onClick={onCancel} disabled={busy}>取消</button>
+          <span className="grow" />
+          <button className="btn small yellow" disabled={busy || !token.trim()} onClick={() => onOk(token.trim())}>
+            {busy ? '连接中…' : '连接并保存'}
+          </button>
         </div>
       </div>
     </div>

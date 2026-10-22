@@ -42,34 +42,35 @@ SITE_BASE=/DiggysCardWorldSite npm run build && npx serve dist
 
 | 用途 | 路径 |
 |------|------|
-| 仓库权威副本（给 jsDelivr） | `/diggy_levels/my-levels/`（含 `index.json`） |
-| Pages 上 | `https://supersuraccoon.github.io/DiggysCardWorldSite/diggy_levels/my-levels/` |
+| 仓库正本 | `/diggy_levels/my-levels/`（`{id}.json` + `index.json`） |
+| Pages（推荐 LEVEL_BASE） | `https://supersuraccoon.github.io/DiggysCardWorldSite/diggy_levels` |
 
-更新关卡：改根目录 `diggy_levels/`，推 `main` 即可；构建时会同步进站点产物。
+**更新方式（一期）：** 所有者在网站「编辑器 → 我的关卡」连接 Fine-grained PAT 后，保存/删除会经 GitHub Contents API 写本仓 `main`；推送后 Actions 约 30～90 秒更新 Pages。也可直接改根目录 `diggy_levels/` 再 `git push`。
 
-### CORS 与本地 Cocos
+### 游戏 LEVEL_BASE
 
-**GitHub Pages 不支持自定义响应头**，因此浏览器从 `http://localhost:7457` 直接请求 Pages 上的 JSON 仍可能被 CORS 拦截。
+**推荐（保存后尽快刷新）：**
 
-推荐本地游戏把 `LEVEL_BASE` 指到 **jsDelivr**（自带 CORS）：
+```text
+LEVEL_BASE=https://supersuraccoon.github.io/DiggysCardWorldSite/diggy_levels
+```
+
+拉取时加缓存破坏，例如：
+
+```text
+GET {LEVEL_BASE}/my-levels/index.json?t={Date.now()}
+GET {LEVEL_BASE}/my-levels/{id}.json?t={Date.now()}
+```
+
+**备选（本地 Cocos 遇 CORS 时）：**
 
 ```text
 https://cdn.jsdelivr.net/gh/supersuraccoon/DiggysCardWorldSite@main/diggy_levels
 ```
 
-完整索引示例：
+jsDelivr 自带 CORS，但**缓存偏久**，不适合「刚在编辑器保存就立刻刷新」；仅作 Pages 异常或本地跨域时的回退。
 
-```text
-https://cdn.jsdelivr.net/gh/supersuraccoon/DiggysCardWorldSite@main/diggy_levels/my-levels/index.json
-```
-
-线上若官网与关卡同域（都挂在本 Pages 站点下），游戏包与站点同源时一般无跨域问题；仅本地预览需要 jsDelivr。
-
-Pages 直链（无自定义 CORS，适合同源或服务端拉取）：
-
-```text
-https://supersuraccoon.github.io/DiggysCardWorldSite/diggy_levels
-```
+GitHub Pages 不支持自定义 CORS 头：本地预览若被拦，再用 jsDelivr；线上游戏与站点同源时优先 Pages + `?t=`。
 
 ## 自定义域名（可选）
 
