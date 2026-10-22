@@ -25,6 +25,23 @@ export function pageRoot(pathname = '/') {
   return Array(depth).fill('..').join('/');
 }
 
+/** 拼 React 编辑器里的站内静态图。
+ *  base 是 pageRoot（'.' / '..' / '../..'）；
+ *  path 是 '/images/...'。打包后 relativize-dist 可能把 JS 里的
+ *  "/images/..." 改成 "../images/..."——那种已是相对根路径，不能再拼 base，
+ *  否则会变成 ../../images/... 在 GitHub Pages 上裂图。
+ */
+export function asset(base, path) {
+  if (path == null || path === '') return path;
+  const p = String(path);
+  if (/^(?:[a-z]+:|\/\/|data:)/i.test(p)) return p;
+  if (p.startsWith('./') || p.startsWith('../')) return p;
+  const root = String(base ?? '.').replace(/\/+$/, '') || '.';
+  const rest = p.replace(/^\//, '');
+  if (root === '.' || root === './') return `./${rest}`;
+  return `${root}/${rest}`;
+}
+
 /** 拼站内地址。root 缺省为 '.'（仅适合站点根页）；子页请传 pageRoot(...) */
 export const u = (p, root = '.') => {
   if (!p && p !== '') return p;

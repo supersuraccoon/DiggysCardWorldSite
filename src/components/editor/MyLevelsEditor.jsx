@@ -16,6 +16,7 @@ import {
   hostWaitHint, defaultCloudTarget, setCloudTarget,
 } from '../../lib/hostMyLevels.js';
 import { STAT_ICONS } from '../../lib/icons.js';
+import { asset } from '../../lib/site.js';
 import { Palette } from './Palette.jsx';
 
 const LS_KEY = 'diggy.editor.mylevels.v1';
@@ -810,8 +811,8 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
               {st && !isEmptyLevel(lv) && (
                 <div className="le-stats">
                   <span><b>{st.monsters}</b> 只怪</span>
-                  <span><img src={`${base}${STAT_ICONS.heart}`} alt="" /> 总心 <b>{st.heart}</b></span>
-                  <span><img src={`${base}${STAT_ICONS.tooth}`} alt="" /> 总牙 <b>{st.tooth}</b></span>
+                  <span><img src={`${asset(base, STAT_ICONS.heart)}`} alt="" /> 总心 <b>{st.heart}</b></span>
+                  <span><img src={`${asset(base, STAT_ICONS.tooth)}`} alt="" /> 总牙 <b>{st.tooth}</b></span>
                   <span>装备 <b>{st.equipment}</b> · 宝箱 <b>{st.chest}</b> · 黄头鸭 <b>{st.duck}</b></span>
                 </div>
               )}

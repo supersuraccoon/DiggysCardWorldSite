@@ -5,6 +5,7 @@ import {
   validateLevel, levelStats, makeZip, resolveConfigDir, writeText,
 } from '../../lib/levels.js';
 import { STAT_ICONS } from '../../lib/icons.js';
+import { asset } from '../../lib/site.js';
 import { Palette } from './Palette.jsx';
 
 const LS_KEY = 'diggy.editor.levels.v1';
@@ -441,10 +442,10 @@ export default function LevelEditor({ shippedWorlds, roles, palette, base = '' }
               {st && !st.empty && (
                 <div className="le-stats">
                   <span><b>{st.monsters}</b> 只怪</span>
-                  <span><img src={`${base}${STAT_ICONS.heart}`} alt="" /> 总心 <b>{st.heart}</b></span>
-                  <span><img src={`${base}${STAT_ICONS.tooth}`} alt="" /> 总牙 <b>{st.tooth}</b></span>
-                  <span><img src={`${base}${STAT_ICONS.armor}`} alt="" /> 总甲 <b>{st.armor}</b></span>
-                  <span><img src={`${base}${STAT_ICONS.gold}`} alt="" /> 掉金 <b>{st.gold}</b></span>
+                  <span><img src={`${asset(base, STAT_ICONS.heart)}`} alt="" /> 总心 <b>{st.heart}</b></span>
+                  <span><img src={`${asset(base, STAT_ICONS.tooth)}`} alt="" /> 总牙 <b>{st.tooth}</b></span>
+                  <span><img src={`${asset(base, STAT_ICONS.armor)}`} alt="" /> 总甲 <b>{st.armor}</b></span>
+                  <span><img src={`${asset(base, STAT_ICONS.gold)}`} alt="" /> 掉金 <b>{st.gold}</b></span>
                   <span>装备 <b>{st.equipment}</b> · 宝箱 <b>{st.chest}</b> · 黄头鸭 <b>{st.duck}</b></span>
                   <span>墙 <b>{st.walls}</b> · 坑 <b>{st.pits}</b></span>
                   {st.catalogStats && <span className="muted small">有怪数值是 -1（用图鉴），没算进去</span>}

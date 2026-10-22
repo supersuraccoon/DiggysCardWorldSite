@@ -4,6 +4,7 @@ import {
   validateRole, validateRoles, rolesJsonToMd, parseSkill, parseStatus,
 } from '../../lib/roles.js';
 import { statusIcon, STAT_ICONS, STAT_LABELS } from '../../lib/icons.js';
+import { asset } from '../../lib/site.js';
 
 const LS_KEY = 'diggy.editor.roles.v1';
 const STATS = ['heart', 'tooth', 'armor', 'gold'];
@@ -278,7 +279,7 @@ function StatRow({ r, base, size = 'md' }) {
     <div className={`stats ${size}`}>
       {STATS.map((s) => (
         <span key={s} className="stat" title={STAT_LABELS[s]}>
-          <img src={`${base}${STAT_ICONS[s]}`} alt={STAT_LABELS[s]} />
+          <img src={`${asset(base, STAT_ICONS[s])}`} alt={STAT_LABELS[s]} />
           <b>{r[s] === -1 ? '图' : r[s]}</b>
         </span>
       ))}
@@ -303,7 +304,7 @@ function RoleCard({ r, img, base, refs, changed, errs, active, onClick }) {
         <span className="gid">{r.id}</span>
         {r.hunt && <span className="tag">{huntLabel(r.hunt)}{r.hunt === 'chase' && r.chaseEvery > 1 ? ` /${r.chaseEvery}` : ''}</span>}
         {(r.traits || []).map((t) => <span key={t} className="tag dash">{t}</span>)}
-        {(r.statuses || []).map((s, i) => statusIcon(s.id) && <img key={i} className="mini" src={`${base}${statusIcon(s.id)}`} title={`${s.name} ${s.value}/${s.turns}/${s.every}`} alt={s.name} />)}
+        {(r.statuses || []).map((s, i) => statusIcon(s.id) && <img key={i} className="mini" src={`${asset(base, statusIcon(s.id))}`} title={`${s.name} ${s.value}/${s.turns}/${s.every}`} alt={s.name} />)}
         {(r.skills || []).map((s) => <span key={s.id || s.name} className="tag y">{s.name}</span>)}
       </div>
     </button>
@@ -326,7 +327,7 @@ function RoleTable({ rows, base, img, changes, errorsById, shippedById, selId, o
         <thead>
           <tr>
             <th></th><th>图鉴 id</th><th>中文</th>
-            {STATS.map((f) => <th key={f}><img className="th-ico" src={`${base}${STAT_ICONS[f]}`} alt="" />{STAT_LABELS[f]}</th>)}
+            {STATS.map((f) => <th key={f}><img className="th-ico" src={`${asset(base, STAT_ICONS[f])}`} alt="" />{STAT_LABELS[f]}</th>)}
             <th>追击</th><th>间隔</th><th>特性</th><th>状态</th><th>技能</th><th>说明</th><th></th>
           </tr>
         </thead>
@@ -419,7 +420,7 @@ function EditPanel({ r, orig, img, refs, base, errs, changed, onChange, onReset,
 
         <div className="stat-grid">
           {STATS.map((f) => (
-            <Field key={f} label={<><img className="ico" src={`${base}${STAT_ICONS[f]}`} alt="" />{STAT_LABELS[f]}</>} changed={ch.has(f)} orig={o[f]} errs={errOf(f)} compact>
+            <Field key={f} label={<><img className="ico" src={`${asset(base, STAT_ICONS[f])}`} alt="" />{STAT_LABELS[f]}</>} changed={ch.has(f)} orig={o[f]} errs={errOf(f)} compact>
               {num(f)}
             </Field>
           ))}
@@ -462,7 +463,7 @@ function EditPanel({ r, orig, img, refs, base, errs, changed, onChange, onReset,
               <div className="st-list">
                 {statuses.map((s, i) => (
                   <div key={i} className="st-row">
-                    {statusIcon(s.id) ? <img src={`${base}${statusIcon(s.id)}`} alt="" /> : <span className="st-ph" />}
+                    {statusIcon(s.id) ? <img src={`${asset(base, statusIcon(s.id))}`} alt="" /> : <span className="st-ph" />}
                     <select value={s.id || ''} onChange={(e) => { const k = refs.statuses.find((x) => x.id === e.target.value); setStatus(i, { id: k.id, name: k.name }); }}>
                       {!s.id && <option value="">{s.name}（未知）</option>}
                       {refs.statuses.map((k) => <option key={k.id} value={k.id} disabled={!k.implemented}>{k.name}{k.polarity === 'debuff' ? '（减益）' : ''}{k.implemented ? '' : '（停着）'}</option>)}
