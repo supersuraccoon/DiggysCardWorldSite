@@ -66,6 +66,23 @@ curl -sS -X POST https://supersuraccoon-cocos2d.com/diggy_multi/room.php \
   -d '{"action":"join","code":"AB12","name":"P3","playerId":"dev3"}'
 ```
 
+
+## get?since=turn（减流量，2026-10-24）
+
+可选查询参数 `since` 或 `sinceTurn`（整数=客户端已知 `turn`）：
+
+```bash
+# 与房内 turn 相同 → 小包（无 snapshot）
+curl -sS "https://supersuraccoon-cocos2d.com/diggy_multi/room.php?action=get&code=AB12&since=12"
+
+# 期望类似：{"ok":true,"action":"get","unchanged":true,"code":"AB12","turn":12,"phase":"p2"}
+
+# 不带 since → 仍全量（旧客户端兼容）
+curl -sS "https://supersuraccoon-cocos2d.com/diggy_multi/room.php?action=get&code=AB12"
+```
+
+覆盖上传本目录 `room.php` 即可；create/join/postAction 语义未改。
+
 ### CORS
 
 `room.php` 所有响应（含错误）都带 `Access-Control-Allow-Origin: *`，localhost 游戏可直接打 API。  

@@ -11,8 +11,12 @@
  *
  *   GET  （无 action）                         → 探活
  *   GET  ?action=get&code=AB12 或 ?code=AB12  → 读房间（带 CORS）
+ *        可选 since= / sinceTurn=（客户端已知 turn）：
+ *          与房内 turn 相同 → 小包 {ok,unchanged,code,turn,phase}（无 room/snapshot）
+ *          不同或未带 since → 全量 room（与旧客户端兼容）
  *   POST {"action":"create", "name","playerId","levelId?"} → 开房 wait_p2
  *   POST {"action":"join", "code","name","playerId"}       → 入座 → phase=p1
+ *   POST {"action":"get", "code", "since?"|"sinceTurn?"}   → 同 GET get（since 可走 JSON）
  *   POST {"action":"postAction", "code","playerId","turn","nextPhase","snapshot","lastAction?"}
  *        → turn 乐观锁；phase 门闩；写入后 turn+1
  */
@@ -268,6 +272,55 @@ function room_allowed_seat($phase) {
     return 0;
 }
 
+
+/**
+ * 解析 since / sinceTurn（查询参数或已解码的 JSON 数组）。
+ * 返回 int turn，或 null 表示未带 / 非法（走全量）。
+ */
+function room_parse_since($query, $body) {
+    $raw = null;
+    if (is_array($query)) {
+        if (isset($query['since']) && $query['since'] !== '' && $query['since'] !== null) {
+            $raw = $query['since'];
+        } else if (isset($query['sinceTurn']) && $query['sinceTurn'] !== '' && $query['sinceTurn'] !== null) {
+            $raw = $query['sinceTurn'];
+        }
+    }
+    if ($raw === null && is_array($body)) {
+        if (isset($body['since']) && $body['since'] !== '' && $body['since'] !== null) {
+            $raw = $body['since'];
+        } else if (isset($body['sinceTurn']) && $body['sinceTurn'] !== '' && $body['sinceTurn'] !== null) {
+            $raw = $body['sinceTurn'];
+        }
+    }
+    if ($raw === null) {
+        return null;
+    }
+    if (is_int($raw) || is_float($raw) || (is_string($raw) && is_numeric($raw))) {
+        return intval($raw);
+    }
+    return null;
+}
+
+/**
+ * get 读房：带 since 且等于房内 turn → 小包；否则全量。
+ */
+function room_respond_get($code, $room, $sinceTurn) {
+    $serverTurn = isset($room['turn']) ? intval($room['turn']) : 0;
+    $phase = isset($room['phase']) ? $room['phase'] : null;
+    if ($sinceTurn !== null && $sinceTurn === $serverTurn) {
+        room_json(200, array(
+            'ok' => true,
+            'action' => 'get',
+            'unchanged' => true,
+            'code' => $code,
+            'turn' => $serverTurn,
+            'phase' => $phase,
+        ));
+    }
+    room_json(200, array('ok' => true, 'action' => 'get', 'room' => $room));
+}
+
 if (!room_ensure_dir($dir)) {
     room_json(500, array('ok' => false, 'error' => '无法创建 rooms 目录，请在面板确认 diggy_multi/rooms 可写'));
 }
@@ -289,7 +342,8 @@ if ($method === 'GET') {
         if ($room === null) {
             room_json(404, array('ok' => false, 'error' => 'not_found'));
         }
-        room_json(200, array('ok' => true, 'action' => 'get', 'room' => $room));
+        $sinceTurn = room_parse_since($_GET, null);
+        room_respond_get($code, $room, $sinceTurn);
     }
     if ($actionQ === '' || $actionQ === 'ping') {
         room_json(200, array(
@@ -298,7 +352,7 @@ if ($method === 'GET') {
             'php' => PHP_VERSION,
             'dir' => 'rooms/',
             'roomCount' => room_count($dir),
-            'hint' => 'POST create/join/postAction；GET ?action=get&code= 读房',
+            'hint' => 'POST create/join/postAction/get；GET ?action=get&code=&since= 读房',
         ));
     }
     room_json(400, array('ok' => false, 'error' => 'bad_request', 'hint' => 'GET 探活或 ?action=get&code='));
@@ -431,6 +485,21 @@ if ($method === 'POST') {
         room_json(200, array('ok' => true, 'action' => 'join', 'room' => $room));
     }
 
+    /* ---- get（JSON body 亦可带 since / sinceTurn） ---- */
+    if ($action === 'get') {
+        $code = room_safe_code(isset($body['code']) ? $body['code'] : '');
+        if ($code === false) {
+            room_json(400, array('ok' => false, 'error' => 'bad_request', 'hint' => '需要合法 code'));
+        }
+        $path = room_path($dir, $code);
+        $room = room_read($path);
+        if ($room === null) {
+            room_json(404, array('ok' => false, 'error' => 'not_found'));
+        }
+        $sinceTurn = room_parse_since($_GET, $body);
+        room_respond_get($code, $room, $sinceTurn);
+    }
+
     /* ---- postAction ---- */
     if ($action === 'postAction') {
         $code = room_safe_code(isset($body['code']) ? $body['code'] : '');
@@ -501,7 +570,7 @@ if ($method === 'POST') {
         room_json(200, array('ok' => true, 'action' => 'postAction', 'room' => $room));
     }
 
-    room_json(400, array('ok' => false, 'error' => 'bad_request', 'hint' => 'action 须为 create|join|postAction'));
+    room_json(400, array('ok' => false, 'error' => 'bad_request', 'hint' => 'action 须为 create|join|get|postAction'));
 }
 
 room_json(405, array('ok' => false, 'error' => 'bad_request', 'hint' => '不支持的方法：' . $method));
