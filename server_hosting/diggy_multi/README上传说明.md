@@ -15,6 +15,8 @@
 diggy_multi/
   .htaccess          ← 静态 JSON CORS（可选但建议）
   room.php           ← create / join / get / postAction
+  clear_rooms.php    ← 可选：清废房后建议删掉
+  clear_rooms.sh     ← 可选：本机 curl 调清房（不上主机）
   rooms/
     .htaccess        ← 再放一份更稳
     {CODE}.json      ← 由 room.php 写入，勿手建
@@ -100,6 +102,23 @@ curl -sS "https://supersuraccoon-cocos2d.com/diggy_multi/room.php?action=get&cod
 
 相位：`wait_p2` →（join）`p1` → `p2` → `monsters` → `p1`… → `ended`。  
 `monsters` 阶段约定由 **P1** 提交结算。错误形：`{ ok:false, error:"turn_mismatch"|"not_your_phase"|"room_full"|"not_found"|"bad_request" }`。
+
+## 清废房（clear_rooms.php，可选）
+
+测试残留房间可一键删掉 `rooms/` 下所有 `*.json` / `*.lock`（**保留** `.htaccess`）。
+
+1. 面板上传本目录 `clear_rooms.php` → `diggy_multi/clear_rooms.php`（与 `room.php` 同级）。
+2. 浏览器或 curl（须带 key）：
+
+```bash
+curl -sS "https://supersuraccoon-cocos2d.com/diggy_multi/clear_rooms.php?key=diggy_clear_rooms"
+# 期望：{"ok":true,"deleted":["AB12.json",...],"kept":[".htaccess",...],...}
+```
+
+本机也可：`./clear_rooms.sh`（同目录；仅 curl 调线上 PHP，不做 FTP）。
+
+3. **用完请在面板删掉** `clear_rooms.php`（密钥极简，防外人乱扫）。  
+4. 进行中的对战也会被清——确认无人对战再跑。不改 `room.php`。
 
 ## 与 diggy_levels 关系
 
