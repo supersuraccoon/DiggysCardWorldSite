@@ -42,14 +42,17 @@
     </div>
   </div>
   <!--
-    Load order (md5Cache hashes): settings → cocos2d-js-min → physics-min → main.
-    Hotfixed 2026-10-24: template had omitted engine scripts → splash stuck at 0%.
+    Unhashed placeholders — Cocos md5Cache rewrites these to *.HASH.js at build time.
+    Required order: settings → cocos2d-js-min → physics-min → main.
+    Do NOT omit engine scripts (splash stuck at 0% if missing).
+    Relative paths only so GitHub Pages /DiggysCardWorldSite/play/ works.
+    Fullscreen CSS: tools/patch-web-mobile-fullscreen.sh (do not overwrite this file post-build).
   -->
-  <script src="src/settings.0c004.js" charset="utf-8"></script>
-  <script src="cocos2d-js-min.c4d1c.js" charset="utf-8"></script>
-  <script src="physics-min.ad9a7.js" charset="utf-8"></script>
-  <script src="main.d0866.js" charset="utf-8"></script>
-  <!-- Cocos 2.4 main.js only auto-boots under jsb; web must call boot() -->
+  <script src="src/settings.82195.js" charset="utf-8"></script>
+  <script src="cocos2d-js-min.48569.js" charset="utf-8"></script>
+  <script src="physics-min.js" charset="utf-8"></script>
+  <script src="main.855cb.js" charset="utf-8"></script>
+  <!-- Cocos 2.4 main.855cb.js only auto-boots under jsb; web must call boot() -->
   <script type="text/javascript">window.boot();</script>
 </body>
 </html>
