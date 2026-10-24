@@ -42,13 +42,12 @@
     </div>
   </div>
   <!--
-    Cocos 2.4.13 build injects settings.js / cocos2d-js*.js / main.d0866.js here.
-    If md5Cache=true, DO NOT let this static file wipe the hashed script tags:
-    keep the build-generated index.4850f.html and rely on style-mobile.06358.css +
-    tools/patch-web-mobile-fullscreen.sh instead.
-    Relative paths only (./) so GitHub Pages /DiggysCardWorldSite/play/ works.
+    Load order (md5Cache hashes): settings → cocos2d-js-min → physics-min → main.
+    Hotfixed 2026-10-24: template had omitted engine scripts → splash stuck at 0%.
   -->
   <script src="src/settings.0c004.js" charset="utf-8"></script>
+  <script src="cocos2d-js-min.c4d1c.js" charset="utf-8"></script>
+  <script src="physics-min.ad9a7.js" charset="utf-8"></script>
   <script src="main.d0866.js" charset="utf-8"></script>
 </body>
 </html>
