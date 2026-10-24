@@ -8,6 +8,7 @@ dist/
 
 # Generated: diggy_levels is canonical at repo root; prebuild copies into public/
 public/diggy_levels/
+public/play/
 
 # Env / secrets
 .env

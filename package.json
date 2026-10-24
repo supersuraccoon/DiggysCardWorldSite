@@ -12,7 +12,7 @@
     "json2md": "node scripts/roles-convert.mjs json2md",
     "font": "python3 tools/subset_font.py",
     "art": "python3 tools/prepare_art.py",
-    "prebuild": "node scripts/copy-diggy-levels.mjs"
+    "prebuild": "node scripts/copy-diggy-levels.mjs && node scripts/copy-play.mjs"
   },
   "engines": {
     "node": ">=20.3.0"

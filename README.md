@@ -87,3 +87,12 @@ GitHub Pages 不支持自定义 CORS 头：本地预览若被拦，再用 jsDeli
 ```
 
 请勿提交密钥、`.env`、未公开的大资源。
+
+
+## play/（手机验收 · 非官网入口）
+
+Cocos web-mobile 构建挂载在仓库根 `play/`，Pages 直链：
+
+https://supersuraccoon.github.io/DiggysCardWorldSite/play/
+
+**不要**在官网导航加入口。详见私有仓 `notes/工程/交接-程序与手机验收流水线.md`。
