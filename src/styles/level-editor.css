@@ -344,3 +344,5 @@
   .ml-editing .le-palette { max-height: calc(100vh - var(--nav-h) - 8px); }
   .ed-bar, .le-bar { padding: 3px 5px; }
 }
+.dl-tbl .num.tiny { width: 52px; }
+.dl-tbl .nowrap { white-space: nowrap; }

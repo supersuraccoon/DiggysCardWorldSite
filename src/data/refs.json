@@ -12,7 +12,7 @@
       "kind": 2,
       "id": "venom_bite",
       "name": "毒液咬咬",
-      "desc": "造成 2 点伤害，中毒 5 回合。",
+      "desc": "造成 2 点伤害，中毒 4 回合。",
       "side": "foe",
       "cooldown": 5
     },
@@ -20,7 +20,7 @@
       "kind": 3,
       "id": "venom_bomb",
       "name": "毒液炸弹",
-      "desc": "造成 5 点伤害，中毒 10 回合。",
+      "desc": "造成 4 点伤害，中毒 6 回合。",
       "side": "foe",
       "cooldown": 8
     },
@@ -36,9 +36,9 @@
       "kind": 5,
       "id": "pot_lid_up",
       "name": "锅盖举举",
-      "desc": "把锅盖举起来，护盾 2，持续 3 回合。",
+      "desc": "把锅盖举起来，护盾 3，持续 3 回合。",
       "side": "ally",
-      "cooldown": 3
+      "cooldown": 4
     },
     {
       "kind": 6,
@@ -60,8 +60,32 @@
       "kind": 8,
       "id": "pat_head",
       "name": "摸摸头",
-      "desc": "摸摸头，给心最少的队友回 2 心。含自己",
+      "desc": "摸摸头，给心最少的队友回 3 心。含自己",
       "side": "ally",
+      "cooldown": 4
+    },
+    {
+      "kind": 9,
+      "id": "mole_claw",
+      "name": "爪爪爪",
+      "desc": "连抓 3 下。每下是一次普攻，伤害看当时的牙。",
+      "side": "foe",
+      "cooldown": 3
+    },
+    {
+      "kind": 10,
+      "id": "mole_spike",
+      "name": "地刺",
+      "desc": "朝一个方向冒刺，直线 3 格内全部敌人各 4 点伤害",
+      "side": "foe",
+      "cooldown": 5
+    },
+    {
+      "kind": 11,
+      "id": "mole_top",
+      "name": "鼹鼠陀螺",
+      "desc": "转一圈，打周围 4 点并推开 1 格",
+      "side": "foe",
       "cooldown": 4
     }
   ],
@@ -211,21 +235,49 @@
       "id": "range",
       "name": "射程",
       "polarity": "buff",
-      "implemented": false
+      "implemented": true
     },
     {
       "kind": 22,
       "id": "splash",
       "name": "溅射",
       "polarity": "buff",
-      "implemented": false
+      "implemented": true
     },
     {
       "kind": 23,
       "id": "bounce",
       "name": "弹射",
       "polarity": "buff",
-      "implemented": false
+      "implemented": true
+    },
+    {
+      "kind": 24,
+      "id": "stuck",
+      "name": "黏住",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 25,
+      "id": "stealth",
+      "name": "隐身",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 26,
+      "id": "fly",
+      "name": "飞行",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 27,
+      "id": "freeze",
+      "name": "冰冻",
+      "polarity": "debuff",
+      "implemented": true
     }
   ],
   "hunts": [

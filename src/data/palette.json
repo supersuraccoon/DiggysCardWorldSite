@@ -38,7 +38,7 @@
       "heart": 0,
       "tooth": 2,
       "armor": 0,
-      "price": 3,
+      "price": 4,
       "where": "桌上、商店",
       "shopOnly": false,
       "img": "images/level/equip/sword.png"
@@ -49,7 +49,7 @@
       "prefab": "equipment_lid_prefab",
       "heart": 0,
       "tooth": 0,
-      "armor": 1,
+      "armor": 2,
       "price": 3,
       "where": "桌上、商店",
       "shopOnly": false,
@@ -72,9 +72,9 @@
       "name": "水水雨鞋",
       "prefab": "equipment_armor_rain_boots_prefab",
       "heart": 0,
-      "tooth": 2,
+      "tooth": 1,
       "armor": 2,
-      "price": 5,
+      "price": 6,
       "where": "桌上、商店",
       "shopOnly": false,
       "img": "images/level/equip/armor_rain_boots.png"
@@ -97,20 +97,32 @@
       "prefab": "equipment_weapon_slingshot_prefab",
       "heart": 0,
       "tooth": 3,
-      "armor": 3,
+      "armor": 1,
       "price": 10,
       "where": "桌上、商店",
       "shopOnly": false,
       "img": "images/level/equip/weapon_slingshot.png"
     },
     {
+      "id": "weapon_bomb",
+      "name": "砰砰炸弹",
+      "prefab": "equipment_weapon_bomb_prefab",
+      "heart": 0,
+      "tooth": 3,
+      "armor": 0,
+      "price": 12,
+      "where": "桌上（测试：第 1 层）",
+      "shopOnly": false,
+      "img": "images/level/equip/weapon_bomb.png"
+    },
+    {
       "id": "weapon_spider_sword",
       "name": "蜘蛛宝剑",
       "prefab": "equipment_weapon_spider_sword_prefab",
-      "heart": 3,
-      "tooth": 3,
-      "armor": 3,
-      "price": 20,
+      "heart": 2,
+      "tooth": 4,
+      "armor": 2,
+      "price": 22,
       "where": "仅商店",
       "shopOnly": true,
       "img": "images/level/equip/weapon_spider_sword.png"
@@ -119,7 +131,7 @@
       "id": "a_bunny_slippers",
       "name": "兔子拖鞋",
       "prefab": "equipment_a_bunny_slippers_prefab",
-      "heart": 3,
+      "heart": 4,
       "tooth": 0,
       "armor": 1,
       "price": 10,
@@ -133,8 +145,8 @@
       "prefab": "equipment_a_quilt_vest_prefab",
       "heart": 3,
       "tooth": 0,
-      "armor": 3,
-      "price": 15,
+      "armor": 4,
+      "price": 16,
       "where": "仅商店",
       "shopOnly": true,
       "img": "images/level/equip/a_quilt_vest.png"
@@ -149,6 +161,240 @@
       "prefab": "item_chest_prefab",
       "img": "images/level/item/chest.png",
       "desc": "踩到弹出四选一"
+    },
+    {
+      "id": "cottage",
+      "name": "爱心小屋",
+      "kind": "event",
+      "price": 0,
+      "prefab": "event_cottage_prefab",
+      "img": "images/level/item/cottage.png",
+      "desc": "门上挂着小心心，烟囱还在冒烟。"
+    },
+    {
+      "id": "hotspring",
+      "name": "咕嘟温泉",
+      "kind": "event",
+      "price": 0,
+      "prefab": "event_hotspring_prefab",
+      "img": "images/level/item/hotspring.png",
+      "desc": "石头在笑，水在冒泡。"
+    },
+    {
+      "id": "spinner",
+      "name": "怪兽转盘",
+      "kind": "event",
+      "price": 0,
+      "prefab": "event_spinner_prefab",
+      "img": "images/level/item/spinner.png",
+      "desc": "转到哪只，就跟哪只打。"
+    },
+    {
+      "id": "cabin",
+      "name": "怪物小屋",
+      "kind": "event",
+      "price": 0,
+      "prefab": "event_cabin_prefab",
+      "img": "images/level/item/cabin.png",
+      "desc": "门缝里挤满了眼睛。一脚踩上——进小房子！"
+    },
+    {
+      "id": "syrup_heal",
+      "name": "咬咬糖浆",
+      "kind": "item",
+      "price": 5,
+      "prefab": "item_syrup_heal_prefab",
+      "img": "images/level/item/syrup_heal.png",
+      "desc": "咕嘟一口，心里暖一点。"
+    },
+    {
+      "id": "bandage_armor",
+      "name": "创可贴甲",
+      "kind": "item",
+      "price": 4,
+      "prefab": "item_bandage_armor_prefab",
+      "img": "images/level/item/bandage_armor.png",
+      "desc": "贴上，硬一点。"
+    },
+    {
+      "id": "candy_tooth",
+      "name": "奶牙糖",
+      "kind": "item",
+      "price": 10,
+      "prefab": "item_candy_tooth_prefab",
+      "img": "images/level/item/candy_tooth.png",
+      "desc": "甜一下，牙好像长了一点点。"
+    },
+    {
+      "id": "amulet",
+      "name": "护身符",
+      "kind": "item",
+      "price": 15,
+      "prefab": "item_amulet_prefab",
+      "img": "images/level/item/amulet.png",
+      "desc": "贴身护着；真要倒下时会帮一把。"
+    },
+    {
+      "id": "paper_bridge",
+      "name": "纸桥",
+      "kind": "item",
+      "price": -1,
+      "prefab": "item_paper_bridge_prefab",
+      "img": "images/level/item/paper_bridge.png",
+      "desc": "对着洞放下，就能过去。"
+    },
+    {
+      "id": "wood_axe",
+      "name": "柴斧",
+      "kind": "item",
+      "price": 4,
+      "prefab": "item_wood_axe_prefab",
+      "img": "images/level/item/wood_axe.png",
+      "desc": "对着树抡一下，路会开一点。"
+    },
+    {
+      "id": "rusty_key",
+      "name": "生锈钥匙",
+      "kind": "item",
+      "price": 4,
+      "prefab": "item_rusty_key_prefab",
+      "img": "images/level/item/rusty_key.png",
+      "desc": "对着锁拧一下，也许能开。"
+    },
+    {
+      "id": "timer_bomb",
+      "name": "定时炸弹",
+      "kind": "item",
+      "price": 7,
+      "prefab": "item_timer_bomb_prefab",
+      "img": "images/level/item/timer_bomb.png",
+      "desc": "放下就跑！滴答一会儿，十字炸开，谁在旁边都要挨。"
+    },
+    {
+      "id": "bear_trap",
+      "name": "捕兽夹",
+      "kind": "item",
+      "price": 5,
+      "prefab": "item_bear_trap_prefab",
+      "img": "images/level/item/bear_trap.png",
+      "desc": "咔嚓！谁踩谁疼，会飞的不上当。"
+    },
+    {
+      "id": "glue_puddle",
+      "name": "胶水滩",
+      "kind": "item",
+      "price": 4,
+      "prefab": "item_glue_puddle_prefab",
+      "img": "images/level/item/glue_puddle.png",
+      "desc": "黏糊糊一摊，踩上去就挪不动脚。"
+    },
+    {
+      "id": "thumbtack_mat",
+      "name": "图钉毯",
+      "kind": "item",
+      "price": 4,
+      "prefab": "item_thumbtack_mat_prefab",
+      "img": "images/level/item/thumbtack_mat.png",
+      "desc": "扎脚！谁走过都哎哟一声，踩多了就秃了。"
+    },
+    {
+      "id": "scroll_mole_claw",
+      "name": "爪爪爪卷轴",
+      "kind": "scroll",
+      "price": 12,
+      "prefab": "item_scroll_mole_claw_prefab",
+      "img": "images/level/item/scroll_mole_claw.png",
+      "desc": "读一读，学会「爪爪爪」。"
+    },
+    {
+      "id": "scroll_mole_spike",
+      "name": "地刺卷轴",
+      "kind": "scroll",
+      "price": 18,
+      "prefab": "item_scroll_mole_spike_prefab",
+      "img": "images/level/item/scroll_mole_spike.png",
+      "desc": "读一读，学会「地刺」。"
+    },
+    {
+      "id": "scroll_mole_top",
+      "name": "鼹鼠陀螺卷轴",
+      "kind": "scroll",
+      "price": 18,
+      "prefab": "item_scroll_mole_top_prefab",
+      "img": "images/level/item/scroll_mole_top.png",
+      "desc": "读一读，学会「鼹鼠陀螺」。"
+    },
+    {
+      "id": "scroll_venom_lick",
+      "name": "毒液舔舔卷轴",
+      "kind": "scroll",
+      "price": 12,
+      "prefab": "item_scroll_venom_lick_prefab",
+      "img": "images/level/item/scroll_venom_lick.png",
+      "desc": "读一读，学会「毒液舔舔」。"
+    },
+    {
+      "id": "scroll_venom_bite",
+      "name": "毒液咬咬卷轴",
+      "kind": "scroll",
+      "price": 18,
+      "prefab": "item_scroll_venom_bite_prefab",
+      "img": "images/level/item/scroll_venom_bite.png",
+      "desc": "读一读，学会「毒液咬咬」。"
+    },
+    {
+      "id": "scroll_venom_bomb",
+      "name": "毒液炸弹卷轴",
+      "kind": "scroll",
+      "price": 25,
+      "prefab": "item_scroll_venom_bomb_prefab",
+      "img": "images/level/item/scroll_venom_bomb.png",
+      "desc": "读一读，学会「毒液炸弹」。"
+    },
+    {
+      "id": "scroll_venom_fang",
+      "name": "毒牙牙卷轴",
+      "kind": "scroll",
+      "price": 12,
+      "prefab": "item_scroll_venom_fang_prefab",
+      "img": "images/level/item/scroll_venom_fang.png",
+      "desc": "读一读，学会「毒牙牙」。"
+    },
+    {
+      "id": "scroll_pot_lid_up",
+      "name": "锅盖举举卷轴",
+      "kind": "scroll",
+      "price": 12,
+      "prefab": "item_scroll_pot_lid_up_prefab",
+      "img": "images/level/item/scroll_pot_lid_up.png",
+      "desc": "读一读，学会「锅盖举举」。"
+    },
+    {
+      "id": "scroll_frying_pan",
+      "name": "平底锅咚卷轴",
+      "kind": "scroll",
+      "price": 18,
+      "prefab": "item_scroll_frying_pan_prefab",
+      "img": "images/level/item/scroll_frying_pan.png",
+      "desc": "读一读，学会「平底锅咚」。"
+    },
+    {
+      "id": "scroll_dong_drum",
+      "name": "咚咚鼓卷轴",
+      "kind": "scroll",
+      "price": 12,
+      "prefab": "item_scroll_dong_drum_prefab",
+      "img": "images/level/item/scroll_dong_drum.png",
+      "desc": "读一读，学会「咚咚鼓」。"
+    },
+    {
+      "id": "scroll_pat_head",
+      "name": "摸摸头卷轴",
+      "kind": "scroll",
+      "price": 12,
+      "prefab": "item_scroll_pat_head_prefab",
+      "img": "images/level/item/scroll_pat_head.png",
+      "desc": "读一读，学会「摸摸头」。"
     }
   ],
   "store": [
@@ -157,9 +403,97 @@
       "name": "黄头鸭的商店",
       "kind": "store",
       "price": 0,
-      "prefab": "item_duck_prefab",
+      "prefab": "event_duck_prefab",
       "img": "images/level/item/duck.png",
-      "desc": "踩到开一次商店，牌消失"
+      "desc": "站上去，商店开门一次。"
+    },
+    {
+      "id": "crow",
+      "name": "乌鸦的卷轴商店",
+      "kind": "store",
+      "price": 0,
+      "prefab": "event_crow_prefab",
+      "img": "images/level/item/crow.png",
+      "desc": "站上去，卷轴商店开门一次。"
+    },
+    {
+      "id": "raccoon",
+      "name": "创可贴浣熊的补给站",
+      "kind": "store",
+      "price": 0,
+      "prefab": "event_raccoon_prefab",
+      "img": "images/level/item/raccoon.png",
+      "desc": "站上去，补给站开门一次。"
+    },
+    {
+      "id": "capybara",
+      "name": "卡皮巴拉的银行",
+      "kind": "store",
+      "price": 0,
+      "prefab": "event_capybara_prefab",
+      "img": "images/level/item/capybara.png",
+      "desc": "站上去，银行开门一次。"
+    },
+    {
+      "id": "owl",
+      "name": "咕咕猫头鹰的换装屋",
+      "kind": "store",
+      "price": 0,
+      "prefab": "event_owl_prefab",
+      "img": "images/level/item/owl.png",
+      "desc": "站上去，换装屋开门一次。"
+    }
+  ],
+  "costumes": [
+    {
+      "id": "cat",
+      "name": "猫猫服",
+      "img": "images/level/costume/cat.png"
+    },
+    {
+      "id": "christmas",
+      "name": "圣诞服",
+      "img": "images/level/costume/christmas.png"
+    },
+    {
+      "id": "diving",
+      "name": "潜水服",
+      "img": "images/level/costume/diving.png"
+    },
+    {
+      "id": "frog",
+      "name": "青蛙服",
+      "img": "images/level/costume/frog.png"
+    },
+    {
+      "id": "halloween",
+      "name": "万圣节",
+      "img": "images/level/costume/halloween.png"
+    },
+    {
+      "id": "miner",
+      "name": "矿工服",
+      "img": "images/level/costume/miner.png"
+    },
+    {
+      "id": "ninja",
+      "name": "忍者服",
+      "img": "images/level/costume/ninja.png"
+    },
+    {
+      "id": "penguin",
+      "name": "企鹅服",
+      "img": "images/level/costume/penguin.png"
+    },
+    {
+      "id": "space",
+      "name": "宇航服",
+      "img": "images/level/costume/space.png"
+    },
+    {
+      "id": "zombie",
+      "name": "僵尸服",
+      "img": "images/level/costume/zombie.png"
     }
   ],
   "deal": {
@@ -187,7 +521,8 @@
       "armor_mittens",
       "armor_rain_boots",
       "weapon_rolling_pin",
-      "weapon_slingshot"
+      "weapon_slingshot",
+      "weapon_bomb"
     ],
     "shopEquipment": [
       "weapon_spider_sword",
@@ -195,22 +530,92 @@
       "a_quilt_vest"
     ],
     "items": [
-      "chest"
+      "syrup_heal",
+      "bandage_armor",
+      "candy_tooth",
+      "amulet",
+      "paper_bridge",
+      "wood_axe",
+      "rusty_key",
+      "timer_bomb",
+      "bear_trap",
+      "glue_puddle",
+      "thumbtack_mat",
+      "scroll_mole_claw",
+      "scroll_mole_spike",
+      "scroll_mole_top",
+      "scroll_venom_lick",
+      "scroll_venom_bite",
+      "scroll_venom_bomb",
+      "scroll_venom_fang",
+      "scroll_pot_lid_up",
+      "scroll_frying_pan",
+      "scroll_dong_drum",
+      "scroll_pat_head"
     ],
-    "store": [
-      "duck"
-    ],
+    "store": [],
     "shop": [
       "sword",
       "lid",
-      "chest",
       "armor_mittens",
       "armor_rain_boots",
       "weapon_rolling_pin",
       "weapon_slingshot",
+      "weapon_bomb",
       "weapon_spider_sword",
       "a_bunny_slippers",
       "a_quilt_vest"
+    ],
+    "events": [
+      "chest",
+      "spinner",
+      "cottage",
+      "hotspring",
+      "cabin"
+    ],
+    "shopEvents": [
+      "duck",
+      "crow",
+      "raccoon",
+      "capybara",
+      "owl"
+    ],
+    "costumes": [
+      "diving",
+      "space",
+      "penguin",
+      "ninja",
+      "halloween",
+      "christmas",
+      "miner",
+      "cat",
+      "frog",
+      "zombie"
+    ],
+    "skillScrolls": [
+      "scroll_mole_claw",
+      "scroll_mole_spike",
+      "scroll_mole_top",
+      "scroll_venom_lick",
+      "scroll_venom_bite",
+      "scroll_venom_bomb",
+      "scroll_venom_fang",
+      "scroll_pot_lid_up",
+      "scroll_frying_pan",
+      "scroll_dong_drum",
+      "scroll_pat_head"
+    ],
+    "supplyItems": [
+      "syrup_heal",
+      "bandage_armor",
+      "candy_tooth",
+      "amulet",
+      "wood_axe",
+      "rusty_key",
+      "timer_bomb",
+      "bear_trap",
+      "glue_puddle",
+      "thumbtack_mat"
     ]
   }
 }

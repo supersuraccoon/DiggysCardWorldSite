@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "table": "地下城发牌",
-  "source": "assets/scripts/deal.ts（FLOOR_DEAL、DEAL_*）",
-  "updatedAt": "2026-10-21T04:00:00.000Z",
-  "note": "地下城模式（随机发牌）每一层的怪池和数量。null = 这一项没写，用 defaults（和 deal.ts 里 FloorDealSpec 不写一样）；[] 或 0 = 这一层不放。游戏现在仍然只读 deal.ts，这份 JSON 还没有同步脚本。",
+  "source": "assets/scripts/deal.ts（FLOOR_DEAL、deepFloorDeal、SHOP_CYCLE、SHELF_*）",
+  "updatedAt": "2026-10-30T13:00:00.000Z",
+  "note": "地下城 100 层模式发牌。1～20 层手调（2026-10-30，见 notes/工程/交接-地下城前20层数值.md），21～100 层由 deepFloorDeal 照第 20 层延伸：怪数 min(16, 13+floor((层-20)/10))，商店按 SHOP_CYCLE 轮换。shop 字段是该层唯一的店：duck_equipment 鸭子装备店 / crow_skill 乌鸦技能店 / raccoon_supply 浣熊杂货店 / bank 银行 / null 无；猫头鹰服装店 1～20 层一律不开。游戏只读 deal.ts，这份 JSON 是对照文档，没有同步脚本。",
   "defaults": {
     "monsters": [
       "bug",
@@ -51,105 +51,1048 @@
       "a_quilt_vest"
     ]
   },
+  "shopCycle": {
+    "from": 5,
+    "order": [
+      "duck_equipment",
+      "crow_skill",
+      "raccoon_supply",
+      "bank"
+    ]
+  },
+  "deepFloors": {
+    "from": 21,
+    "to": 100,
+    "copyOf": 20,
+    "monsterCount": "min(16, 13 + floor((floor-20)/10))",
+    "shop": "SHOP_CYCLE[(floor-5)%4]"
+  },
   "floors": [
     {
       "floor": 1,
+      "cols": 6,
+      "rows": 5,
       "monsters": [
         "boo",
         "bat",
-        "monster_toilet"
+        "eraser_item"
       ],
       "monsterCount": 3,
       "equipment": [
         "sword",
         "lid"
       ],
-      "equipmentCount": 4,
+      "equipmentCount": 2,
       "items": [
-        "chest"
+        "syrup_heal",
+        "bandage_armor",
+        "paper_bridge"
       ],
-      "itemCount": 1,
-      "shop": null,
-      "shopGoods": null
+      "itemCount": 3,
+      "events": [],
+      "eventCount": 0,
+      "costumes": [],
+      "costumeCount": 0,
+      "shop": null
     },
     {
       "floor": 2,
+      "cols": 7,
+      "rows": 5,
       "monsters": [
         "boo",
-        "monster_alarm_clock",
+        "bat",
+        "eraser_item",
+        "yarn_cat"
+      ],
+      "monsterCount": 4,
+      "equipment": [
+        "sword",
+        "lid",
+        "armor_mittens"
+      ],
+      "equipmentCount": 2,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "paper_bridge",
+        "wood_axe"
+      ],
+      "itemCount": 3,
+      "events": [],
+      "eventCount": 0,
+      "costumes": [],
+      "costumeCount": 0,
+      "shop": null
+    },
+    {
+      "floor": 3,
+      "cols": 7,
+      "rows": 6,
+      "monsters": [
+        "boo",
+        "bat",
+        "yarn_cat",
+        "monster_toilet",
         "sock_item"
+      ],
+      "monsterCount": 4,
+      "equipment": [
+        "sword",
+        "lid",
+        "armor_mittens",
+        "armor_rain_boots"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "paper_bridge",
+        "wood_axe",
+        "rusty_key"
+      ],
+      "itemCount": 3,
+      "events": [],
+      "eventCount": 0,
+      "costumes": [],
+      "costumeCount": 0,
+      "shop": null
+    },
+    {
+      "floor": 4,
+      "cols": 8,
+      "rows": 6,
+      "monsters": [
+        "boo",
+        "yarn_cat",
+        "monster_toilet",
+        "sock_item",
+        "remote_imp",
+        "monster_alarm_clock"
       ],
       "monsterCount": 5,
       "equipment": [
+        "sword",
+        "lid",
         "armor_mittens",
         "armor_rain_boots"
       ],
       "equipmentCount": 2,
       "items": [
-        "chest"
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "paper_bridge",
+        "wood_axe",
+        "rusty_key",
+        "glue_puddle"
       ],
-      "itemCount": 1,
-      "shop": null,
-      "shopGoods": null
+      "itemCount": 3,
+      "events": [
+        "chest",
+        "cottage"
+      ],
+      "eventCount": 1,
+      "costumes": [
+        "diving",
+        "space"
+      ],
+      "costumeCount": 1,
+      "shop": null
     },
     {
-      "floor": 3,
+      "floor": 5,
+      "cols": 8,
+      "rows": 6,
       "monsters": [
         "boo",
-        "eraser_item",
+        "bat",
         "remote_imp",
-        "slipper_croc"
+        "monster_alarm_clock",
+        "slipper_croc",
+        "monster_toilet"
+      ],
+      "monsterCount": 5,
+      "equipment": [
+        "armor_mittens",
+        "armor_rain_boots",
+        "weapon_rolling_pin"
+      ],
+      "equipmentCount": 2,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "wood_axe",
+        "rusty_key",
+        "glue_puddle",
+        "thumbtack_mat"
+      ],
+      "itemCount": 3,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring"
+      ],
+      "eventCount": 1,
+      "costumes": [
+        "diving",
+        "space",
+        "miner",
+        "christmas",
+        "penguin"
+      ],
+      "costumeCount": 1,
+      "hasEquipShop": true,
+      "shop_equipments": [
+        "sword",
+        "lid",
+        "armor_mittens",
+        "armor_rain_boots",
+        "weapon_rolling_pin"
+      ],
+      "shop": "duck_equipment"
+    },
+    {
+      "floor": 6,
+      "cols": 8,
+      "rows": 7,
+      "monsters": [
+        "boo",
+        "remote_imp",
+        "monster_alarm_clock",
+        "slipper_croc",
+        "monster_clothespin_crab",
+        "sock_item"
       ],
       "monsterCount": 6,
       "equipment": [
+        "armor_mittens",
+        "armor_rain_boots",
+        "weapon_rolling_pin"
+      ],
+      "equipmentCount": 2,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "wood_axe",
+        "rusty_key",
+        "glue_puddle",
+        "thumbtack_mat"
+      ],
+      "itemCount": 2,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring"
+      ],
+      "eventCount": 1,
+      "costumes": [
+        "diving",
+        "space",
+        "miner",
+        "christmas",
+        "penguin"
+      ],
+      "costumeCount": 1,
+      "hasSkillShop": true,
+      "shop_item_skill_scrolls": [
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_venom_lick"
+      ],
+      "shop": "crow_skill"
+    },
+    {
+      "floor": 7,
+      "cols": 9,
+      "rows": 7,
+      "monsters": [
+        "boo",
+        "slipper_croc",
+        "monster_clothespin_crab",
+        "monster_alarm_clock",
+        "remote_imp",
+        "monster_dust_bunny"
+      ],
+      "monsterCount": 6,
+      "equipment": [
+        "armor_rain_boots",
         "weapon_rolling_pin",
         "weapon_slingshot"
       ],
       "equipmentCount": 2,
       "items": [
-        "chest"
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "wood_axe",
+        "bear_trap",
+        "thumbtack_mat",
+        "scroll_pot_lid_up"
       ],
       "itemCount": 2,
-      "shop": null,
-      "shopGoods": null
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring"
+      ],
+      "eventCount": 2,
+      "costumes": [
+        "diving",
+        "space",
+        "miner",
+        "christmas",
+        "penguin"
+      ],
+      "costumeCount": 1,
+      "hasSupplyShop": true,
+      "shop_item_supplies": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "wood_axe",
+        "rusty_key"
+      ],
+      "shop": "raccoon_supply"
     },
     {
-      "floor": 4,
+      "floor": 8,
+      "cols": 9,
+      "rows": 7,
+      "monsters": [
+        "boo",
+        "slipper_croc",
+        "monster_clothespin_crab",
+        "monster_dust_bunny",
+        "bug",
+        "remote_imp"
+      ],
+      "monsterCount": 7,
+      "equipment": [
+        "armor_mittens",
+        "armor_rain_boots",
+        "weapon_rolling_pin",
+        "weapon_slingshot"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "rusty_key",
+        "bear_trap",
+        "glue_puddle"
+      ],
+      "itemCount": 3,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring"
+      ],
+      "eventCount": 2,
+      "costumes": [
+        "diving",
+        "space",
+        "miner",
+        "christmas",
+        "penguin"
+      ],
+      "costumeCount": 1,
+      "hasBank": true,
+      "shop": "bank"
+    },
+    {
+      "floor": 9,
+      "cols": 10,
+      "rows": 7,
+      "monsters": [
+        "boo",
+        "monster_clothespin_crab",
+        "monster_dust_bunny",
+        "bug",
+        "lamp_cyclops",
+        "slipper_croc"
+      ],
+      "monsterCount": 7,
+      "equipment": [
+        "armor_rain_boots",
+        "weapon_rolling_pin",
+        "weapon_slingshot"
+      ],
+      "equipmentCount": 2,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "wood_axe",
+        "bear_trap",
+        "timer_bomb",
+        "scroll_mole_claw"
+      ],
+      "itemCount": 3,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring"
+      ],
+      "eventCount": 2,
+      "costumes": [
+        "diving",
+        "space",
+        "miner",
+        "christmas",
+        "penguin"
+      ],
+      "costumeCount": 1,
+      "hasEquipShop": true,
+      "shop_equipments": [
+        "armor_rain_boots",
+        "weapon_rolling_pin",
+        "weapon_slingshot",
+        "a_bunny_slippers",
+        "armor_mittens"
+      ],
+      "shop": "duck_equipment"
+    },
+    {
+      "floor": 10,
+      "cols": 10,
+      "rows": 7,
       "monsters": [
         "boo",
         "bug",
         "monster_dust_bunny",
-        "slipper_croc",
-        "sock_item"
-      ],
-      "monsterCount": 6,
-      "equipment": null,
-      "equipmentCount": 2,
-      "items": [
-        "chest"
-      ],
-      "itemCount": 2,
-      "shop": null,
-      "shopGoods": null
-    },
-    {
-      "floor": 5,
-      "monsters": [
-        "boo",
-        "cactus_thrower",
-        "spike_throw",
+        "lamp_cyclops",
         "monster_vacuum_snake",
         "monster_clothespin_crab"
       ],
-      "monsterCount": 7,
-      "equipment": null,
+      "monsterCount": 8,
+      "equipment": [
+        "armor_rain_boots",
+        "weapon_rolling_pin",
+        "weapon_slingshot",
+        "weapon_bomb"
+      ],
       "equipmentCount": 3,
       "items": [
-        "chest"
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "glue_puddle",
+        "scroll_pat_head",
+        "scroll_dong_drum"
       ],
-      "itemCount": 2,
-      "shop": null,
-      "shopGoods": null
+      "itemCount": 3,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring"
+      ],
+      "eventCount": 2,
+      "costumes": [
+        "diving",
+        "space",
+        "miner",
+        "christmas",
+        "penguin"
+      ],
+      "costumeCount": 1,
+      "hasSkillShop": true,
+      "shop_item_skill_scrolls": [
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_venom_lick",
+        "scroll_dong_drum",
+        "scroll_mole_claw",
+        "scroll_venom_fang"
+      ],
+      "shop": "crow_skill"
+    },
+    {
+      "floor": 11,
+      "cols": 10,
+      "rows": 8,
+      "monsters": [
+        "boo",
+        "bug",
+        "monster_dust_bunny",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "slipper_croc"
+      ],
+      "monsterCount": 8,
+      "equipment": [
+        "armor_rain_boots",
+        "weapon_rolling_pin",
+        "weapon_slingshot",
+        "weapon_bomb"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang"
+      ],
+      "itemCount": 3,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring"
+      ],
+      "eventCount": 2,
+      "hasSupplyShop": true,
+      "shop_item_supplies": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "bear_trap",
+        "glue_puddle",
+        "rusty_key"
+      ],
+      "shop": "raccoon_supply"
+    },
+    {
+      "floor": 12,
+      "cols": 10,
+      "rows": 8,
+      "monsters": [
+        "boo",
+        "bug",
+        "monster_dust_bunny",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "cactus_thrower"
+      ],
+      "monsterCount": 9,
+      "equipment": [
+        "armor_rain_boots",
+        "weapon_rolling_pin",
+        "weapon_slingshot",
+        "weapon_bomb"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang"
+      ],
+      "itemCount": 3,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring"
+      ],
+      "eventCount": 2,
+      "hasBank": true,
+      "shop": "bank"
+    },
+    {
+      "floor": 13,
+      "cols": 10,
+      "rows": 8,
+      "monsters": [
+        "boo",
+        "bug",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "cactus_thrower",
+        "monster_dust_bunny"
+      ],
+      "monsterCount": 9,
+      "equipment": [
+        "weapon_rolling_pin",
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_bunny_slippers"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang"
+      ],
+      "itemCount": 3,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring",
+        "cabin"
+      ],
+      "eventCount": 2,
+      "hasEquipShop": true,
+      "shop_equipments": [
+        "weapon_rolling_pin",
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_bunny_slippers",
+        "a_quilt_vest"
+      ],
+      "shop": "duck_equipment"
+    },
+    {
+      "floor": 14,
+      "cols": 11,
+      "rows": 8,
+      "monsters": [
+        "boo",
+        "bug",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "cactus_thrower",
+        "monster_dust_bunny",
+        "monster_clothespin_crab"
+      ],
+      "monsterCount": 10,
+      "equipment": [
+        "weapon_rolling_pin",
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_bunny_slippers"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang"
+      ],
+      "itemCount": 4,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring",
+        "cabin"
+      ],
+      "eventCount": 2,
+      "hasSkillShop": true,
+      "shop_item_skill_scrolls": [
+        "scroll_mole_claw",
+        "scroll_mole_spike",
+        "scroll_mole_top",
+        "scroll_venom_bite",
+        "scroll_frying_pan",
+        "scroll_dong_drum",
+        "scroll_venom_fang",
+        "scroll_pot_lid_up"
+      ],
+      "shop": "crow_skill"
+    },
+    {
+      "floor": 15,
+      "cols": 11,
+      "rows": 8,
+      "monsters": [
+        "boo",
+        "bug",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "cactus_thrower",
+        "spike_throw",
+        "monster_dust_bunny"
+      ],
+      "monsterCount": 10,
+      "equipment": [
+        "weapon_rolling_pin",
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_bunny_slippers",
+        "a_quilt_vest"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang",
+        "scroll_mole_spike",
+        "scroll_mole_top",
+        "scroll_venom_bite",
+        "scroll_frying_pan"
+      ],
+      "itemCount": 4,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring",
+        "cabin"
+      ],
+      "eventCount": 2,
+      "hasSupplyShop": true,
+      "shop_item_supplies": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "wood_axe",
+        "rusty_key",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat"
+      ],
+      "shop": "raccoon_supply"
+    },
+    {
+      "floor": 16,
+      "cols": 11,
+      "rows": 8,
+      "monsters": [
+        "boo",
+        "bug",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "cactus_thrower",
+        "spike_throw",
+        "monster_dust_bunny"
+      ],
+      "monsterCount": 11,
+      "equipment": [
+        "weapon_rolling_pin",
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_bunny_slippers",
+        "a_quilt_vest"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang",
+        "scroll_mole_spike",
+        "scroll_mole_top",
+        "scroll_venom_bite",
+        "scroll_frying_pan"
+      ],
+      "itemCount": 4,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring",
+        "cabin"
+      ],
+      "eventCount": 2,
+      "hasBank": true,
+      "shop": "bank"
+    },
+    {
+      "floor": 17,
+      "cols": 11,
+      "rows": 9,
+      "monsters": [
+        "boo",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "cactus_thrower",
+        "spike_throw",
+        "bug"
+      ],
+      "monsterCount": 11,
+      "equipment": [
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_bunny_slippers",
+        "a_quilt_vest",
+        "weapon_spider_sword"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang",
+        "scroll_mole_spike",
+        "scroll_mole_top",
+        "scroll_venom_bite",
+        "scroll_frying_pan"
+      ],
+      "itemCount": 4,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring",
+        "cabin",
+        "spinner"
+      ],
+      "eventCount": 2,
+      "hasEquipShop": true,
+      "shop_equipments": [
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_quilt_vest",
+        "weapon_spider_sword",
+        "a_bunny_slippers"
+      ],
+      "shop": "duck_equipment"
+    },
+    {
+      "floor": 18,
+      "cols": 11,
+      "rows": 9,
+      "monsters": [
+        "boo",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "cactus_thrower",
+        "spike_throw",
+        "bug"
+      ],
+      "monsterCount": 12,
+      "equipment": [
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_bunny_slippers",
+        "a_quilt_vest",
+        "weapon_spider_sword"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang",
+        "scroll_mole_spike",
+        "scroll_mole_top",
+        "scroll_venom_bite",
+        "scroll_frying_pan"
+      ],
+      "itemCount": 4,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring",
+        "cabin",
+        "spinner"
+      ],
+      "eventCount": 2,
+      "hasSkillShop": true,
+      "shop_item_skill_scrolls": [
+        "scroll_mole_claw",
+        "scroll_mole_spike",
+        "scroll_mole_top",
+        "scroll_venom_lick",
+        "scroll_venom_bite",
+        "scroll_venom_bomb",
+        "scroll_venom_fang",
+        "scroll_pot_lid_up",
+        "scroll_frying_pan",
+        "scroll_dong_drum",
+        "scroll_pat_head"
+      ],
+      "shop": "crow_skill"
+    },
+    {
+      "floor": 19,
+      "cols": 11,
+      "rows": 9,
+      "monsters": [
+        "boo",
+        "bug",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "cactus_thrower",
+        "spike_throw",
+        "monster_dust_bunny"
+      ],
+      "monsterCount": 12,
+      "equipment": [
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_bunny_slippers",
+        "a_quilt_vest",
+        "weapon_spider_sword"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang",
+        "scroll_mole_spike",
+        "scroll_mole_top",
+        "scroll_venom_bite",
+        "scroll_frying_pan",
+        "scroll_venom_bomb"
+      ],
+      "itemCount": 4,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring",
+        "cabin",
+        "spinner"
+      ],
+      "eventCount": 2,
+      "hasSupplyShop": true,
+      "shop_item_supplies": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "wood_axe",
+        "rusty_key",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat"
+      ],
+      "shop": "raccoon_supply"
+    },
+    {
+      "floor": 20,
+      "cols": 11,
+      "rows": 9,
+      "monsters": [
+        "boo",
+        "bug",
+        "lamp_cyclops",
+        "monster_vacuum_snake",
+        "cactus_thrower",
+        "spike_throw",
+        "monster_dust_bunny"
+      ],
+      "monsterCount": 13,
+      "equipment": [
+        "weapon_slingshot",
+        "weapon_bomb",
+        "a_bunny_slippers",
+        "a_quilt_vest",
+        "weapon_spider_sword"
+      ],
+      "equipmentCount": 3,
+      "items": [
+        "syrup_heal",
+        "bandage_armor",
+        "candy_tooth",
+        "amulet",
+        "timer_bomb",
+        "bear_trap",
+        "glue_puddle",
+        "thumbtack_mat",
+        "scroll_pot_lid_up",
+        "scroll_pat_head",
+        "scroll_mole_claw",
+        "scroll_dong_drum",
+        "scroll_venom_lick",
+        "scroll_venom_fang",
+        "scroll_mole_spike",
+        "scroll_mole_top",
+        "scroll_venom_bite",
+        "scroll_frying_pan",
+        "scroll_venom_bomb"
+      ],
+      "itemCount": 4,
+      "events": [
+        "chest",
+        "cottage",
+        "hotspring",
+        "cabin",
+        "spinner"
+      ],
+      "eventCount": 2,
+      "hasBank": true,
+      "shop": "bank"
     }
   ]
 }
