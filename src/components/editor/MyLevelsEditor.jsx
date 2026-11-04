@@ -6,7 +6,7 @@ import {
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
   myLevelMeta, asValidateLevel, MY_LEVEL_DIR,
   stripOverrides, cleanOverrides, hasOverrides,
-  LEVEL_KINDS, TESTCASE_CATEGORIES, needsNoArena, TESTCASE_ARENA_SIZE,
+  LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, needsNoArena, TESTCASE_ARENA_SIZE,
 } from '../../lib/levels.js';
 import {
   hasToken, getCachedLogin, clearToken, verifyToken,
@@ -734,7 +734,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
           <div className="ed-row">
             <label className="small">分类
               <select value={lv.category || 'other'} onChange={(e) => updateLevel((l) => ({ ...l, category: e.target.value, updatedAt: new Date().toISOString() }))} style={{ marginLeft: 4 }}>
-                {TESTCASE_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                {TESTCASE_CATEGORIES.map((c) => <option key={c} value={c}>{TESTCASE_CATEGORY_LABELS[c] || c}</option>)}
               </select>
             </label>
             <label className="small grow" style={{ display: 'flex', alignItems: 'center', gap: 4, minWidth: 0 }}>验收目标
@@ -948,7 +948,7 @@ function NewDialog({ onOk, onCancel, testcase = false, prefix = 'ml_' }) {
           <>
             <label>分类
               <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                {TESTCASE_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                {TESTCASE_CATEGORIES.map((c) => <option key={c} value={c}>{TESTCASE_CATEGORY_LABELS[c] || c}</option>)}
               </select>
             </label>
             <label>验收目标<input value={goal} onChange={(e) => setGoal(e.target.value)} placeholder="例：捡起剑，普攻观察混乱" /></label>

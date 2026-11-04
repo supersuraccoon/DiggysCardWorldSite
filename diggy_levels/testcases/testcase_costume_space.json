@@ -358,8 +358,8 @@
       "mole": false
     }
   ],
-  "title": "服装·宇航服",
-  "category": "item",
+  "title": "宇航服",
+  "category": "costume",
   "goal": "捡宇航服换上，试着站到洞上",
   "updatedAt": "2026-11-04T12:00:00.000Z"
 }

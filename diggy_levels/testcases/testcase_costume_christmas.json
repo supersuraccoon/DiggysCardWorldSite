@@ -370,8 +370,8 @@
       "mole": false
     }
   ],
-  "title": "服装·圣诞服",
-  "category": "item",
+  "title": "圣诞服",
+  "category": "costume",
   "goal": "捡圣诞服换上，击败怪物看是否掉补给",
   "updatedAt": "2026-11-04T12:00:00.000Z"
 }

@@ -358,7 +358,7 @@
       "mole": false
     }
   ],
-  "title": "事件·落下陷阱",
+  "title": "落下陷阱",
   "category": "event",
   "goal": "踩上去观察触发即可（单层没有下一层）",
   "updatedAt": "2026-11-04T12:00:00.000Z"

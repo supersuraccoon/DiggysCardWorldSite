@@ -267,7 +267,12 @@ export const MY_LEVEL_TABLE = '我的关卡';
 export const MY_LEVEL_DIR = '我的关卡';
 
 /** 关卡「种类」：我的关卡 / 机制试玩场。路径、id 前缀、table 都从这里取，避免两套漂移。 */
-export const TESTCASE_CATEGORIES = ['status', 'skill', 'event', 'item', 'mechanic', 'composite', 'other'];
+export const TESTCASE_CATEGORIES = ['monster', 'item', 'costume', 'event', 'status', 'skill', 'weather', 'special', 'mechanic', 'composite', 'other'];
+export const TESTCASE_CATEGORY_LABELS = {
+  monster: '怪物', item: '道具', costume: '服装', event: '事件',
+  status: '状态', skill: '技能', weather: '天气', special: '特殊',
+  mechanic: '机制', composite: '复合', other: '其他',
+};
 export const LEVEL_KINDS = {
   mine: { key: 'mine', table: MY_LEVEL_TABLE, prefix: 'ml_', dir: 'my-levels', folder: MY_LEVEL_DIR, lsKey: 'diggy.editor.mylevels.v1', label: '我的关卡', hostKind: '' },
   testcase: { key: 'testcase', table: '机制试玩', prefix: 'testcase_', dir: 'testcases', folder: 'testcases', lsKey: 'diggy.editor.testcases.v1', label: '机制试玩场', hostKind: 'testcase' },

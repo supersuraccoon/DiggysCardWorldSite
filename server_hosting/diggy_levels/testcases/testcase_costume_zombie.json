@@ -362,8 +362,8 @@
       "mole": false
     }
   ],
-  "title": "服装·僵尸服",
-  "category": "item",
+  "title": "僵尸服",
+  "category": "costume",
   "goal": "捡僵尸服换上，看心上限和牙",
   "updatedAt": "2026-11-04T12:00:00.000Z"
 }

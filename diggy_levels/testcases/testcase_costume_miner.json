@@ -358,8 +358,8 @@
       "mole": false
     }
   ],
-  "title": "服装·矿工服",
-  "category": "item",
+  "title": "矿工服",
+  "category": "costume",
   "goal": "捡矿工服换上，试着破开挡路的墙",
   "updatedAt": "2026-11-04T12:00:00.000Z"
 }

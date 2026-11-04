@@ -4,7 +4,7 @@
   "levels": [
     {
       "id": "testcase_status_confuse",
-      "title": "状态·混乱",
+      "title": "混乱",
       "category": "status",
       "goal": "捡剑普攻怪，看怪身上出现混乱",
       "theme": "arena",
@@ -14,7 +14,7 @@
     },
     {
       "id": "testcase_mechanic_hunt_hidden",
-      "title": "机制·隐藏追踪",
+      "title": "隐藏追踪",
       "category": "mechanic",
       "goal": "原地等一等，牌背下的小虫会靠近",
       "theme": "arena",
@@ -24,7 +24,7 @@
     },
     {
       "id": "testcase_skill_monster_venom_lick",
-      "title": "技能·怪毒液舔舔",
+      "title": "怪毒液舔舔",
       "category": "skill",
       "goal": "邻格怪会放毒液舔舔",
       "theme": "arena",
@@ -34,7 +34,7 @@
     },
     {
       "id": "testcase_skill_hero_venom_lick",
-      "title": "技能·英雄毒液舔舔",
+      "title": "英雄毒液舔舔",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放毒液舔舔",
       "theme": "arena",
@@ -44,7 +44,7 @@
     },
     {
       "id": "testcase_event_cabin",
-      "title": "事件·怪物小屋",
+      "title": "怪物小屋",
       "category": "event",
       "goal": "踩邻格小屋进怪物小屋，打完回来",
       "theme": "arena",
@@ -54,7 +54,7 @@
     },
     {
       "id": "testcase_composite_snake",
-      "title": "复合·软管蛇",
+      "title": "软管蛇",
       "category": "composite",
       "goal": "观察三节软管蛇怎么走、先打哪一节",
       "theme": "arena",
@@ -64,7 +64,7 @@
     },
     {
       "id": "testcase_status_shield",
-      "title": "状态·护盾",
+      "title": "护盾",
       "category": "status",
       "goal": "捡锅盖，站着挨打，看护盾是否生效",
       "theme": "arena",
@@ -74,7 +74,7 @@
     },
     {
       "id": "testcase_status_dodge",
-      "title": "状态·闪避",
+      "title": "闪避",
       "category": "status",
       "goal": "捡锅盖，站着挨打，看闪避是否生效",
       "theme": "arena",
@@ -84,7 +84,7 @@
     },
     {
       "id": "testcase_status_lifesteal",
-      "title": "状态·吸血",
+      "title": "吸血",
       "category": "status",
       "goal": "捡剑普攻怪，看吸血",
       "theme": "arena",
@@ -94,7 +94,7 @@
     },
     {
       "id": "testcase_status_crit",
-      "title": "状态·暴击",
+      "title": "暴击",
       "category": "status",
       "goal": "捡剑普攻怪，看暴击",
       "theme": "arena",
@@ -104,7 +104,7 @@
     },
     {
       "id": "testcase_status_thorns",
-      "title": "状态·荆棘",
+      "title": "荆棘",
       "category": "status",
       "goal": "捡锅盖，站着挨打，看荆棘是否生效",
       "theme": "arena",
@@ -114,7 +114,7 @@
     },
     {
       "id": "testcase_status_immune",
-      "title": "状态·免疫",
+      "title": "免疫",
       "category": "status",
       "goal": "捡锅盖，站着挨打，看免疫是否生效",
       "theme": "arena",
@@ -124,7 +124,7 @@
     },
     {
       "id": "testcase_status_revive",
-      "title": "状态·复活",
+      "title": "复活",
       "category": "status",
       "goal": "捡锅盖，站着挨打，看复活是否生效",
       "theme": "arena",
@@ -134,7 +134,7 @@
     },
     {
       "id": "testcase_status_regen",
-      "title": "状态·回血",
+      "title": "回血",
       "category": "status",
       "goal": "捡锅盖，观察自身回血",
       "theme": "arena",
@@ -144,7 +144,7 @@
     },
     {
       "id": "testcase_status_atk",
-      "title": "状态·加攻",
+      "title": "加攻",
       "category": "status",
       "goal": "捡剑普攻怪，看加攻",
       "theme": "arena",
@@ -154,7 +154,7 @@
     },
     {
       "id": "testcase_status_hp",
-      "title": "状态·加血",
+      "title": "加血",
       "category": "status",
       "goal": "捡锅盖，观察自身加血",
       "theme": "arena",
@@ -164,7 +164,7 @@
     },
     {
       "id": "testcase_status_reflect",
-      "title": "状态·反弹",
+      "title": "反弹",
       "category": "status",
       "goal": "捡锅盖，站着挨打，看反弹是否生效",
       "theme": "arena",
@@ -174,7 +174,7 @@
     },
     {
       "id": "testcase_status_combo",
-      "title": "状态·连击",
+      "title": "连击",
       "category": "status",
       "goal": "捡剑普攻怪，看连击",
       "theme": "arena",
@@ -184,7 +184,7 @@
     },
     {
       "id": "testcase_status_poison",
-      "title": "状态·中毒",
+      "title": "中毒",
       "category": "status",
       "goal": "捡剑普攻怪，看怪身上出现中毒",
       "theme": "arena",
@@ -194,7 +194,7 @@
     },
     {
       "id": "testcase_status_weak",
-      "title": "状态·虚弱",
+      "title": "虚弱",
       "category": "status",
       "goal": "捡剑普攻怪，看怪身上出现虚弱",
       "theme": "arena",
@@ -204,7 +204,7 @@
     },
     {
       "id": "testcase_status_sunder",
-      "title": "状态·破甲",
+      "title": "破甲",
       "category": "status",
       "goal": "捡剑普攻怪，看怪身上出现破甲",
       "theme": "arena",
@@ -214,7 +214,7 @@
     },
     {
       "id": "testcase_status_silence",
-      "title": "状态·沉默",
+      "title": "沉默",
       "category": "status",
       "goal": "捡剑普攻怪，看怪身上出现沉默",
       "theme": "arena",
@@ -224,7 +224,7 @@
     },
     {
       "id": "testcase_status_bleed",
-      "title": "状态·流血",
+      "title": "流血",
       "category": "status",
       "goal": "捡剑普攻怪，看怪身上出现流血",
       "theme": "arena",
@@ -234,7 +234,7 @@
     },
     {
       "id": "testcase_status_stun",
-      "title": "状态·眩晕",
+      "title": "眩晕",
       "category": "status",
       "goal": "捡剑普攻怪，看怪身上出现眩晕",
       "theme": "arena",
@@ -244,7 +244,7 @@
     },
     {
       "id": "testcase_status_knockback",
-      "title": "状态·击退",
+      "title": "击退",
       "category": "status",
       "goal": "捡剑普攻怪，看击退",
       "theme": "arena",
@@ -254,7 +254,7 @@
     },
     {
       "id": "testcase_status_range",
-      "title": "状态·射程",
+      "title": "射程",
       "category": "status",
       "goal": "捡剑普攻怪，看射程",
       "theme": "arena",
@@ -264,7 +264,7 @@
     },
     {
       "id": "testcase_status_splash",
-      "title": "状态·溅射",
+      "title": "溅射",
       "category": "status",
       "goal": "捡剑普攻怪，看溅射",
       "theme": "arena",
@@ -274,7 +274,7 @@
     },
     {
       "id": "testcase_status_bounce",
-      "title": "状态·弹射",
+      "title": "弹射",
       "category": "status",
       "goal": "捡剑普攻怪，看弹射",
       "theme": "arena",
@@ -284,7 +284,7 @@
     },
     {
       "id": "testcase_status_stuck",
-      "title": "状态·黏住",
+      "title": "黏住",
       "category": "status",
       "goal": "捡剑普攻怪，看怪身上出现黏住",
       "theme": "arena",
@@ -294,7 +294,7 @@
     },
     {
       "id": "testcase_status_stealth",
-      "title": "状态·隐身",
+      "title": "隐身",
       "category": "status",
       "goal": "捡锅盖，观察自身隐身",
       "theme": "arena",
@@ -304,7 +304,7 @@
     },
     {
       "id": "testcase_status_fly",
-      "title": "状态·飞行",
+      "title": "飞行",
       "category": "status",
       "goal": "捡锅盖后试着走过洞",
       "theme": "arena",
@@ -314,7 +314,7 @@
     },
     {
       "id": "testcase_status_freeze",
-      "title": "状态·冰冻",
+      "title": "冰冻",
       "category": "status",
       "goal": "捡剑普攻怪，看怪身上出现冰冻",
       "theme": "arena",
@@ -324,7 +324,7 @@
     },
     {
       "id": "testcase_skill_hero_venom_bite",
-      "title": "技能·英雄毒液咬咬",
+      "title": "英雄毒液咬咬",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放毒液咬咬",
       "theme": "arena",
@@ -334,7 +334,7 @@
     },
     {
       "id": "testcase_skill_hero_venom_bomb",
-      "title": "技能·英雄毒液炸弹",
+      "title": "英雄毒液炸弹",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放毒液炸弹",
       "theme": "arena",
@@ -344,7 +344,7 @@
     },
     {
       "id": "testcase_skill_hero_venom_fang",
-      "title": "技能·英雄毒牙牙",
+      "title": "英雄毒牙牙",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放毒牙牙",
       "theme": "arena",
@@ -354,7 +354,7 @@
     },
     {
       "id": "testcase_skill_hero_pot_lid_up",
-      "title": "技能·英雄锅盖举举",
+      "title": "英雄锅盖举举",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放锅盖举举",
       "theme": "arena",
@@ -364,7 +364,7 @@
     },
     {
       "id": "testcase_skill_hero_frying_pan",
-      "title": "技能·英雄平底锅咚",
+      "title": "英雄平底锅咚",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放平底锅咚",
       "theme": "arena",
@@ -374,7 +374,7 @@
     },
     {
       "id": "testcase_skill_hero_dong_drum",
-      "title": "技能·英雄咚咚鼓",
+      "title": "英雄咚咚鼓",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放咚咚鼓",
       "theme": "arena",
@@ -384,7 +384,7 @@
     },
     {
       "id": "testcase_skill_hero_pat_head",
-      "title": "技能·英雄摸摸头",
+      "title": "英雄摸摸头",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放摸摸头",
       "theme": "arena",
@@ -394,7 +394,7 @@
     },
     {
       "id": "testcase_skill_hero_mole_claw",
-      "title": "技能·英雄爪爪爪",
+      "title": "英雄爪爪爪",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放爪爪爪",
       "theme": "arena",
@@ -404,7 +404,7 @@
     },
     {
       "id": "testcase_skill_hero_mole_spike",
-      "title": "技能·英雄地刺",
+      "title": "英雄地刺",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放地刺",
       "theme": "arena",
@@ -414,7 +414,7 @@
     },
     {
       "id": "testcase_skill_hero_mole_top",
-      "title": "技能·英雄鼹鼠陀螺",
+      "title": "英雄鼹鼠陀螺",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放鼹鼠陀螺",
       "theme": "arena",
@@ -424,7 +424,7 @@
     },
     {
       "id": "testcase_skill_monster_venom_bite",
-      "title": "技能·怪毒液咬咬",
+      "title": "怪毒液咬咬",
       "category": "skill",
       "goal": "邻格怪会放毒液咬咬",
       "theme": "arena",
@@ -434,7 +434,7 @@
     },
     {
       "id": "testcase_skill_monster_venom_bomb",
-      "title": "技能·怪毒液炸弹",
+      "title": "怪毒液炸弹",
       "category": "skill",
       "goal": "邻格怪会放毒液炸弹",
       "theme": "arena",
@@ -444,7 +444,7 @@
     },
     {
       "id": "testcase_skill_monster_venom_fang",
-      "title": "技能·怪毒牙牙",
+      "title": "怪毒牙牙",
       "category": "skill",
       "goal": "普攻邻格怪，看毒牙牙",
       "theme": "arena",
@@ -454,7 +454,7 @@
     },
     {
       "id": "testcase_skill_monster_pot_lid_up",
-      "title": "技能·怪锅盖举举",
+      "title": "怪锅盖举举",
       "category": "skill",
       "goal": "邻格怪会放锅盖举举",
       "theme": "arena",
@@ -464,7 +464,7 @@
     },
     {
       "id": "testcase_skill_monster_frying_pan",
-      "title": "技能·怪平底锅咚",
+      "title": "怪平底锅咚",
       "category": "skill",
       "goal": "邻格怪会放平底锅咚",
       "theme": "arena",
@@ -474,7 +474,7 @@
     },
     {
       "id": "testcase_skill_monster_dong_drum",
-      "title": "技能·怪咚咚鼓",
+      "title": "怪咚咚鼓",
       "category": "skill",
       "goal": "邻格怪会放咚咚鼓",
       "theme": "arena",
@@ -484,7 +484,7 @@
     },
     {
       "id": "testcase_skill_monster_pat_head",
-      "title": "技能·怪摸摸头",
+      "title": "怪摸摸头",
       "category": "skill",
       "goal": "邻格怪会放摸摸头",
       "theme": "arena",
@@ -494,7 +494,7 @@
     },
     {
       "id": "testcase_skill_monster_mole_claw",
-      "title": "技能·怪爪爪爪",
+      "title": "怪爪爪爪",
       "category": "skill",
       "goal": "邻格怪会放爪爪爪",
       "theme": "arena",
@@ -504,7 +504,7 @@
     },
     {
       "id": "testcase_skill_monster_mole_spike",
-      "title": "技能·怪地刺",
+      "title": "怪地刺",
       "category": "skill",
       "goal": "邻格怪会放地刺",
       "theme": "arena",
@@ -514,7 +514,7 @@
     },
     {
       "id": "testcase_skill_monster_mole_top",
-      "title": "技能·怪鼹鼠陀螺",
+      "title": "怪鼹鼠陀螺",
       "category": "skill",
       "goal": "邻格怪会放鼹鼠陀螺",
       "theme": "arena",
@@ -524,7 +524,7 @@
     },
     {
       "id": "testcase_skill_monster_tiny_flame",
-      "title": "技能·怪小火苗",
+      "title": "怪小火苗",
       "category": "skill",
       "goal": "邻格怪会放小火苗",
       "theme": "arena",
@@ -534,7 +534,7 @@
     },
     {
       "id": "testcase_skill_monster_hot_spatula",
-      "title": "技能·怪烫烫锅铲",
+      "title": "怪烫烫锅铲",
       "category": "skill",
       "goal": "邻格怪会放烫烫锅铲",
       "theme": "arena",
@@ -544,7 +544,7 @@
     },
     {
       "id": "testcase_skill_monster_fire_ball",
-      "title": "技能·怪大火球",
+      "title": "怪大火球",
       "category": "skill",
       "goal": "邻格怪会放大火球",
       "theme": "arena",
@@ -554,7 +554,7 @@
     },
     {
       "id": "testcase_skill_monster_water_gun",
-      "title": "技能·怪呲呲水枪",
+      "title": "怪呲呲水枪",
       "category": "skill",
       "goal": "邻格怪会放呲呲水枪",
       "theme": "arena",
@@ -564,7 +564,7 @@
     },
     {
       "id": "testcase_skill_monster_water_bucket",
-      "title": "技能·怪哗啦水桶",
+      "title": "怪哗啦水桶",
       "category": "skill",
       "goal": "邻格怪会放哗啦水桶",
       "theme": "arena",
@@ -574,7 +574,7 @@
     },
     {
       "id": "testcase_skill_monster_flood_wave",
-      "title": "技能·怪大浪浪",
+      "title": "怪大浪浪",
       "category": "skill",
       "goal": "邻格怪会放大浪浪",
       "theme": "arena",
@@ -584,7 +584,7 @@
     },
     {
       "id": "testcase_skill_monster_ice_cube",
-      "title": "技能·怪小冰块",
+      "title": "怪小冰块",
       "category": "skill",
       "goal": "邻格怪会放小冰块",
       "theme": "arena",
@@ -594,7 +594,7 @@
     },
     {
       "id": "testcase_skill_monster_popsicle",
-      "title": "技能·怪冰棒棒",
+      "title": "怪冰棒棒",
       "category": "skill",
       "goal": "邻格怪会放冰棒棒",
       "theme": "arena",
@@ -604,7 +604,7 @@
     },
     {
       "id": "testcase_skill_monster_blizzard",
-      "title": "技能·怪呼呼暴风雪",
+      "title": "怪呼呼暴风雪",
       "category": "skill",
       "goal": "邻格怪会放呼呼暴风雪",
       "theme": "arena",
@@ -614,7 +614,7 @@
     },
     {
       "id": "testcase_skill_monster_ice_spike",
-      "title": "技能·怪冰锥",
+      "title": "怪冰锥",
       "category": "skill",
       "goal": "邻格怪会放冰锥",
       "theme": "arena",
@@ -624,7 +624,7 @@
     },
     {
       "id": "testcase_skill_monster_freeze_cast",
-      "title": "技能·怪冰冻",
+      "title": "怪冰冻",
       "category": "skill",
       "goal": "普攻邻格怪，看冰冻",
       "theme": "arena",
@@ -634,7 +634,7 @@
     },
     {
       "id": "testcase_skill_monster_lightning",
-      "title": "技能·怪落雷",
+      "title": "怪落雷",
       "category": "skill",
       "goal": "邻格怪会放落雷",
       "theme": "arena",
@@ -644,7 +644,7 @@
     },
     {
       "id": "testcase_skill_monster_meteor",
-      "title": "技能·怪陨石",
+      "title": "怪陨石",
       "category": "skill",
       "goal": "邻格怪会放陨石",
       "theme": "arena",
@@ -654,7 +654,7 @@
     },
     {
       "id": "testcase_skill_monster_laser",
-      "title": "技能·怪激光",
+      "title": "怪激光",
       "category": "skill",
       "goal": "邻格怪会放激光",
       "theme": "arena",
@@ -664,7 +664,7 @@
     },
     {
       "id": "testcase_skill_monster_quake",
-      "title": "技能·怪地震",
+      "title": "怪地震",
       "category": "skill",
       "goal": "邻格怪会放地震",
       "theme": "arena",
@@ -674,7 +674,7 @@
     },
     {
       "id": "testcase_skill_monster_whirlwind",
-      "title": "技能·怪旋风",
+      "title": "怪旋风",
       "category": "skill",
       "goal": "邻格怪会放旋风",
       "theme": "arena",
@@ -684,7 +684,7 @@
     },
     {
       "id": "testcase_skill_monster_stardust",
-      "title": "技能·怪星光",
+      "title": "怪星光",
       "category": "skill",
       "goal": "邻格怪会放星光",
       "theme": "arena",
@@ -694,7 +694,7 @@
     },
     {
       "id": "testcase_skill_monster_blackhole",
-      "title": "技能·怪黑洞",
+      "title": "怪黑洞",
       "category": "skill",
       "goal": "邻格怪会放黑洞",
       "theme": "arena",
@@ -704,7 +704,7 @@
     },
     {
       "id": "testcase_skill_monster_swap",
-      "title": "技能·怪换位",
+      "title": "怪换位",
       "category": "skill",
       "goal": "邻格怪会放换位",
       "theme": "arena",
@@ -714,7 +714,7 @@
     },
     {
       "id": "testcase_skill_monster_burrow",
-      "title": "技能·怪挖洞",
+      "title": "怪挖洞",
       "category": "skill",
       "goal": "邻格怪会放挖洞",
       "theme": "arena",
@@ -724,7 +724,7 @@
     },
     {
       "id": "testcase_skill_monster_steal_coin",
-      "title": "技能·怪偷金币",
+      "title": "怪偷金币",
       "category": "skill",
       "goal": "先捡金币，再让邻格怪放偷金币",
       "theme": "arena",
@@ -734,7 +734,7 @@
     },
     {
       "id": "testcase_skill_monster_bubble",
-      "title": "技能·怪泡泡",
+      "title": "怪泡泡",
       "category": "skill",
       "goal": "邻格怪会放泡泡",
       "theme": "arena",
@@ -744,7 +744,7 @@
     },
     {
       "id": "testcase_skill_monster_sandstorm",
-      "title": "技能·怪沙暴",
+      "title": "怪沙暴",
       "category": "skill",
       "goal": "邻格怪会放沙暴",
       "theme": "arena",
@@ -754,7 +754,7 @@
     },
     {
       "id": "testcase_skill_monster_split",
-      "title": "技能·怪分裂",
+      "title": "怪分裂",
       "category": "skill",
       "goal": "邻格怪会放分裂",
       "theme": "arena",
@@ -764,7 +764,7 @@
     },
     {
       "id": "testcase_skill_monster_summon",
-      "title": "技能·怪出小蜘蛛",
+      "title": "怪出小蜘蛛",
       "category": "skill",
       "goal": "普攻邻格怪，看出小蜘蛛",
       "theme": "arena",
@@ -774,7 +774,7 @@
     },
     {
       "id": "testcase_skill_monster_sacrifice",
-      "title": "技能·怪献祭",
+      "title": "怪献祭",
       "category": "skill",
       "goal": "邻格怪会放献祭",
       "theme": "arena",
@@ -784,7 +784,7 @@
     },
     {
       "id": "testcase_skill_monster_mirror_copy",
-      "title": "技能·怪镜像",
+      "title": "怪镜像",
       "category": "skill",
       "goal": "邻格怪会放镜像",
       "theme": "arena",
@@ -794,7 +794,7 @@
     },
     {
       "id": "testcase_skill_monster_sleep",
-      "title": "技能·怪睡眠",
+      "title": "怪睡眠",
       "category": "skill",
       "goal": "邻格怪会放睡眠",
       "theme": "arena",
@@ -804,7 +804,7 @@
     },
     {
       "id": "testcase_skill_monster_entangle",
-      "title": "技能·怪缠绕",
+      "title": "怪缠绕",
       "category": "skill",
       "goal": "邻格怪会放缠绕",
       "theme": "arena",
@@ -814,7 +814,7 @@
     },
     {
       "id": "testcase_skill_monster_honey",
-      "title": "技能·怪蜜糖",
+      "title": "怪蜜糖",
       "category": "skill",
       "goal": "邻格怪会放蜜糖",
       "theme": "arena",
@@ -824,7 +824,7 @@
     },
     {
       "id": "testcase_skill_monster_blind",
-      "title": "技能·怪致盲",
+      "title": "怪致盲",
       "category": "skill",
       "goal": "邻格怪会放致盲",
       "theme": "arena",
@@ -834,7 +834,7 @@
     },
     {
       "id": "testcase_skill_monster_slow",
-      "title": "技能·怪减速",
+      "title": "怪减速",
       "category": "skill",
       "goal": "邻格怪会放减速",
       "theme": "arena",
@@ -844,7 +844,7 @@
     },
     {
       "id": "testcase_skill_monster_haste",
-      "title": "技能·怪加速",
+      "title": "怪加速",
       "category": "skill",
       "goal": "邻格怪会放加速",
       "theme": "arena",
@@ -854,7 +854,7 @@
     },
     {
       "id": "testcase_skill_monster_shrink",
-      "title": "技能·怪变小",
+      "title": "怪变小",
       "category": "skill",
       "goal": "邻格怪会放变小",
       "theme": "arena",
@@ -864,7 +864,7 @@
     },
     {
       "id": "testcase_skill_monster_charm",
-      "title": "技能·怪魅惑",
+      "title": "怪魅惑",
       "category": "skill",
       "goal": "邻格怪会放魅惑",
       "theme": "arena",
@@ -874,7 +874,7 @@
     },
     {
       "id": "testcase_skill_monster_taunt",
-      "title": "技能·怪嘲讽",
+      "title": "怪嘲讽",
       "category": "skill",
       "goal": "邻格怪会放嘲讽",
       "theme": "arena",
@@ -884,7 +884,7 @@
     },
     {
       "id": "testcase_skill_monster_curse",
-      "title": "技能·怪诅咒",
+      "title": "怪诅咒",
       "category": "skill",
       "goal": "邻格怪会放诅咒",
       "theme": "arena",
@@ -894,7 +894,7 @@
     },
     {
       "id": "testcase_skill_monster_charge",
-      "title": "技能·怪蓄力",
+      "title": "怪蓄力",
       "category": "skill",
       "goal": "邻格怪会放蓄力",
       "theme": "arena",
@@ -904,7 +904,7 @@
     },
     {
       "id": "testcase_skill_monster_luck",
-      "title": "技能·怪幸运",
+      "title": "怪幸运",
       "category": "skill",
       "goal": "邻格怪会放幸运",
       "theme": "arena",
@@ -914,7 +914,7 @@
     },
     {
       "id": "testcase_skill_monster_pillow_block",
-      "title": "技能·怪枕头挡挡",
+      "title": "怪枕头挡挡",
       "category": "skill",
       "goal": "邻格怪会放枕头挡挡",
       "theme": "arena",
@@ -924,7 +924,7 @@
     },
     {
       "id": "testcase_skill_monster_blanket_fort",
-      "title": "技能·怪被窝城堡",
+      "title": "怪被窝城堡",
       "category": "skill",
       "goal": "邻格怪会放被窝城堡",
       "theme": "arena",
@@ -934,7 +934,7 @@
     },
     {
       "id": "testcase_skill_monster_shell_tuck",
-      "title": "技能·怪缩缩壳",
+      "title": "怪缩缩壳",
       "category": "skill",
       "goal": "普攻邻格怪，看缩缩壳",
       "theme": "arena",
@@ -944,7 +944,7 @@
     },
     {
       "id": "testcase_skill_monster_big_bonk",
-      "title": "技能·怪超级大咚",
+      "title": "怪超级大咚",
       "category": "skill",
       "goal": "邻格怪会放超级大咚",
       "theme": "arena",
@@ -954,7 +954,7 @@
     },
     {
       "id": "testcase_skill_monster_bubble_wrap",
-      "title": "技能·怪泡泡飘飘",
+      "title": "怪泡泡飘飘",
       "category": "skill",
       "goal": "邻格怪会放泡泡飘飘",
       "theme": "arena",
@@ -964,7 +964,7 @@
     },
     {
       "id": "testcase_skill_monster_bedsheet_ghost",
-      "title": "技能·怪床单隐身",
+      "title": "怪床单隐身",
       "category": "skill",
       "goal": "邻格怪会放床单隐身",
       "theme": "arena",
@@ -974,7 +974,7 @@
     },
     {
       "id": "testcase_skill_monster_soap_slide",
-      "title": "技能·怪肥皂溜溜",
+      "title": "怪肥皂溜溜",
       "category": "skill",
       "goal": "邻格怪会放肥皂溜溜",
       "theme": "arena",
@@ -984,7 +984,7 @@
     },
     {
       "id": "testcase_skill_monster_straw_sip",
-      "title": "技能·怪吸管吸吸",
+      "title": "怪吸管吸吸",
       "category": "skill",
       "goal": "邻格怪会放吸管吸吸",
       "theme": "arena",
@@ -994,7 +994,7 @@
     },
     {
       "id": "testcase_skill_monster_juice_slurp",
-      "title": "技能·怪果汁咕嘟",
+      "title": "怪果汁咕嘟",
       "category": "skill",
       "goal": "邻格怪会放果汁咕嘟",
       "theme": "arena",
@@ -1004,7 +1004,7 @@
     },
     {
       "id": "testcase_skill_monster_big_slurp",
-      "title": "技能·怪大口吸溜",
+      "title": "怪大口吸溜",
       "category": "skill",
       "goal": "邻格怪会放大口吸溜",
       "theme": "arena",
@@ -1014,7 +1014,7 @@
     },
     {
       "id": "testcase_skill_monster_pencil_sharpen",
-      "title": "技能·怪削削铅笔",
+      "title": "怪削削铅笔",
       "category": "skill",
       "goal": "邻格怪会放削削铅笔",
       "theme": "arena",
@@ -1024,7 +1024,7 @@
     },
     {
       "id": "testcase_skill_monster_sharp_sharp",
-      "title": "技能·怪尖尖尖",
+      "title": "怪尖尖尖",
       "category": "skill",
       "goal": "邻格怪会放尖尖尖",
       "theme": "arena",
@@ -1034,7 +1034,7 @@
     },
     {
       "id": "testcase_skill_monster_cactus_hug",
-      "title": "技能·怪仙人掌抱抱",
+      "title": "怪仙人掌抱抱",
       "category": "skill",
       "goal": "邻格怪会放仙人掌抱抱",
       "theme": "arena",
@@ -1044,7 +1044,7 @@
     },
     {
       "id": "testcase_skill_monster_prickly_sweater",
-      "title": "技能·怪刺刺毛衣",
+      "title": "怪刺刺毛衣",
       "category": "skill",
       "goal": "邻格怪会放刺刺毛衣",
       "theme": "arena",
@@ -1054,7 +1054,7 @@
     },
     {
       "id": "testcase_skill_monster_hedgehog_bag",
-      "title": "技能·怪刺猬睡袋",
+      "title": "怪刺猬睡袋",
       "category": "skill",
       "goal": "邻格怪会放刺猬睡袋",
       "theme": "arena",
@@ -1064,7 +1064,7 @@
     },
     {
       "id": "testcase_skill_monster_face_mask",
-      "title": "技能·怪戴戴口罩",
+      "title": "怪戴戴口罩",
       "category": "skill",
       "goal": "邻格怪会放戴戴口罩",
       "theme": "arena",
@@ -1074,7 +1074,7 @@
     },
     {
       "id": "testcase_skill_monster_bubble_bath",
-      "title": "技能·怪泡泡浴",
+      "title": "怪泡泡浴",
       "category": "skill",
       "goal": "邻格怪会放泡泡浴",
       "theme": "arena",
@@ -1084,7 +1084,7 @@
     },
     {
       "id": "testcase_skill_monster_nine_lives",
-      "title": "技能·怪九条命",
+      "title": "怪九条命",
       "category": "skill",
       "goal": "邻格怪会放九条命",
       "theme": "arena",
@@ -1094,7 +1094,7 @@
     },
     {
       "id": "testcase_skill_monster_hug_patch",
-      "title": "技能·怪抱抱贴",
+      "title": "怪抱抱贴",
       "category": "skill",
       "goal": "邻格怪会放抱抱贴",
       "theme": "arena",
@@ -1104,7 +1104,7 @@
     },
     {
       "id": "testcase_skill_monster_warm_milk",
-      "title": "技能·怪热牛奶",
+      "title": "怪热牛奶",
       "category": "skill",
       "goal": "邻格怪会放热牛奶",
       "theme": "arena",
@@ -1114,7 +1114,7 @@
     },
     {
       "id": "testcase_skill_monster_cozy_quilt",
-      "title": "技能·怪暖暖被子",
+      "title": "怪暖暖被子",
       "category": "skill",
       "goal": "邻格怪会放暖暖被子",
       "theme": "arena",
@@ -1124,7 +1124,7 @@
     },
     {
       "id": "testcase_skill_monster_extra_bowl",
-      "title": "技能·怪再来一碗",
+      "title": "怪再来一碗",
       "category": "skill",
       "goal": "邻格怪会放再来一碗",
       "theme": "arena",
@@ -1134,7 +1134,7 @@
     },
     {
       "id": "testcase_skill_monster_big_tummy",
-      "title": "技能·怪圆滚滚",
+      "title": "怪圆滚滚",
       "category": "skill",
       "goal": "邻格怪会放圆滚滚",
       "theme": "arena",
@@ -1144,7 +1144,7 @@
     },
     {
       "id": "testcase_skill_monster_heal",
-      "title": "技能·怪治疗",
+      "title": "怪治疗",
       "category": "skill",
       "goal": "邻格怪会放治疗",
       "theme": "arena",
@@ -1154,7 +1154,7 @@
     },
     {
       "id": "testcase_skill_monster_regen_sprout",
-      "title": "技能·怪再生",
+      "title": "怪再生",
       "category": "skill",
       "goal": "邻格怪会放再生",
       "theme": "arena",
@@ -1164,7 +1164,7 @@
     },
     {
       "id": "testcase_skill_monster_grind_teeth",
-      "title": "技能·怪磨磨牙",
+      "title": "怪磨磨牙",
       "category": "skill",
       "goal": "邻格怪会放磨磨牙",
       "theme": "arena",
@@ -1174,7 +1174,7 @@
     },
     {
       "id": "testcase_skill_monster_angry_puff",
-      "title": "技能·怪气鼓鼓",
+      "title": "怪气鼓鼓",
       "category": "skill",
       "goal": "邻格怪会放气鼓鼓",
       "theme": "arena",
@@ -1184,7 +1184,7 @@
     },
     {
       "id": "testcase_skill_monster_super_angry",
-      "title": "技能·怪超级生气",
+      "title": "怪超级生气",
       "category": "skill",
       "goal": "邻格怪会放超级生气",
       "theme": "arena",
@@ -1194,7 +1194,7 @@
     },
     {
       "id": "testcase_skill_monster_mirror_peek",
-      "title": "技能·怪照照镜子",
+      "title": "怪照照镜子",
       "category": "skill",
       "goal": "邻格怪会放照照镜子",
       "theme": "arena",
@@ -1204,7 +1204,7 @@
     },
     {
       "id": "testcase_skill_monster_mirror_wall",
-      "title": "技能·怪镜子墙",
+      "title": "怪镜子墙",
       "category": "skill",
       "goal": "邻格怪会放镜子墙",
       "theme": "arena",
@@ -1214,7 +1214,7 @@
     },
     {
       "id": "testcase_skill_monster_pat_pat",
-      "title": "技能·怪啪啪",
+      "title": "怪啪啪",
       "category": "skill",
       "goal": "邻格怪会放啪啪",
       "theme": "arena",
@@ -1224,7 +1224,7 @@
     },
     {
       "id": "testcase_skill_monster_drum_roll",
-      "title": "技能·怪啪啪啪",
+      "title": "怪啪啪啪",
       "category": "skill",
       "goal": "邻格怪会放啪啪啪",
       "theme": "arena",
@@ -1234,7 +1234,7 @@
     },
     {
       "id": "testcase_skill_monster_tickle",
-      "title": "技能·怪挠痒痒",
+      "title": "怪挠痒痒",
       "category": "skill",
       "goal": "邻格怪会放挠痒痒",
       "theme": "arena",
@@ -1244,7 +1244,7 @@
     },
     {
       "id": "testcase_skill_monster_big_yawn",
-      "title": "技能·怪打哈欠",
+      "title": "怪打哈欠",
       "category": "skill",
       "goal": "邻格怪会放打哈欠",
       "theme": "arena",
@@ -1254,7 +1254,7 @@
     },
     {
       "id": "testcase_skill_monster_lullaby",
-      "title": "技能·怪摇篮曲",
+      "title": "怪摇篮曲",
       "category": "skill",
       "goal": "邻格怪会放摇篮曲",
       "theme": "arena",
@@ -1264,7 +1264,7 @@
     },
     {
       "id": "testcase_skill_monster_shush",
-      "title": "技能·怪嘘安静",
+      "title": "怪嘘安静",
       "category": "skill",
       "goal": "邻格怪会放嘘安静",
       "theme": "arena",
@@ -1274,7 +1274,7 @@
     },
     {
       "id": "testcase_skill_monster_tape_mouth",
-      "title": "技能·怪胶带封嘴",
+      "title": "怪胶带封嘴",
       "category": "skill",
       "goal": "邻格怪会放胶带封嘴",
       "theme": "arena",
@@ -1284,7 +1284,7 @@
     },
     {
       "id": "testcase_skill_monster_spin_spin",
-      "title": "技能·怪转圈圈",
+      "title": "怪转圈圈",
       "category": "skill",
       "goal": "邻格怪会放转圈圈",
       "theme": "arena",
@@ -1294,7 +1294,7 @@
     },
     {
       "id": "testcase_skill_monster_dizzy_top",
-      "title": "技能·怪晕晕陀螺",
+      "title": "怪晕晕陀螺",
       "category": "skill",
       "goal": "邻格怪会放晕晕陀螺",
       "theme": "arena",
@@ -1304,7 +1304,7 @@
     },
     {
       "id": "testcase_skill_monster_prick",
-      "title": "技能·怪小刺刺",
+      "title": "怪小刺刺",
       "category": "skill",
       "goal": "邻格怪会放小刺刺",
       "theme": "arena",
@@ -1314,7 +1314,7 @@
     },
     {
       "id": "testcase_skill_monster_snip_snip",
-      "title": "技能·怪剪刀咔嚓",
+      "title": "怪剪刀咔嚓",
       "category": "skill",
       "goal": "邻格怪会放剪刀咔嚓",
       "theme": "arena",
@@ -1324,7 +1324,7 @@
     },
     {
       "id": "testcase_skill_monster_thorn_storm",
-      "title": "技能·怪刺刺雨",
+      "title": "怪刺刺雨",
       "category": "skill",
       "goal": "邻格怪会放刺刺雨",
       "theme": "arena",
@@ -1334,7 +1334,7 @@
     },
     {
       "id": "testcase_skill_monster_nudge",
-      "title": "技能·怪推推",
+      "title": "怪推推",
       "category": "skill",
       "goal": "邻格怪会放推推",
       "theme": "arena",
@@ -1344,7 +1344,7 @@
     },
     {
       "id": "testcase_skill_monster_bouncy_ball",
-      "title": "技能·怪弹弹球",
+      "title": "怪弹弹球",
       "category": "skill",
       "goal": "邻格怪会放弹弹球",
       "theme": "arena",
@@ -1354,7 +1354,7 @@
     },
     {
       "id": "testcase_skill_monster_hair_dryer",
-      "title": "技能·怪吹风机",
+      "title": "怪吹风机",
       "category": "skill",
       "goal": "邻格怪会放吹风机",
       "theme": "arena",
@@ -1364,7 +1364,7 @@
     },
     {
       "id": "testcase_skill_monster_snore_suck",
-      "title": "技能·怪呼噜吸",
+      "title": "怪呼噜吸",
       "category": "skill",
       "goal": "邻格怪会放呼噜吸",
       "theme": "arena",
@@ -1374,7 +1374,7 @@
     },
     {
       "id": "testcase_skill_monster_sonic",
-      "title": "技能·怪音波",
+      "title": "怪音波",
       "category": "skill",
       "goal": "邻格怪会放音波",
       "theme": "arena",
@@ -1384,7 +1384,7 @@
     },
     {
       "id": "testcase_skill_monster_bedtime_story",
-      "title": "技能·怪讲故事",
+      "title": "怪讲故事",
       "category": "skill",
       "goal": "邻格怪会放讲故事",
       "theme": "arena",
@@ -1394,7 +1394,7 @@
     },
     {
       "id": "testcase_skill_monster_cheer_buddy",
-      "title": "技能·怪点个赞",
+      "title": "怪点个赞",
       "category": "skill",
       "goal": "邻格怪会放点个赞",
       "theme": "arena",
@@ -1404,7 +1404,7 @@
     },
     {
       "id": "testcase_skill_monster_group_hug",
-      "title": "技能·怪抱成一团",
+      "title": "怪抱成一团",
       "category": "skill",
       "goal": "邻格怪会放抱成一团",
       "theme": "arena",
@@ -1414,7 +1414,7 @@
     },
     {
       "id": "testcase_skill_monster_wipe_clean",
-      "title": "技能·怪擦擦干净",
+      "title": "怪擦擦干净",
       "category": "skill",
       "goal": "邻格怪会放擦擦干净",
       "theme": "arena",
@@ -1424,7 +1424,7 @@
     },
     {
       "id": "testcase_skill_monster_wake_up",
-      "title": "技能·怪起床啦",
+      "title": "怪起床啦",
       "category": "skill",
       "goal": "翻开隐藏怪，看起床啦",
       "theme": "arena",
@@ -1434,7 +1434,7 @@
     },
     {
       "id": "testcase_skill_monster_purify",
-      "title": "技能·怪净化",
+      "title": "怪净化",
       "category": "skill",
       "goal": "邻格怪会放净化",
       "theme": "arena",
@@ -1444,7 +1444,7 @@
     },
     {
       "id": "testcase_skill_monster_smelly_cloud",
-      "title": "技能·怪臭臭云",
+      "title": "怪臭臭云",
       "category": "skill",
       "goal": "邻格怪会放臭臭云",
       "theme": "arena",
@@ -1454,7 +1454,7 @@
     },
     {
       "id": "testcase_skill_monster_sticky_web",
-      "title": "技能·怪黏黏蛛网",
+      "title": "怪黏黏蛛网",
       "category": "skill",
       "goal": "普攻邻格怪，看黏黏蛛网",
       "theme": "arena",
@@ -1464,7 +1464,7 @@
     },
     {
       "id": "testcase_skill_monster_hug_and_bite",
-      "title": "技能·怪抱住咬",
+      "title": "怪抱住咬",
       "category": "skill",
       "goal": "邻格怪会放抱住咬",
       "theme": "arena",
@@ -1474,7 +1474,7 @@
     },
     {
       "id": "testcase_skill_monster_iron_turtle",
-      "title": "技能·怪铁乌龟",
+      "title": "怪铁乌龟",
       "category": "skill",
       "goal": "邻格怪会放铁乌龟",
       "theme": "arena",
@@ -1484,7 +1484,7 @@
     },
     {
       "id": "testcase_skill_monster_ring_ring",
-      "title": "技能·怪叮铃铃",
+      "title": "怪叮铃铃",
       "category": "skill",
       "goal": "翻开隐藏怪，看叮铃铃",
       "theme": "arena",
@@ -1494,7 +1494,7 @@
     },
     {
       "id": "testcase_skill_monster_cheer_up",
-      "title": "技能·怪加油加油",
+      "title": "怪加油加油",
       "category": "skill",
       "goal": "邻格怪会放加油加油",
       "theme": "arena",
@@ -1504,7 +1504,7 @@
     },
     {
       "id": "testcase_skill_monster_pop_goodbye",
-      "title": "技能·怪啪嗒散开",
+      "title": "怪啪嗒散开",
       "category": "skill",
       "goal": "打死邻格怪，看啪嗒散开",
       "theme": "arena",
@@ -1514,7 +1514,7 @@
     },
     {
       "id": "testcase_skill_monster_glare_light",
-      "title": "技能·怪刺眼光",
+      "title": "怪刺眼光",
       "category": "skill",
       "goal": "邻格怪会放刺眼光",
       "theme": "arena",
@@ -1524,7 +1524,7 @@
     },
     {
       "id": "testcase_skill_monster_wet",
-      "title": "技能·怪湿漉漉",
+      "title": "怪湿漉漉",
       "category": "skill",
       "goal": "普攻邻格怪，看湿漉漉",
       "theme": "arena",
@@ -1534,7 +1534,7 @@
     },
     {
       "id": "testcase_skill_monster_ignite",
-      "title": "技能·怪着火",
+      "title": "怪着火",
       "category": "skill",
       "goal": "普攻邻格怪，看着火",
       "theme": "arena",
@@ -1544,7 +1544,7 @@
     },
     {
       "id": "testcase_skill_monster_teleport",
-      "title": "技能·怪传送",
+      "title": "怪传送",
       "category": "skill",
       "goal": "邻格怪会放传送",
       "theme": "arena",
@@ -1554,7 +1554,7 @@
     },
     {
       "id": "testcase_event_chest",
-      "title": "事件·黑色宝箱",
+      "title": "黑色宝箱",
       "category": "event",
       "goal": "踩邻格黑色宝箱，看开箱",
       "theme": "arena",
@@ -1564,7 +1564,7 @@
     },
     {
       "id": "testcase_event_duck",
-      "title": "事件·黄头鸭的商店",
+      "title": "黄头鸭的商店",
       "category": "event",
       "goal": "先开邻格宝箱拿钱，再进黄头鸭商店",
       "theme": "arena",
@@ -1574,7 +1574,7 @@
     },
     {
       "id": "testcase_event_cottage",
-      "title": "事件·爱心小屋",
+      "title": "爱心小屋",
       "category": "event",
       "goal": "可先挨一下打，再进爱心小屋",
       "theme": "arena",
@@ -1584,7 +1584,7 @@
     },
     {
       "id": "testcase_event_hotspring",
-      "title": "事件·咕嘟温泉",
+      "title": "咕嘟温泉",
       "category": "event",
       "goal": "可先挨一下打，再进咕嘟温泉",
       "theme": "arena",
@@ -1594,7 +1594,7 @@
     },
     {
       "id": "testcase_event_spinner",
-      "title": "事件·怪兽转盘",
+      "title": "怪兽转盘",
       "category": "event",
       "goal": "踩邻格怪兽转盘，看转出来的怪",
       "theme": "arena",
@@ -1604,7 +1604,7 @@
     },
     {
       "id": "testcase_event_crow",
-      "title": "事件·乌鸦的卷轴商店",
+      "title": "乌鸦的卷轴商店",
       "category": "event",
       "goal": "先开邻格宝箱拿钱，再进乌鸦卷轴店",
       "theme": "arena",
@@ -1614,7 +1614,7 @@
     },
     {
       "id": "testcase_event_raccoon",
-      "title": "事件·创可贴浣熊的补给站",
+      "title": "创可贴浣熊的补给站",
       "category": "event",
       "goal": "先开邻格宝箱拿钱，再进浣熊补给站",
       "theme": "arena",
@@ -1624,7 +1624,7 @@
     },
     {
       "id": "testcase_event_capybara",
-      "title": "事件·卡皮巴拉的银行",
+      "title": "卡皮巴拉的银行",
       "category": "event",
       "goal": "先开邻格宝箱拿钱，再进卡皮巴拉银行",
       "theme": "arena",
@@ -1634,7 +1634,7 @@
     },
     {
       "id": "testcase_event_owl",
-      "title": "事件·咕咕猫头鹰的换装屋",
+      "title": "咕咕猫头鹰的换装屋",
       "category": "event",
       "goal": "先开邻格宝箱拿钱，再进猫头鹰换装屋",
       "theme": "arena",
@@ -1644,7 +1644,7 @@
     },
     {
       "id": "testcase_event_event_teleport",
-      "title": "事件·传送阵",
+      "title": "传送阵",
       "category": "event",
       "goal": "踩上去随机传到空地",
       "theme": "arena",
@@ -1654,7 +1654,7 @@
     },
     {
       "id": "testcase_event_falltrap",
-      "title": "事件·落下陷阱",
+      "title": "落下陷阱",
       "category": "event",
       "goal": "踩上去观察触发即可（单层没有下一层）",
       "theme": "arena",
@@ -1664,8 +1664,8 @@
     },
     {
       "id": "testcase_costume_diving",
-      "title": "服装·潜水服",
-      "category": "item",
+      "title": "潜水服",
+      "category": "costume",
       "goal": "捡潜水服换上，看 HUD 心上限",
       "theme": "arena",
       "cols": 10,
@@ -1674,8 +1674,8 @@
     },
     {
       "id": "testcase_costume_space",
-      "title": "服装·宇航服",
-      "category": "item",
+      "title": "宇航服",
+      "category": "costume",
       "goal": "捡宇航服换上，试着站到洞上",
       "theme": "arena",
       "cols": 10,
@@ -1684,8 +1684,8 @@
     },
     {
       "id": "testcase_costume_penguin",
-      "title": "服装·企鹅服",
-      "category": "item",
+      "title": "企鹅服",
+      "category": "costume",
       "goal": "捡企鹅服换上，普攻看是否打晕",
       "theme": "arena",
       "cols": 10,
@@ -1694,8 +1694,8 @@
     },
     {
       "id": "testcase_costume_ninja",
-      "title": "服装·忍者服",
-      "category": "item",
+      "title": "忍者服",
+      "category": "costume",
       "goal": "捡忍者服换上，站着挨打看闪避",
       "theme": "arena",
       "cols": 10,
@@ -1704,8 +1704,8 @@
     },
     {
       "id": "testcase_costume_halloween",
-      "title": "服装·万圣节",
-      "category": "item",
+      "title": "万圣节",
+      "category": "costume",
       "goal": "捡万圣节换上，把怪打到半血看是否询问加入",
       "theme": "arena",
       "cols": 10,
@@ -1714,8 +1714,8 @@
     },
     {
       "id": "testcase_costume_christmas",
-      "title": "服装·圣诞服",
-      "category": "item",
+      "title": "圣诞服",
+      "category": "costume",
       "goal": "捡圣诞服换上，击败怪物看是否掉补给",
       "theme": "arena",
       "cols": 10,
@@ -1724,8 +1724,8 @@
     },
     {
       "id": "testcase_costume_miner",
-      "title": "服装·矿工服",
-      "category": "item",
+      "title": "矿工服",
+      "category": "costume",
       "goal": "捡矿工服换上，试着破开挡路的墙",
       "theme": "arena",
       "cols": 10,
@@ -1734,8 +1734,8 @@
     },
     {
       "id": "testcase_costume_cat",
-      "title": "服装·猫猫服",
-      "category": "item",
+      "title": "猫猫服",
+      "category": "costume",
       "goal": "捡猫猫服换上，普攻看是否多打一下",
       "theme": "arena",
       "cols": 10,
@@ -1744,8 +1744,8 @@
     },
     {
       "id": "testcase_costume_frog",
-      "title": "服装·青蛙服",
-      "category": "item",
+      "title": "青蛙服",
+      "category": "costume",
       "goal": "捡青蛙服换上，看是否再动一次",
       "theme": "arena",
       "cols": 10,
@@ -1754,8 +1754,8 @@
     },
     {
       "id": "testcase_costume_zombie",
-      "title": "服装·僵尸服",
-      "category": "item",
+      "title": "僵尸服",
+      "category": "costume",
       "goal": "捡僵尸服换上，看心上限和牙",
       "theme": "arena",
       "cols": 10,
