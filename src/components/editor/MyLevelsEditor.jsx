@@ -6,7 +6,7 @@ import {
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
   myLevelMeta, asValidateLevel, MY_LEVEL_DIR,
   stripOverrides, cleanOverrides, hasOverrides,
-  LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, needsNoArena, TESTCASE_ARENA_SIZE,
+  LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, normCategory, needsNoArena, TESTCASE_ARENA_SIZE,
 } from '../../lib/levels.js';
 import {
   hasToken, getCachedLogin, clearToken, verifyToken,
@@ -47,6 +47,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
   const fmtLv = (d) => formatMyLevelJson(d, K);
   const fmtIdx = (list) => formatMyIndexJson(list.map(myLevelMeta), K);
   const [levels, setLevels] = useState([]);
+  const [catOpen, setCatOpen] = useState({});
   const [past, setPast] = useState([]);
   const [future, setFuture] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -733,7 +734,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
         <div className="ed-bar sketch le-bar tc-meta">
           <div className="ed-row">
             <label className="small">分类
-              <select value={lv.category || 'other'} onChange={(e) => updateLevel((l) => ({ ...l, category: e.target.value, updatedAt: new Date().toISOString() }))} style={{ marginLeft: 4 }}>
+              <select value={normCategory(lv.category)} onChange={(e) => updateLevel((l) => ({ ...l, category: e.target.value, updatedAt: new Date().toISOString() }))} style={{ marginLeft: 4 }}>
                 {TESTCASE_CATEGORIES.map((c) => <option key={c} value={c}>{TESTCASE_CATEGORY_LABELS[c] || c}</option>)}
               </select>
             </label>
@@ -756,6 +757,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
               <span className="le-wname">{K.label}</span>
               <span className="le-wmeta">{levels.length}</span>
             </div>
+            {!TC && (
             <div className="le-levels le-mylevels-list">
               {levels.map((l) => {
                 const bad = (checks[l.id] || []).some((x) => x.sev === 'err');
@@ -768,7 +770,37 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                 );
               })}
             </div>
+            )}
           </div>
+          {TC && TESTCASE_CATEGORIES.map((cat) => {
+            const items = levels.filter((l) => normCategory(l.category) === cat);
+            if (!items.length) return null;
+            const hasCur = items.some((l) => l.id === editId);
+            const open = catOpen[cat] ?? hasCur;
+            return (
+              <div key={cat} className={`le-world ${open ? 'on' : ''}`}>
+                <button className="le-wbtn" onClick={() => setCatOpen((o) => ({ ...o, [cat]: !open }))}>
+                  <span className="le-wno">{open ? '▾' : '▸'}</span>
+                  <span className="le-wname">{TESTCASE_CATEGORY_LABELS[cat]}</span>
+                  <span className="le-wmeta">{items.length}</span>
+                </button>
+                {open && (
+                  <div className="le-levels le-mylevels-list">
+                    {items.map((l) => {
+                const bad = (checks[l.id] || []).some((x) => x.sev === 'err');
+                return (
+                  <button key={l.id} className={`le-lv le-mylv ${l.id === editId ? 'on' : ''} ${isEmptyLevel(l) ? 'empty' : ''} ${bad ? 'bad' : ''}`}
+                    onClick={() => { setEditId(l.id); setHl(null); }}
+                    title={l.id}>
+                    {l.title}
+                  </button>
+                );
+              })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
           <p className="hint le-help" style={{ padding: '0 10px 8px' }}>主题只借官方世界美术，不占冒险进度。</p>
         </aside>
 

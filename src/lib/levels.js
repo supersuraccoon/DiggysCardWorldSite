@@ -267,7 +267,13 @@ export const MY_LEVEL_TABLE = '我的关卡';
 export const MY_LEVEL_DIR = '我的关卡';
 
 /** 关卡「种类」：我的关卡 / 机制试玩场。路径、id 前缀、table 都从这里取，避免两套漂移。 */
-export const TESTCASE_CATEGORIES = ['monster', 'item', 'costume', 'event', 'status', 'skill', 'weather', 'special', 'mechanic', 'composite', 'other'];
+export const TESTCASE_CATEGORIES = ['monster', 'item', 'costume', 'event', 'status', 'skill', 'weather', 'special'];
+/** 旧 category → 8 大类 */
+const LEGACY_CATEGORY = { mechanic: 'special', composite: 'monster', other: 'special' };
+export function normCategory(c) {
+  const v = LEGACY_CATEGORY[c] || c;
+  return TESTCASE_CATEGORIES.includes(v) ? v : 'special';
+}
 export const TESTCASE_CATEGORY_LABELS = {
   monster: '怪物', item: '道具', costume: '服装', event: '事件',
   status: '状态', skill: '技能', weather: '天气', special: '特殊',
@@ -342,7 +348,7 @@ export function blankMyLevel(opts = {}, kind) {
   };
   if (author != null && author !== '') out.author = author;
   if (isTestcase(K)) {
-    out.category = TESTCASE_CATEGORIES.includes(category) ? category : 'other';
+    out.category = normCategory(category);
     out.goal = goal || '';
     out.arena = false; // 新建试玩：无怪，走楼梯过关
   }
@@ -370,7 +376,7 @@ export function normalizeMyLevel(d, kind) {
   };
   if (d.author != null && d.author !== '') base.author = String(d.author);
   if (isTestcase(K)) {
-    base.category = TESTCASE_CATEGORIES.includes(d.category) ? d.category : 'other';
+    base.category = normCategory(d.category);
     base.goal = (d.goal ?? '').toString();
     base.arena = d.arena === false ? false : true;
   } else if (d.arena === false) base.arena = false;
@@ -393,7 +399,7 @@ export function formatMyIndexJson(levelsMeta, kind) {
   const levels = (levelsMeta || []).map((m) => ({
     id: m.id,
     title: m.title,
-    ...(tc ? { category: m.category || 'other', goal: m.goal || '' } : {}),
+    ...(tc ? { category: normCategory(m.category), goal: m.goal || '' } : {}),
     theme: m.theme,
     cols: m.cols,
     rows: m.rows,

@@ -15,7 +15,7 @@
     {
       "id": "testcase_mechanic_hunt_hidden",
       "title": "隐藏追踪",
-      "category": "mechanic",
+      "category": "special",
       "goal": "原地等一等，牌背下的小虫会靠近",
       "theme": "arena",
       "cols": 10,
@@ -55,7 +55,7 @@
     {
       "id": "testcase_composite_snake",
       "title": "软管蛇",
-      "category": "composite",
+      "category": "monster",
       "goal": "观察三节软管蛇怎么走、先打哪一节",
       "theme": "arena",
       "cols": 10,
