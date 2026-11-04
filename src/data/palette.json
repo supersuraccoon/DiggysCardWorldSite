@@ -28,6 +28,15 @@
       "prefab": "terrain_down_prefab",
       "walkable": true,
       "img": "images/level/terrain/stairs.png"
+    },
+    {
+      "id": "arena_wall",
+      "name": "竞技场墙",
+      "prefab": "obstacle_arena_wall_prefab",
+      "walkable": false,
+      "img": "images/level/terrain/arena_wall.png",
+      "displayOnly": true,
+      "note": "JSON 仍写 ground:wall；theme=arena 时编辑器显示此卡，游戏端需按 theme 换 prefab"
     }
   ],
   "equipment": [

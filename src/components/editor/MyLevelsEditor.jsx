@@ -562,6 +562,8 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
 
   const clearBoard = () => updateLevel((l) => ({ ...l, cells: l.cells.map((c) => ({ ...c, ground: 'floor', catalog: '', mole: false })) }));
 
+  // theme=arena：ground:wall 显示为竞技场墙（obstacle_arena_wall）
+  const gView = (g) => (g === 'wall' && lv?.theme === 'arena' && lookup.ground.arena_wall ? lookup.ground.arena_wall : lookup.ground[g]);
   const pieceOf = (c) => (c.mole ? { name: '黄鼹鼠', img: `${base}/images/roles/mole.png`, kind: 'mole' } : c.catalog ? lookup.info[c.catalog] || { name: c.catalog, img: null, kind: 'unknown' } : null);
   const toolLabel = tool.kind === 'ground' ? `刷地形：${lookup.ground[tool.id]?.name}` : tool.kind === 'card' ? `放牌：${lookup.info[tool.id]?.name || tool.id}` : tool.kind === 'mole' ? '放黄鼹鼠' : tool.kind === 'select' ? '选择格子（改覆盖字段）' : '橡皮';
   const errs = curChecks.filter((c) => c.sev === 'err').length;
@@ -785,7 +787,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
               <div className="seg">
                 {GROUNDS.map((g) => (
                   <button key={g.id} className={tool.kind === 'ground' && tool.id === g.id ? 'on' : ''} onClick={() => setTool({ kind: 'ground', id: g.id })}>
-                    <img className="seg-ico" src={lookup.ground[g.id].src} alt="" />{g.name}
+                    <img className="seg-ico" src={gView(g.id).src} alt="" />{gView(g.id).id === 'arena_wall' ? gView(g.id).name : g.name}
                   </button>
                 ))}
               </div>
@@ -819,10 +821,10 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                   const inRect = drag && x >= Math.min(drag.x0, drag.x1) && x <= Math.max(drag.x0, drag.x1) && y >= Math.min(drag.y0, drag.y1) && y <= Math.max(drag.y0, drag.y1);
                   return (
                     <div key={`${x},${y}`} className={`le-cell g-${c.ground} ${inRect ? 'rect' : ''} ${hlSet.has(`${x},${y}`) ? 'hl' : ''} ${sel && sel.x === x && sel.y === y ? 'sel' : ''}`}
-                      style={{ backgroundImage: `url(${lookup.ground[c.ground]?.src})` }}
+                      style={{ backgroundImage: `url(${gView(c.ground)?.src})` }}
                       onMouseDown={(e) => onCellDown(x, y, e)} onMouseEnter={() => onCellEnter(x, y)} onClick={() => onCellClick(x, y)}
                       onDragOver={(e) => e.preventDefault()} onDrop={(e) => onDrop(x, y, e)}
-                      title={`(${x}, ${y}) ${lookup.ground[c.ground]?.name}${p ? ' · ' + p.name : ''}`}>
+                      title={`(${x}, ${y}) ${gView(c.ground)?.name}${p ? ' · ' + p.name : ''}`}>
                       {p && (
                         <div className={`le-piece k-${p.kind}`} draggable={!rectMode && (tool.kind === 'card' || tool.kind === 'mole')}
                           onDragStart={(e) => { e.dataTransfer.setData(DRAG_MIME, JSON.stringify({ move: { x, y } })); e.dataTransfer.effectAllowed = 'move'; }}>

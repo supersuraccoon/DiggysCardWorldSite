@@ -26,7 +26,7 @@ export function Palette({ lookup, palette, base, tool, setTool }) {
       <h4>特殊</h4>
       <div className="pgrid">
         <PItem id="mole" name="黄鼹鼠" img={`${base}/images/roles/mole.png`} sub="起点" active={tool.kind === 'mole'} onPick={() => setTool({ kind: 'mole' })} drag={{ kind: 'mole' }} />
-        {palette.terrain.filter(hit).map((t) => (
+        {palette.terrain.filter((t) => !t.displayOnly).filter(hit).map((t) => (
           <PItem key={t.id} id={t.id} name={t.name} img={lookup.ground[t.id].src} sub={t.walkable ? '能走' : '挡路'}
             active={tool.kind === 'ground' && tool.id === t.id} onPick={() => setTool({ kind: 'ground', id: t.id })} drag={{ kind: 'ground', id: t.id }} />
         ))}
