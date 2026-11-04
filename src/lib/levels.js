@@ -15,7 +15,18 @@ export const WORLDS = [
   { id: 'world7', index: 7, name: '熔岩', hidden: false },
   { id: 'world8', index: 8, name: '星空', hidden: false },
   { id: 'castle', index: 9, name: '云雾城堡', hidden: true },
+  { id: 'arena', index: 10, name: '竞技场', hidden: false },
 ];
+/** = LevelArenaPrefab：10×5，外圈墙、内圈 8×3 地板 */
+export const TESTCASE_ARENA_SIZE = { cols: 10, rows: 5 };
+export function arenaCells(cols = TESTCASE_ARENA_SIZE.cols, rows = TESTCASE_ARENA_SIZE.rows) {
+  const out = [];
+  for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+    const edge = x === 0 || y === 0 || x === cols - 1 || y === rows - 1;
+    out.push({ x, y, ground: edge ? 'wall' : 'floor', catalog: '', mole: false });
+  }
+  return out;
+}
 // = deal.ts DealGround。墙和坑挡路，地板和楼梯能走（rules.ts：pit 只有飞的能过）
 export const GROUNDS = [
   { id: 'floor', name: '地板', walkable: true },
@@ -279,10 +290,25 @@ export function newMyLevelId(kind) {
 }
 
 /** 新建一层：默认放 1 鼹鼠 + 1 楼梯，方便通过校验 */
-export function blankMyLevel({ title = '未命名关卡', theme = 'world1', cols = DEFAULT_SIZE.cols, rows = DEFAULT_SIZE.rows, author, category, goal } = {}, kind) {
+export function blankMyLevel(opts = {}, kind) {
   const K = kindOf(kind);
+  const tc = isTestcase(K);
+  const { title = '未命名关卡', author, category, goal } = opts;
+  const theme = opts.theme ?? (tc ? 'arena' : 'world1');
+  const cols = opts.cols ?? (tc ? TESTCASE_ARENA_SIZE.cols : DEFAULT_SIZE.cols);
+  const rows = opts.rows ?? (tc ? TESTCASE_ARENA_SIZE.rows : DEFAULT_SIZE.rows);
   const now = new Date().toISOString();
-  const cells = blankCells(cols, rows);
+  let cells;
+  if (tc && cols >= 3 && rows >= 3) {
+    // 试玩：竞技场布局（外墙内地），内圈随机鼹鼠 + 随机出口，不放怪
+    cells = arenaCells(cols, rows);
+    const inner = cells.filter((c) => c.ground === 'floor');
+    const a = (Math.random() * inner.length) | 0;
+    let b = (Math.random() * (inner.length - 1)) | 0; if (b >= a) b++;
+    inner[a].mole = true;
+    if (inner.length > 1) inner[b].ground = 'stairs';
+  } else {
+  cells = blankCells(cols, rows);
   // 鼹鼠靠左上，楼梯靠右下（格子够小时也尽量错开）
   const mx = Math.min(1, cols - 1), my = Math.min(1, rows - 1);
   const sx = Math.max(0, cols - 2), sy = Math.max(0, rows - 2);
@@ -293,6 +319,7 @@ export function blankMyLevel({ title = '未命名关卡', theme = 'world1', cols
     const tx = mx === 0 ? Math.min(1, cols - 1) : 0;
     const ty = my;
     cells[cellIndex({ cols, rows }, tx, ty)] = { x: tx, y: ty, ground: 'stairs', catalog: '', mole: false };
+  }
   }
   const out = {
     schemaVersion: SCHEMA_VERSION,
@@ -312,7 +339,7 @@ export function blankMyLevel({ title = '未命名关卡', theme = 'world1', cols
   if (isTestcase(K)) {
     out.category = TESTCASE_CATEGORIES.includes(category) ? category : 'other';
     out.goal = goal || '';
-    out.arena = true;
+    out.arena = false; // 新建试玩：无怪，走楼梯过关
   }
   return out;
 }

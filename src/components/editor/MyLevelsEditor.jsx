@@ -6,7 +6,7 @@ import {
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
   myLevelMeta, asValidateLevel, MY_LEVEL_DIR,
   stripOverrides, cleanOverrides, hasOverrides,
-  LEVEL_KINDS, TESTCASE_CATEGORIES, needsNoArena,
+  LEVEL_KINDS, TESTCASE_CATEGORIES, needsNoArena, TESTCASE_ARENA_SIZE,
 } from '../../lib/levels.js';
 import {
   hasToken, getCachedLogin, clearToken, verifyToken,
@@ -921,9 +921,9 @@ function NewDialog({ onOk, onCancel, testcase = false, prefix = 'ml_' }) {
   const [title, setTitle] = useState(testcase ? '未命名试玩' : '未命名关卡');
   const [category, setCategory] = useState('status');
   const [goal, setGoal] = useState('');
-  const [theme, setTheme] = useState('world1');
-  const [cols, setCols] = useState(DEFAULT_SIZE.cols);
-  const [rows, setRows] = useState(DEFAULT_SIZE.rows);
+  const [theme, setTheme] = useState(testcase ? 'arena' : 'world1');
+  const [cols, setCols] = useState(testcase ? TESTCASE_ARENA_SIZE.cols : DEFAULT_SIZE.cols);
+  const [rows, setRows] = useState(testcase ? TESTCASE_ARENA_SIZE.rows : DEFAULT_SIZE.rows);
   return (
     <div className="modal-bg" onClick={onCancel}>
       <div className="modal sketch" onClick={(e) => e.stopPropagation()}>
@@ -934,8 +934,14 @@ function NewDialog({ onOk, onCancel, testcase = false, prefix = 'ml_' }) {
             {WORLDS.map((w) => <option key={w.id} value={w.id}>{w.name}{w.hidden ? '（隐藏）' : ''}</option>)}
           </select>
         </label>
-        <label>列<input type="number" min={1} max={MAX_SIDE} value={cols} onChange={(e) => setCols(+e.target.value)} /></label>
-        <label>行<input type="number" min={1} max={MAX_SIDE} value={rows} onChange={(e) => setRows(+e.target.value)} /></label>
+        {testcase ? (
+          <p className="hint">竞技场布局（LevelArenaPrefab {TESTCASE_ARENA_SIZE.cols}×{TESTCASE_ARENA_SIZE.rows}，外圈墙）：随机鼹鼠 + 随机出口，不放怪。尺寸建好后可在编辑区改。</p>
+        ) : (
+          <>
+            <label>列<input type="number" min={1} max={MAX_SIDE} value={cols} onChange={(e) => setCols(+e.target.value)} /></label>
+            <label>行<input type="number" min={1} max={MAX_SIDE} value={rows} onChange={(e) => setRows(+e.target.value)} /></label>
+          </>
+        )}
         {testcase && (
           <>
             <label>分类
@@ -946,7 +952,7 @@ function NewDialog({ onOk, onCancel, testcase = false, prefix = 'ml_' }) {
             <label>验收目标<input value={goal} onChange={(e) => setGoal(e.target.value)} placeholder="例：捡起剑，普攻观察混乱" /></label>
           </>
         )}
-        <p className="hint">会自动生成 id（{prefix}…），并默认放 1 只黄鼹鼠 + 1 个楼梯。</p>
+        <p className="hint">会自动生成 id（{prefix}…），并默认放 1 只黄鼹鼠 + 1 个楼梯{testcase ? '（位置随机）' : ''}。</p>
         <div className="ps-foot">
           <button className="btn small" onClick={onCancel}>取消</button>
           <span className="grow" />
