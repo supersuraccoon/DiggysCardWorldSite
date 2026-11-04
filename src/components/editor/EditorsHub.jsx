@@ -88,7 +88,7 @@ export default function EditorsHub({
       {tab === 'cards' && <Editor shipped={rolesShipped} refs={refs} images={images} base={base} />}
       {tab === 'levels' && <LevelEditor shippedWorlds={shippedWorlds} roles={roles} palette={palette} base={base} />}
       {tab === 'deal' && <DealEditor shipped={deal} palette={palette} lookup={lookup} base={base} />}
-      {tab === 'mine' && <MyLevelsEditor lookup={lookup} palette={palette} base={base} />}
+      {tab === 'mine' && <MyLevelsEditor lookup={lookup} palette={palette} refs={refs} base={base} />}
     </div>
   );
 }

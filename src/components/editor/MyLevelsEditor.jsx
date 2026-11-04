@@ -5,6 +5,7 @@ import {
   makeZip, resolveConfigDir, writeText,
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
   myLevelMeta, asValidateLevel, MY_LEVEL_DIR,
+  stripOverrides, cleanOverrides, hasOverrides,
 } from '../../lib/levels.js';
 import {
   hasToken, getCachedLogin, clearToken, verifyToken,
@@ -18,6 +19,7 @@ import {
 import { STAT_ICONS } from '../../lib/icons.js';
 import { asset } from '../../lib/site.js';
 import { Palette } from './Palette.jsx';
+import CellInspector from './CellInspector.jsx';
 
 const LS_KEY = 'diggy.editor.mylevels.v1';
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -35,7 +37,7 @@ function themeName(id) {
   return WORLDS.find((w) => w.id === id)?.name || id;
 }
 
-export default function MyLevelsEditor({ lookup, palette, base = '' }) {
+export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
   const [levels, setLevels] = useState([]);
   const [past, setPast] = useState([]);
   const [future, setFuture] = useState([]);
@@ -48,6 +50,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
   const dragRef = useRef(null);
   const setDrag = (v) => { const next = typeof v === 'function' ? v(dragRef.current) : v; dragRef.current = next; setDragState(next); };
   const [hl, setHl] = useState(null);
+  const [sel, setSel] = useState(null); // 选中格 {x,y}，右侧 inspector
   const [toast, setToast] = useState(null);
   const [canSaveDir, setCanSaveDir] = useState(false);
   const [dirHandle, setDirHandle] = useState(null);
@@ -144,14 +147,20 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
         for (let k = 0; k < cells.length; k++) if (k !== i && cells[k].ground === 'stairs') cells[k] = { ...cells[k], ground: 'floor' };
       }
       c.ground = t.id;
-      if (t.id !== 'floor') { c.catalog = ''; c.mole = false; }
+      if (t.id !== 'floor') { c.catalog = ''; c.mole = false; for (const k of Object.keys(c)) if (!['x', 'y', 'ground', 'catalog', 'mole'].includes(k)) delete c[k]; }
+    } else if (t.kind === 'select') {
+      return l;
     } else if (t.kind === 'card') {
+      if (c.catalog !== t.id) for (const k of Object.keys(c)) if (!['x', 'y', 'ground', 'catalog', 'mole'].includes(k)) delete c[k];
       c.catalog = t.id; c.mole = false; c.ground = 'floor';
+      if (t.over) Object.assign(c, t.over);
     } else if (t.kind === 'mole') {
       for (let k = 0; k < cells.length; k++) if (cells[k].mole) cells[k] = { ...cells[k], mole: false };
+      for (const k of Object.keys(c)) if (!['x', 'y', 'ground', 'catalog', 'mole'].includes(k)) delete c[k];
       c.mole = true; c.catalog = ''; c.ground = 'floor';
+      if (t.over) Object.assign(c, t.over);
     } else if (t.kind === 'erase') {
-      if (c.catalog || c.mole) { c.catalog = ''; c.mole = false; } else c.ground = 'floor';
+      if (c.catalog || c.mole) { c.catalog = ''; c.mole = false; for (const k of Object.keys(c)) if (!['x', 'y', 'ground', 'catalog', 'mole'].includes(k)) delete c[k]; } else c.ground = 'floor';
     }
     if (JSON.stringify(c) === JSON.stringify(cells[i]) && cells.every((cc, k) => cc === l.cells[k] || k === i)) return l;
     cells[i] = c;
@@ -171,6 +180,8 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
   const onCellDown = (x, y, e) => {
     if (!lv || e.button !== 0) return;
     setHl(null);
+    { const c0 = lv.cells[cellIndex(lv, x, y)]; if (tool.kind === 'select' || c0.catalog || c0.mole) setSel({ x, y }); }
+    if (tool.kind === 'select') { stroke.current = null; return; }
     if (rectMode) { setDrag({ x0: x, y0: y, x1: x, y1: y }); stroke.current = 'rect'; return; }
     if (tool.kind === 'card' || tool.kind === 'mole') {
       const c = lv.cells[cellIndex(lv, x, y)];
@@ -207,9 +218,10 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
         const from = l.cells[cellIndex(l, p.move.x, p.move.y)];
         if (p.move.x === x && p.move.y === y) return l;
         let out = applyTool(l, p.move.x, p.move.y, { kind: 'erase' });
-        out = applyTool(out, x, y, from.mole ? { kind: 'mole' } : { kind: 'card', id: from.catalog });
+        out = applyTool(out, x, y, from.mole ? { kind: 'mole', over: cleanOverrides(from) } : { kind: 'card', id: from.catalog, over: cleanOverrides(from) });
         return out;
       });
+      setSel({ x, y });
     } else updateLevel((l) => applyTool(l, x, y, p));
   };
 
@@ -543,7 +555,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
   const clearBoard = () => updateLevel((l) => ({ ...l, cells: l.cells.map((c) => ({ ...c, ground: 'floor', catalog: '', mole: false })) }));
 
   const pieceOf = (c) => (c.mole ? { name: '黄鼹鼠', img: `${base}/images/roles/mole.png`, kind: 'mole' } : c.catalog ? lookup.info[c.catalog] || { name: c.catalog, img: null, kind: 'unknown' } : null);
-  const toolLabel = tool.kind === 'ground' ? `刷地形：${lookup.ground[tool.id]?.name}` : tool.kind === 'card' ? `放牌：${lookup.info[tool.id]?.name || tool.id}` : tool.kind === 'mole' ? '放黄鼹鼠' : '橡皮';
+  const toolLabel = tool.kind === 'ground' ? `刷地形：${lookup.ground[tool.id]?.name}` : tool.kind === 'card' ? `放牌：${lookup.info[tool.id]?.name || tool.id}` : tool.kind === 'mole' ? '放黄鼹鼠' : tool.kind === 'select' ? '选择格子（改覆盖字段）' : '橡皮';
   const errs = curChecks.filter((c) => c.sev === 'err').length;
 
   // ================= LIST =================
@@ -761,6 +773,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
               <span>×</span>
               <label className="sz">行 <input type="number" min={1} max={MAX_SIDE} value={lv.rows} onChange={(e) => setSize(lv.cols, +e.target.value)} /></label>
               <span className="grow" />
+              <button className={`btn small ${tool.kind === 'select' ? 'yellow' : ''}`} title="点格子只选中，不刷；在下方「格子覆盖」里改 effects/skills 等" onClick={() => setTool({ kind: 'select' })}>🔍 选择</button>
               <span className="tag y">当前：{toolLabel}</span>
               <button className="btn small" onClick={clearBoard}>清空本关</button>
             </div>
@@ -777,7 +790,7 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
                   const p = pieceOf(c);
                   const inRect = drag && x >= Math.min(drag.x0, drag.x1) && x <= Math.max(drag.x0, drag.x1) && y >= Math.min(drag.y0, drag.y1) && y <= Math.max(drag.y0, drag.y1);
                   return (
-                    <div key={`${x},${y}`} className={`le-cell g-${c.ground} ${inRect ? 'rect' : ''} ${hlSet.has(`${x},${y}`) ? 'hl' : ''}`}
+                    <div key={`${x},${y}`} className={`le-cell g-${c.ground} ${inRect ? 'rect' : ''} ${hlSet.has(`${x},${y}`) ? 'hl' : ''} ${sel && sel.x === x && sel.y === y ? 'sel' : ''}`}
                       style={{ backgroundImage: `url(${lookup.ground[c.ground]?.src})` }}
                       onMouseDown={(e) => onCellDown(x, y, e)} onMouseEnter={() => onCellEnter(x, y)} onClick={() => onCellClick(x, y)}
                       onDragOver={(e) => e.preventDefault()} onDrop={(e) => onDrop(x, y, e)}
@@ -786,7 +799,8 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
                         <div className={`le-piece k-${p.kind}`} draggable={!rectMode && (tool.kind === 'card' || tool.kind === 'mole')}
                           onDragStart={(e) => { e.dataTransfer.setData(DRAG_MIME, JSON.stringify({ move: { x, y } })); e.dataTransfer.effectAllowed = 'move'; }}>
                           {p.img ? <img src={p.img} alt={p.name} draggable={false} /> : <span className="le-unknown">?</span>}
-                          {p.kind === 'monster' && <span className="le-mini">{p.r.heart}/{p.r.tooth}</span>}
+                          {p.kind === 'monster' && <span className="le-mini">{c.heart ?? p.r.heart}/{c.tooth ?? p.r.tooth}</span>}
+                          {hasOverrides(c) && <span className="le-ovr" title="此格有覆盖字段">✦</span>}
                         </div>
                       )}
                     </div>
@@ -798,6 +812,13 @@ export default function MyLevelsEditor({ lookup, palette, base = '' }) {
           </div>
 
           <div className="le-panels">
+            <CellInspector lv={lv} sel={sel} lookup={lookup} refs={refs}
+              onChange={(over) => updateLevel((l) => {
+                const i = cellIndex(l, sel.x, sel.y);
+                const cells = l.cells.slice();
+                cells[i] = { ...stripOverrides(cells[i]), ...cleanOverrides(over, cells[i].mole && !cells[i].catalog ? ['heart', 'tooth', 'armor', 'gold', 'skills', 'effects'] : undefined) };
+                return { ...l, cells };
+              })} />
             <div className="le-panel sketch">
               <h4>检查</h4>
               {curChecks.length === 0 && <p className="ok">✅ 没问题：1 只黄鼹鼠、1 个楼梯，走得到。</p>}

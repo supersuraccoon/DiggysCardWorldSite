@@ -45,6 +45,40 @@ export function blankWorld(w) {
   };
 }
 
+// ===== 格子覆盖字段（方案-机制试玩场 §4.3，对齐 rules.ts Place）=====
+export const NUM_OVERRIDE_KEYS = ['heart', 'tooth', 'armor', 'gold', 'addHeart', 'addTooth', 'addArmor', 'durability', 'chaseEvery'];
+export const HUNT_VALUES = ['idle', 'chase', 'wander', 'flee'];
+export const MOLE_OVERRIDE_KEYS = ['heart', 'tooth', 'armor', 'gold', 'skills', 'effects'];
+export const SKILL_DEFAULT = { cooldown: 0, firstCd: 0, chance: 100, uses: -1 };
+const num = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : (v !== '' && v != null && Number.isFinite(+v) ? +v : undefined));
+export function cleanEffect(e) {
+  if (!e || typeof e.id !== 'string' || !e.id) return null;
+  const o = { id: e.id, value: num(e.value) ?? 1, turns: num(e.turns) ?? 0, every: num(e.every) ?? 1 };
+  if (num(e.shape) !== undefined) o.shape = num(e.shape);
+  if (num(e.damageScale) !== undefined) o.damageScale = num(e.damageScale);
+  return o;
+}
+export function cleanSkill(k) {
+  if (!k || typeof k.id !== 'string' || !k.id) return null;
+  const o = { id: k.id };
+  for (const f of Object.keys(SKILL_DEFAULT)) o[f] = num(k[f]) ?? SKILL_DEFAULT[f];
+  return o;
+}
+/** 只保留认识且有值的覆盖字段；缺省 = 跟图鉴 */
+export function cleanOverrides(c, keys) {
+  const o = {};
+  const ok = (k) => !keys || keys.includes(k);
+  for (const k of NUM_OVERRIDE_KEYS) if (ok(k) && num(c[k]) !== undefined) o[k] = num(c[k]);
+  if (ok('hunt') && HUNT_VALUES.includes(c.hunt)) o.hunt = c.hunt;
+  if (ok('huntHidden') && typeof c.huntHidden === 'boolean') o.huntHidden = c.huntHidden;
+  if (ok('recruitable') && typeof c.recruitable === 'boolean') o.recruitable = c.recruitable;
+  if (ok('effects') && Array.isArray(c.effects)) { const a = c.effects.map(cleanEffect).filter(Boolean); if (a.length) o.effects = a; }
+  if (ok('skills') && Array.isArray(c.skills)) { const a = c.skills.map(cleanSkill).filter(Boolean); if (a.length) o.skills = a; }
+  return o;
+}
+export const hasOverrides = (c) => Object.keys(cleanOverrides(c)).length > 0;
+export const stripOverrides = (c) => ({ x: c.x, y: c.y, ground: c.ground, catalog: c.catalog, mole: c.mole });
+
 /** 稠密、按行排好的格子（缺的补地板，多余 / 越界的丢掉） */
 export function normalizeCells(lv) {
   const m = new Map();
@@ -53,7 +87,11 @@ export function normalizeCells(lv) {
   for (let y = 0; y < lv.rows; y++) {
     for (let x = 0; x < lv.cols; x++) {
       const c = m.get(`${x},${y}`);
-      out.push(c ? { x, y, ground: c.ground || 'floor', catalog: c.catalog || '', mole: !!c.mole } : blankCell(x, y));
+      if (!c) { out.push(blankCell(x, y)); continue; }
+      const cell = { x, y, ground: c.ground || 'floor', catalog: c.catalog || '', mole: !!c.mole };
+      if (cell.catalog) Object.assign(cell, cleanOverrides(c));
+      else if (c.mole) Object.assign(cell, cleanOverrides(c, MOLE_OVERRIDE_KEYS));
+      out.push(cell);
     }
   }
   return out;
@@ -284,8 +322,10 @@ export function normalizeMyLevel(d) {
 /** 与 formatWorldJson 同风格：格子压成单行 */
 export function formatMyLevelJson(data) {
   const d = { ...data, schemaVersion: SCHEMA_VERSION, table: MY_LEVEL_TABLE, updatedAt: data.updatedAt || new Date().toISOString() };
-  return JSON.stringify(d, null, 2).replace(/\{\n\s+"x": [^{}[\]]*?\n\s+\}/g, (m) =>
-    m.replace(/\n\s+/g, ' ').replace('{ ', '{').replace(' }', '}')) + '\n';
+  // 每格一行（含 effects/skills 嵌套也压成一行）
+  const cells = d.cells || [];
+  const txt = JSON.stringify({ ...d, cells: cells.map((_, i) => `@@CELL${i}@@`) }, null, 2);
+  return txt.replace(/"@@CELL(\d+)@@"/g, (_, i) => JSON.stringify(cells[+i]).replace(/,"/g, ', "').replace(/":/g, '": ')) + '\n';
 }
 
 export function formatMyIndexJson(levelsMeta) {
