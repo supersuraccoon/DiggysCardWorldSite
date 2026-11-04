@@ -159,49 +159,53 @@ export async function deleteFile(path, message, { token = getToken() } = {}) {
   return res.json();
 }
 
-export function levelPath(id) {
-  return `${MY_LEVELS_PATH}/${id}.json`;
+export const TESTCASES_PATH = 'diggy_levels/testcases';
+/** dir 缺省 = my-levels；机制试玩场传 'testcases'（与 my-levels 并列） */
+const dirPath = (dir) => (dir ? `diggy_levels/${dir}` : MY_LEVELS_PATH);
+
+export function levelPath(id, dir) {
+  return `${dirPath(dir)}/${id}.json`;
 }
-export function indexPath() {
-  return `${MY_LEVELS_PATH}/index.json`;
+export function indexPath(dir) {
+  return `${dirPath(dir)}/index.json`;
 }
 
 /** 先写单关，再写 index（避免 index 指向尚不存在的文件） */
-export async function cloudPutLevel(id, levelText, indexText, { token } = {}) {
-  await putFile(levelPath(id), levelText, `chore(levels): save ${id}`, { token });
-  await putFile(indexPath(), indexText, `chore(levels): update index after save ${id}`, { token });
+export async function cloudPutLevel(id, levelText, indexText, { token, dir } = {}) {
+  await putFile(levelPath(id, dir), levelText, `chore(levels): save ${id}`, { token });
+  await putFile(indexPath(dir), indexText, `chore(levels): update index after save ${id}`, { token });
 }
 
-export async function cloudPutIndex(indexText, { token, message = 'chore(levels): update index' } = {}) {
-  await putFile(indexPath(), indexText, message, { token });
+export async function cloudPutIndex(indexText, { token, dir, message = 'chore(levels): update index' } = {}) {
+  await putFile(indexPath(dir), indexText, message, { token });
 }
 
 /** 删单关文件后写新 index；文件本就不存在仍更新 index */
-export async function cloudDeleteLevel(id, indexText, { token } = {}) {
-  const del = await deleteFile(levelPath(id), `chore(levels): delete ${id}`, { token });
-  await putFile(indexPath(), indexText, `chore(levels): update index after delete ${id}`, { token });
+export async function cloudDeleteLevel(id, indexText, { token, dir } = {}) {
+  const del = await deleteFile(levelPath(id, dir), `chore(levels): delete ${id}`, { token });
+  await putFile(indexPath(dir), indexText, `chore(levels): update index after delete ${id}`, { token });
   return del;
 }
 
 /** 只读：拉 index（无需 token） */
-export async function fetchIndexRaw() {
-  const url = `${RAW}/${indexPath()}?t=${Date.now()}`;
+export async function fetchIndexRaw(dir) {
+  const url = `${RAW}/${indexPath(dir)}?t=${Date.now()}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`拉取 index 失败（${res.status}）`);
   return res.json();
 }
 
 /** 只读：拉单关（无需 token） */
-export async function fetchLevelRaw(id) {
-  const url = `${RAW}/${levelPath(id)}?t=${Date.now()}`;
+export async function fetchLevelRaw(id, dir) {
+  const url = `${RAW}/${levelPath(id, dir)}?t=${Date.now()}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`拉取 ${id} 失败（${res.status}）`);
   return res.json();
 }
 
 /** 并发限制拉齐列表里的关卡；返回 normalize 前的原始对象数组 */
-export async function pullAllLevels({ concurrency = 4 } = {}) {
-  const idx = await fetchIndexRaw();
+export async function pullAllLevels({ concurrency = 4, dir } = {}) {
+  const idx = await fetchIndexRaw(dir);
   const metas = Array.isArray(idx?.levels) ? idx.levels : [];
   const ids = metas.map((m) => m.id).filter(Boolean);
   const out = [];
@@ -210,7 +214,7 @@ export async function pullAllLevels({ concurrency = 4 } = {}) {
     while (i < ids.length) {
       const id = ids[i++];
       try {
-        const d = await fetchLevelRaw(id);
+        const d = await fetchLevelRaw(id, dir);
         out.push(d);
       } catch (e) {
         console.warn('[githubMyLevels] skip', id, e);

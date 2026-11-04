@@ -4,6 +4,16 @@
 export const HOST_API = 'https://supersuraccoon-cocos2d.com/diggy_levels/api.php';
 export const HOST_BASE = 'https://supersuraccoon-cocos2d.com/diggy_levels';
 export const HOST_MY_LEVELS = `${HOST_BASE}/my-levels`;
+export const HOST_TESTCASES = `${HOST_BASE}/testcases`;
+
+/** kind='' → my-levels（旧合同，不带 kind 参数）；kind='testcase' → testcases/（api.php ?kind=testcase） */
+const hostDir = (kind) => (kind === 'testcase' ? HOST_TESTCASES : HOST_MY_LEVELS);
+const apiUrl = (kind, qs = '') => {
+  const parts = [];
+  if (kind) parts.push(`kind=${encodeURIComponent(kind)}`);
+  if (qs) parts.push(qs);
+  return parts.length ? `${HOST_API}?${parts.join('&')}` : HOST_API;
+};
 
 export const CLOUD_TARGET_LS_KEY = 'diggy.editor.cloud.target'; // 'github' | 'host'
 
@@ -45,14 +55,14 @@ export async function hostPing() {
  * 保存整关。body = 关卡对象（须含合法 id）。
  * @param {object|string} levelObjOrText
  */
-export async function hostPutLevel(levelObjOrText) {
+export async function hostPutLevel(levelObjOrText, { kind = '' } = {}) {
   const body = typeof levelObjOrText === 'string' ? levelObjOrText : JSON.stringify(levelObjOrText);
   let parsed;
   try { parsed = typeof levelObjOrText === 'string' ? JSON.parse(levelObjOrText) : levelObjOrText; }
   catch { throw new Error('关卡 JSON 无效'); }
   if (!parsed?.id) throw new Error('关卡缺少 id');
 
-  const res = await fetch(HOST_API, {
+  const res = await fetch(apiUrl(kind), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body,
@@ -63,9 +73,9 @@ export async function hostPutLevel(levelObjOrText) {
 }
 
 /** 删除：POST { action:"delete", id } */
-export async function hostDeleteLevel(id) {
+export async function hostDeleteLevel(id, { kind = '' } = {}) {
   if (!id) throw new Error('缺少 id');
-  const res = await fetch(HOST_API, {
+  const res = await fetch(apiUrl(kind), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({ action: 'delete', id }),
@@ -76,20 +86,20 @@ export async function hostDeleteLevel(id) {
 }
 
 /** 拉列表：优先静态 index.json，失败再试 API ?action=list */
-export async function hostPullIndex() {
+export async function hostPullIndex({ kind = '' } = {}) {
   try {
-    const res = await fetch(bust(`${HOST_MY_LEVELS}/index.json`), { headers: { Accept: 'application/json' } });
+    const res = await fetch(bust(`${hostDir(kind)}/index.json`), { headers: { Accept: 'application/json' } });
     if (res.ok) {
       const data = await res.json();
       if (data && Array.isArray(data.levels)) return data;
     }
   } catch { /* fall through */ }
-  const res = await fetch(bust(`${HOST_API}?action=list`), { headers: { Accept: 'application/json' } });
+  const res = await fetch(bust(apiUrl(kind, 'action=list')), { headers: { Accept: 'application/json' } });
   return parseJsonRes(res, '拉取服务器列表');
 }
 
-export async function hostPullLevel(id) {
-  const res = await fetch(bust(`${HOST_MY_LEVELS}/${encodeURIComponent(id)}.json`), {
+export async function hostPullLevel(id, { kind = '' } = {}) {
+  const res = await fetch(bust(`${hostDir(kind)}/${encodeURIComponent(id)}.json`), {
     headers: { Accept: 'application/json' },
   });
   if (!res.ok) throw new Error(`拉取 ${id} 失败（${res.status}）`);
@@ -97,8 +107,8 @@ export async function hostPullLevel(id) {
 }
 
 /** 并发拉齐服务器上的关卡 */
-export async function pullAllLevelsFromHost({ concurrency = 4 } = {}) {
-  const idx = await hostPullIndex();
+export async function pullAllLevelsFromHost({ concurrency = 4, kind = '' } = {}) {
+  const idx = await hostPullIndex({ kind });
   const metas = Array.isArray(idx?.levels) ? idx.levels : [];
   const ids = metas.map((m) => m.id).filter(Boolean);
   const out = [];
@@ -107,7 +117,7 @@ export async function pullAllLevelsFromHost({ concurrency = 4 } = {}) {
     while (i < ids.length) {
       const id = ids[i++];
       try {
-        out.push(await hostPullLevel(id));
+        out.push(await hostPullLevel(id, { kind }));
       } catch (e) {
         console.warn('[hostMyLevels] skip', id, e);
       }

@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "table": "机制试玩",
+  "id": "testcase_event_cabin",
+  "theme": "world1",
+  "cols": 5,
+  "rows": 4,
+  "arena": false,
+  "cells": [
+    {
+      "x": 0,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "",
+      "mole": true
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "cabin",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "ground": "stairs",
+      "catalog": "",
+      "mole": false
+    }
+  ],
+  "title": "事件·怪物小屋",
+  "category": "event",
+  "goal": "踩邻格小屋进怪物小屋，打完回来",
+  "updatedAt": "2026-11-04T00:00:00.000Z"
+}

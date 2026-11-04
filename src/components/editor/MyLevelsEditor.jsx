@@ -6,6 +6,7 @@ import {
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
   myLevelMeta, asValidateLevel, MY_LEVEL_DIR,
   stripOverrides, cleanOverrides, hasOverrides,
+  LEVEL_KINDS, TESTCASE_CATEGORIES, needsNoArena,
 } from '../../lib/levels.js';
 import {
   hasToken, getCachedLogin, clearToken, verifyToken,
@@ -21,7 +22,6 @@ import { asset } from '../../lib/site.js';
 import { Palette } from './Palette.jsx';
 import CellInspector from './CellInspector.jsx';
 
-const LS_KEY = 'diggy.editor.mylevels.v1';
 const clone = (x) => JSON.parse(JSON.stringify(x));
 const DRAG_MIME = 'text/x-diggy-piece';
 
@@ -37,7 +37,15 @@ function themeName(id) {
   return WORLDS.find((w) => w.id === id)?.name || id;
 }
 
-export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
+export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind = 'mine' }) {
+  const K = LEVEL_KINDS[kind] || LEVEL_KINDS.mine;
+  const TC = K.key === 'testcase';
+  const LS_KEY = K.lsKey;
+  const hostOpt = { kind: K.hostKind };
+  const normLv = (d) => normalizeMyLevel(d, K);
+  const blankLv = (o) => blankMyLevel(o, K);
+  const fmtLv = (d) => fmtLv(d, K);
+  const fmtIdx = (list) => formatMyIndexJson(list.map(myLevelMeta), K);
   const [levels, setLevels] = useState([]);
   const [past, setPast] = useState([]);
   const [future, setFuture] = useState([]);
@@ -77,7 +85,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
       if (raw) {
         const saved = JSON.parse(raw);
         if (Array.isArray(saved?.levels)) {
-          setLevels(saved.levels.map(normalizeMyLevel));
+          setLevels(saved.levels.map(normLv));
           setSavedAt(saved.savedAt || null);
           if (saved.editId) setEditId(saved.editId);
         }
@@ -244,8 +252,8 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
   const st = lv ? levelStats(lv, lookup) : null;
 
   // -------- CRUD
-  const createLevel = ({ title, theme, cols, rows }) => {
-    const lvNew = blankMyLevel({ title, theme, cols, rows });
+  const createLevel = ({ title, theme, cols, rows, category, goal }) => {
+    const lvNew = blankLv({ title, theme, cols, rows, category, goal });
     commit((cur) => [...cur, lvNew]);
     setNewOpen(false);
     setEditId(lvNew.id);
@@ -254,7 +262,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
   const duplicateLevel = (id) => {
     const src = levels.find((l) => l.id === id);
     if (!src) return;
-    const copy = normalizeMyLevel({
+    const copy = normLv({
       ...clone(src),
       id: undefined,
       title: `${src.title}（副本）`,
@@ -262,7 +270,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
       updatedAt: new Date().toISOString(),
     });
     // force new id
-    const fresh = blankMyLevel({ title: copy.title, theme: copy.theme, cols: copy.cols, rows: copy.rows });
+    const fresh = blankLv({ title: copy.title, theme: copy.theme, cols: copy.cols, rows: copy.rows });
     const out = { ...copy, id: fresh.id, cells: clone(src.cells), note: src.note, shopGoods: clone(src.shopGoods) };
     if (src.author) out.author = src.author;
     commit((cur) => [...cur, out]);
@@ -307,16 +315,16 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
   const pullFromCloud = async () => {
     const fromHost = cloudTarget === 'host';
     const tip = fromHost
-      ? '从自家服务器拉取「我的关卡」？同 id 会覆盖本机列表（可以撤销）。'
-      : '从 GitHub 公开仓拉取「我的关卡」？同 id 会覆盖本机列表（可以撤销）。';
+      ? `从自家服务器拉取「${K.label}」？同 id 会覆盖本机列表（可以撤销）。`
+      : `从 GitHub 公开仓拉取「${K.label}」？同 id 会覆盖本机列表（可以撤销）。`;
     if (!confirm(tip)) return;
     setGhBusy(true);
     try {
-      const { levels: raw } = fromHost ? await pullAllLevelsFromHost() : await pullAllLevels();
+      const { levels: raw } = fromHost ? await pullAllLevelsFromHost(hostOpt) : await pullAllLevels({ dir: K.dir });
       const got = raw
         .filter((d) => d && d.schemaVersion === SCHEMA_VERSION && Array.isArray(d.cells))
-        .filter((d) => !d.table || d.table === '我的关卡')
-        .map(normalizeMyLevel);
+        .filter((d) => !d.table || d.table === K.table)
+        .map(normLv);
       mergePulled(got, fromHost ? '自家服务器' : 'GitHub 公开仓');
     } catch (e) {
       flash('拉取失败：' + e.message, 'err');
@@ -340,7 +348,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
     if (cloudTarget === 'host') {
       setGhBusy(true);
       try {
-        await hostDeleteLevel(id);
+        await hostDeleteLevel(id, hostOpt);
         flash(`☁ 已从自家服务器删除 ${id}.json。${hostWaitHint()}`);
       } catch (e) {
         flash(`已从本机列表移除；服务器删除失败：${e.message}`, 'err');
@@ -352,8 +360,8 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
     if (cloudOn) {
       setGhBusy(true);
       try {
-        const indexText = formatMyIndexJson(nextList.map(myLevelMeta));
-        const del = await cloudDeleteLevel(id, indexText);
+        const indexText = fmtIdx(nextList);
+        const del = await cloudDeleteLevel(id, indexText, { dir: K.dir });
         flash(del?.missing
           ? `☁ 云端无文件，已更新索引。${pagesWaitHint()}`
           : `☁ 已从公开仓删除 ${id}.json。${pagesWaitHint()}`);
@@ -385,15 +393,15 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
   };
 
   const writeIndex = async (dir, list) => {
-    await writeText(dir, 'index.json', formatMyIndexJson(list.map(myLevelMeta)));
+    await writeText(dir, 'index.json', fmtIdx(list));
   };
 
   const pickFolder = async () => {
     try {
-      const picked = await window.showDirectoryPicker({ id: 'diggy-my-levels', mode: 'readwrite' });
-      let dir = await resolveConfigDir(picked, [MY_LEVEL_DIR]);
+      const picked = await window.showDirectoryPicker({ id: TC ? 'diggy-testcases' : 'diggy-my-levels', mode: 'readwrite' });
+      let dir = await resolveConfigDir(picked, [K.folder]);
       if (!dir) {
-        if (!confirm(`你选的文件夹叫「${picked.name}」，不是 配置表 / json / ${MY_LEVEL_DIR}。\n直接把关卡 JSON 写到这里吗？`)) return;
+        if (!confirm(`你选的文件夹叫「${picked.name}」，不是 配置表 / json / ${K.folder}。\n直接把关卡 JSON 写到这里吗？`)) return;
         dir = picked;
       }
       setDirHandle(dir);
@@ -410,9 +418,9 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
         try {
           const d = JSON.parse(await (await ent.getFile()).text());
           if (d.schemaVersion !== SCHEMA_VERSION) continue;
-          if (d.table && d.table !== '我的关卡') continue;
+          if (d.table && d.table !== K.table) continue;
           if (!Array.isArray(d.cells)) continue;
-          got.push(normalizeMyLevel(d));
+          got.push(normLv(d));
         } catch { /* skip bad */ }
       }
       if (got.length) {
@@ -436,7 +444,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
   };
 
   const refreshIndex = async () => {
-    if (!dirHandle) return flash('请先打开我的关卡文件夹', 'err');
+    if (!dirHandle) return flash(`请先打开${K.label}文件夹`, 'err');
     try {
       await writeIndex(dirHandle, levels);
       flash('已重写 index.json');
@@ -448,12 +456,12 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
     if (!src) return;
     const errs = (checks[id] || []).filter((c) => c.sev === 'err');
     if (errs.length && !confirm(`还有 ${errs.length} 个错误（红色）。仍然保存吗？`)) return;
-    const levelText = formatMyLevelJson(src);
-    const indexText = formatMyIndexJson(levels.map(myLevelMeta));
+    const levelText = fmtLv(src);
+    const indexText = fmtIdx(levels);
     if (cloudTarget === 'host') {
       setGhBusy(true);
       try {
-        await hostPutLevel(src);
+        await hostPutLevel(levelText, hostOpt);
         flash(`☁ 已保存到自家服务器 ${src.id}.json。${hostWaitHint()}`);
       } catch (e) {
         flash('服务器保存失败：' + e.message, 'err');
@@ -465,7 +473,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
     if (cloudOn) {
       setGhBusy(true);
       try {
-        await cloudPutLevel(src.id, levelText, indexText);
+        await cloudPutLevel(src.id, levelText, indexText, { dir: K.dir });
         flash(`☁ 已推到 GitHub ${src.id}.json。${pagesWaitHint()}`);
       } catch (e) {
         flash('云端保存失败：' + e.message, 'err');
@@ -492,7 +500,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
     if (cloudTarget === 'host') {
       setGhBusy(true);
       try {
-        for (const l of levels) await hostPutLevel(l);
+        for (const l of levels) await hostPutLevel(fmtLv(l), hostOpt);
         flash(`☁ 已全部写到自家服务器（${levels.length} 关）。${hostWaitHint()}`);
       } catch (e) {
         flash('服务器全部保存失败：' + e.message, 'err');
@@ -505,9 +513,9 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
       setGhBusy(true);
       try {
         for (const l of levels) {
-          await putFile(levelPath(l.id), formatMyLevelJson(l), `chore(levels): save ${l.id}`);
+          await putFile(levelPath(l.id, K.dir), fmtLv(l), `chore(levels): save ${l.id}`);
         }
-        await cloudPutIndex(formatMyIndexJson(levels.map(myLevelMeta)), { message: 'chore(levels): update index after save all' });
+        await cloudPutIndex(fmtIdx(levels), { dir: K.dir, message: 'chore(levels): update index after save all' });
         flash(`☁ 已推到 GitHub（${levels.length} 关）。${pagesWaitHint()}`);
       } catch (e) {
         flash('云端全部保存失败：' + e.message, 'err');
@@ -518,16 +526,16 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
     }
     if (dirHandle) {
       try {
-        for (const l of levels) await writeText(dirHandle, `${l.id}.json`, formatMyLevelJson(l));
+        for (const l of levels) await writeText(dirHandle, `${l.id}.json`, fmtLv(l));
         await writeIndex(dirHandle, levels);
         flash(`已写入 ${levels.length} 个关卡 + index.json`);
       } catch (e) { flash('保存失败：' + e.message, 'err'); }
     } else {
       const zip = makeZip([
-        { name: 'index.json', text: formatMyIndexJson(levels.map(myLevelMeta)) },
-        ...levels.map((l) => ({ name: `${l.id}.json`, text: formatMyLevelJson(l) })),
+        { name: 'index.json', text: fmtIdx(levels) },
+        ...levels.map((l) => ({ name: `${l.id}.json`, text: fmtLv(l) })),
       ]);
-      download('我的关卡.zip', new Blob([zip], { type: 'application/zip' }));
+      download(`${K.label}.zip`, new Blob([zip], { type: 'application/zip' }));
       flash('已下载 zip（含 index.json）');
     }
   };
@@ -538,8 +546,8 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
       for (const f of files) {
         if (f.name === 'index.json') continue;
         const d = JSON.parse(await f.text());
-        if (d.schemaVersion !== SCHEMA_VERSION || !Array.isArray(d.cells)) throw new Error(`${f.name} 不是 schemaVersion ${SCHEMA_VERSION} 的我的关卡 JSON`);
-        got.push(normalizeMyLevel(d));
+        if (d.schemaVersion !== SCHEMA_VERSION || !Array.isArray(d.cells)) throw new Error(`${f.name} 不是 schemaVersion ${SCHEMA_VERSION} 的${K.label} JSON`);
+        got.push(normLv(d));
       }
       if (!got.length) return;
       if (!confirm(`导入 ${got.length} 个关卡？同 id 会覆盖本机列表（可以撤销）。`)) return;
@@ -596,7 +604,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
               {cloudTarget === 'host' ? '☁ 从服务器拉取' : '☁ 从 GitHub 拉取'}
             </button>
             <button className="btn small yellow" onClick={() => setNewOpen(true)}>＋ 新建关卡</button>
-            {canSaveDir && <button className="btn small" onClick={pickFolder} title={`选 notes/配置表（或 json、${MY_LEVEL_DIR}）· 离线兜底`}>📂 打开文件夹</button>}
+            {canSaveDir && <button className="btn small" onClick={pickFolder} title={`选 notes/配置表（或 json、${K.folder}）· 离线兜底`}>📂 打开文件夹</button>}
             {dirHandle && cloudTarget === 'github' && !patOn && <button className="btn small" onClick={refreshIndex}>刷新索引</button>}
             <button className="btn small" onClick={() => fileRef.current?.click()}>导入 JSON</button>
             <input ref={fileRef} type="file" accept=".json,application/json" multiple hidden onChange={(e) => { const f = [...(e.target.files || [])]; if (f.length) importFiles(f); e.target.value = ''; }} />
@@ -606,12 +614,12 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
           </div>
         </div>
         <div className="le-panel sketch" style={{ marginTop: 12 }}>
-          <h4>我的关卡 <span className="muted small">一关一个 JSON · 双通道 · 游戏直接读 JSON</span></h4>
+          <h4>{K.label} <span className="muted small">一关一个 JSON · 双通道 · 游戏直接读 JSON</span></h4>
           <p className="muted small le-help" style={{ marginTop: 4 }}>
-            <b>自家服务器</b>（默认，iPad 友好，无需 Token）：写到 <code>{HOST_BASE}</code>，游戏 <code>LEVEL_BASE</code> 同址，可立刻刷新。
+            <b>自家服务器</b>（默认，iPad 友好，无需 Token）：写到 <code>{HOST_BASE}/{K.dir}/</code>，游戏 <code>LEVEL_BASE</code> 同址，可立刻刷新。
             若 api.php 尚未上传，保存会失败并 toast，本机列表不会丢。
             <br />
-            <b>GitHub</b>：需连接 PAT，写入公开仓 <code>diggy_levels/my-levels/</code>；游戏可用 <code>LEVEL_BASE={LEVEL_BASE_PAGES}</code>（加 <code>?t=</code>）。
+            <b>GitHub</b>：需连接 PAT，写入公开仓 <code>diggy_levels/{K.dir}/</code>；游戏可用 <code>LEVEL_BASE={LEVEL_BASE_PAGES}</code>（加 <code>?t=</code>）。
             两通道列表不自动互通。本机文件夹 / 下载仍作离线兜底。
           </p>
           {!levels.length && (
@@ -638,6 +646,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
                       <td>
                         <b>{l.title}</b>
                         <div className="mono muted small">{l.id}</div>
+                        {TC && <div className="muted small">[{l.category}] {l.goal}{l.arena === false || needsNoArena(l) ? ' · arena:false' : ''}</div>}
                       </td>
                       <td>{themeName(l.theme)}</td>
                       <td>{l.cols}×{l.rows}</td>
@@ -659,7 +668,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
             </table>
           )}
         </div>
-        {newOpen && <NewDialog onOk={createLevel} onCancel={() => setNewOpen(false)} />}
+        {newOpen && <NewDialog testcase={TC} prefix={K.prefix} onOk={createLevel} onCancel={() => setNewOpen(false)} />}
         {renameId && (
           <RenameDialog
             title={levels.find((l) => l.id === renameId)?.title || ''}
@@ -685,7 +694,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
       <div className="ed-bar sketch le-bar">
         <div className="ed-row">
           <button className="btn small" onClick={() => setEditId(null)}>← 返回列表</button>
-          <span className="status-pill">🏠 {lv.title}</span>
+          <span className="status-pill">{TC ? '🧪' : '🏠'} {lv.title}</span>
           <span className="mono muted small">{lv.id}</span>
           <span className="status-pill" title="保存/删除/拉取走哪条通道">
             通道：
@@ -718,12 +727,31 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
         </div>
       </div>
 
+      {TC && (
+        <div className="ed-bar sketch le-bar tc-meta">
+          <div className="ed-row">
+            <label className="small">分类
+              <select value={lv.category || 'other'} onChange={(e) => updateLevel((l) => ({ ...l, category: e.target.value, updatedAt: new Date().toISOString() }))} style={{ marginLeft: 4 }}>
+                {TESTCASE_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </label>
+            <label className="small grow" style={{ display: 'flex', alignItems: 'center', gap: 4, minWidth: 0 }}>验收目标
+              <input value={lv.goal || ''} onChange={(e) => updateLevel((l) => ({ ...l, goal: e.target.value, updatedAt: new Date().toISOString() }), true)} style={{ flex: 1, minWidth: 0 }} placeholder="给人看的一句话" />
+            </label>
+            <label className="small" title="小屋 / huntHidden 关保存时强制 arena:false">
+              <input type="checkbox" checked={lv.arena !== false && !needsNoArena(lv)} disabled={needsNoArena(lv)}
+                onChange={(e) => updateLevel((l) => ({ ...l, arena: e.target.checked, updatedAt: new Date().toISOString() }))} /> 竞技场 arena
+              {needsNoArena(lv) && <span className="muted"> （有小屋/huntHidden → 自动 false）</span>}
+            </label>
+          </div>
+        </div>
+      )}
       <div className="le-body">
         <aside className="le-worlds sketch">
           <div className="le-world on">
             <div className="le-wbtn" style={{ cursor: 'default' }}>
               <span className="le-wno">★</span>
-              <span className="le-wname">我的关卡</span>
+              <span className="le-wname">{K.label}</span>
               <span className="le-wmeta">{levels.length}</span>
             </div>
             <div className="le-levels le-mylevels-list">
@@ -889,8 +917,10 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '' }) {
   );
 }
 
-function NewDialog({ onOk, onCancel }) {
-  const [title, setTitle] = useState('未命名关卡');
+function NewDialog({ onOk, onCancel, testcase = false, prefix = 'ml_' }) {
+  const [title, setTitle] = useState(testcase ? '未命名试玩' : '未命名关卡');
+  const [category, setCategory] = useState('status');
+  const [goal, setGoal] = useState('');
   const [theme, setTheme] = useState('world1');
   const [cols, setCols] = useState(DEFAULT_SIZE.cols);
   const [rows, setRows] = useState(DEFAULT_SIZE.rows);
@@ -906,11 +936,21 @@ function NewDialog({ onOk, onCancel }) {
         </label>
         <label>列<input type="number" min={1} max={MAX_SIDE} value={cols} onChange={(e) => setCols(+e.target.value)} /></label>
         <label>行<input type="number" min={1} max={MAX_SIDE} value={rows} onChange={(e) => setRows(+e.target.value)} /></label>
-        <p className="hint">会自动生成 id（ml_…），并默认放 1 只黄鼹鼠 + 1 个楼梯。</p>
+        {testcase && (
+          <>
+            <label>分类
+              <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                {TESTCASE_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </label>
+            <label>验收目标<input value={goal} onChange={(e) => setGoal(e.target.value)} placeholder="例：捡起剑，普攻观察混乱" /></label>
+          </>
+        )}
+        <p className="hint">会自动生成 id（{prefix}…），并默认放 1 只黄鼹鼠 + 1 个楼梯。</p>
         <div className="ps-foot">
           <button className="btn small" onClick={onCancel}>取消</button>
           <span className="grow" />
-          <button className="btn small yellow" disabled={!title.trim()} onClick={() => onOk({ title: title.trim(), theme, cols, rows })}>创建</button>
+          <button className="btn small yellow" disabled={!title.trim()} onClick={() => onOk({ title: title.trim(), theme, cols, rows, category, goal })}>创建</button>
         </div>
       </div>
     </div>

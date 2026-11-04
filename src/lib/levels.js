@@ -255,17 +255,32 @@ export async function writeText(dir, name, text) {
 export const MY_LEVEL_TABLE = '我的关卡';
 export const MY_LEVEL_DIR = '我的关卡';
 
+/** 关卡「种类」：我的关卡 / 机制试玩场。路径、id 前缀、table 都从这里取，避免两套漂移。 */
+export const TESTCASE_CATEGORIES = ['status', 'skill', 'event', 'item', 'mechanic', 'composite', 'other'];
+export const LEVEL_KINDS = {
+  mine: { key: 'mine', table: MY_LEVEL_TABLE, prefix: 'ml_', dir: 'my-levels', folder: MY_LEVEL_DIR, lsKey: 'diggy.editor.mylevels.v1', label: '我的关卡', hostKind: '' },
+  testcase: { key: 'testcase', table: '机制试玩', prefix: 'testcase_', dir: 'testcases', folder: 'testcases', lsKey: 'diggy.editor.testcases.v1', label: '机制试玩场', hostKind: 'testcase' },
+};
+const kindOf = (k) => (k && typeof k === 'object' && k.table ? k : LEVEL_KINDS.mine);
+const isTestcase = (K) => K.key === 'testcase';
+
+/** 小屋 / huntHidden 关：竞技场踩不了小屋、隐藏追踪需要暗牌 → arena:false */
+export function needsNoArena(lv) {
+  return (lv?.cells || []).some((c) => c && (c.catalog === 'cabin' || c.huntHidden === true));
+}
+
 /** id = ml_ + 6～8 位小写字母数字 */
-export function newMyLevelId() {
+export function newMyLevelId(kind) {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
   const n = 6 + (Math.random() < 0.5 ? 0 : 2);
-  let s = 'ml_';
+  let s = kindOf(kind).prefix;
   for (let i = 0; i < n; i++) s += alphabet[(Math.random() * alphabet.length) | 0];
   return s;
 }
 
 /** 新建一层：默认放 1 鼹鼠 + 1 楼梯，方便通过校验 */
-export function blankMyLevel({ title = '未命名关卡', theme = 'world1', cols = DEFAULT_SIZE.cols, rows = DEFAULT_SIZE.rows, author } = {}) {
+export function blankMyLevel({ title = '未命名关卡', theme = 'world1', cols = DEFAULT_SIZE.cols, rows = DEFAULT_SIZE.rows, author, category, goal } = {}, kind) {
+  const K = kindOf(kind);
   const now = new Date().toISOString();
   const cells = blankCells(cols, rows);
   // 鼹鼠靠左上，楼梯靠右下（格子够小时也尽量错开）
@@ -281,8 +296,8 @@ export function blankMyLevel({ title = '未命名关卡', theme = 'world1', cols
   }
   const out = {
     schemaVersion: SCHEMA_VERSION,
-    table: MY_LEVEL_TABLE,
-    id: newMyLevelId(),
+    table: K.table,
+    id: newMyLevelId(K),
     title,
     theme,
     cols,
@@ -294,17 +309,23 @@ export function blankMyLevel({ title = '未命名关卡', theme = 'world1', cols
     updatedAt: now,
   };
   if (author != null && author !== '') out.author = author;
+  if (isTestcase(K)) {
+    out.category = TESTCASE_CATEGORIES.includes(category) ? category : 'other';
+    out.goal = goal || '';
+    out.arena = true;
+  }
   return out;
 }
 
-export function normalizeMyLevel(d) {
+export function normalizeMyLevel(d, kind) {
+  const K = kindOf(kind);
   const cols = Math.max(1, Math.min(MAX_SIDE, d.cols | 0 || DEFAULT_SIZE.cols));
   const rows = Math.max(1, Math.min(MAX_SIDE, d.rows | 0 || DEFAULT_SIZE.rows));
   const theme = WORLDS.some((w) => w.id === d.theme) ? d.theme : 'world1';
   const base = {
     schemaVersion: SCHEMA_VERSION,
-    table: MY_LEVEL_TABLE,
-    id: typeof d.id === 'string' && d.id.startsWith('ml_') ? d.id : newMyLevelId(),
+    table: K.table,
+    id: typeof d.id === 'string' && d.id.startsWith(K.prefix) ? d.id : newMyLevelId(K),
     title: (d.title || '未命名关卡').toString(),
     theme,
     cols,
@@ -316,22 +337,31 @@ export function normalizeMyLevel(d) {
     updatedAt: d.updatedAt || d.createdAt || new Date().toISOString(),
   };
   if (d.author != null && d.author !== '') base.author = String(d.author);
+  if (isTestcase(K)) {
+    base.category = TESTCASE_CATEGORIES.includes(d.category) ? d.category : 'other';
+    base.goal = (d.goal ?? '').toString();
+    base.arena = d.arena === false ? false : true;
+  } else if (d.arena === false) base.arena = false;
   return base;
 }
 
 /** 与 formatWorldJson 同风格：格子压成单行 */
-export function formatMyLevelJson(data) {
-  const d = { ...data, schemaVersion: SCHEMA_VERSION, table: MY_LEVEL_TABLE, updatedAt: data.updatedAt || new Date().toISOString() };
+export function formatMyLevelJson(data, kind) {
+  const K = kindOf(kind);
+  const d = { ...data, schemaVersion: SCHEMA_VERSION, table: K.table, updatedAt: data.updatedAt || new Date().toISOString() };
+  if (isTestcase(K) && needsNoArena(d)) d.arena = false;
   // 每格一行（含 effects/skills 嵌套也压成一行）
   const cells = d.cells || [];
   const txt = JSON.stringify({ ...d, cells: cells.map((_, i) => `@@CELL${i}@@`) }, null, 2);
   return txt.replace(/"@@CELL(\d+)@@"/g, (_, i) => JSON.stringify(cells[+i]).replace(/,"/g, ', "').replace(/":/g, '": ')) + '\n';
 }
 
-export function formatMyIndexJson(levelsMeta) {
+export function formatMyIndexJson(levelsMeta, kind) {
+  const tc = isTestcase(kindOf(kind));
   const levels = (levelsMeta || []).map((m) => ({
     id: m.id,
     title: m.title,
+    ...(tc ? { category: m.category || 'other', goal: m.goal || '' } : {}),
     theme: m.theme,
     cols: m.cols,
     rows: m.rows,
@@ -341,7 +371,10 @@ export function formatMyIndexJson(levelsMeta) {
 }
 
 export function myLevelMeta(lv) {
-  return { id: lv.id, title: lv.title, theme: lv.theme, cols: lv.cols, rows: lv.rows, updatedAt: lv.updatedAt };
+  const m = { id: lv.id, title: lv.title, theme: lv.theme, cols: lv.cols, rows: lv.rows, updatedAt: lv.updatedAt };
+  if (lv.category != null) m.category = lv.category;
+  if (lv.goal != null) m.goal = lv.goal;
+  return m;
 }
 
 /** validateLevel 需要 lv.level；我的关卡用 1 占位即可 */

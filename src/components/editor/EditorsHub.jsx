@@ -9,6 +9,7 @@ const TABS = [
   { id: 'levels', label: '🗺 冒险关卡' },
   { id: 'deal', label: '🎲 地下城发牌' },
   { id: 'mine', label: '🏠 我的关卡' },
+  { id: 'testcases', label: '🧪 机制试玩场' },
 ];
 const TAB_IDS = new Set(TABS.map((t) => t.id));
 
@@ -88,7 +89,8 @@ export default function EditorsHub({
       {tab === 'cards' && <Editor shipped={rolesShipped} refs={refs} images={images} base={base} />}
       {tab === 'levels' && <LevelEditor shippedWorlds={shippedWorlds} roles={roles} palette={palette} base={base} />}
       {tab === 'deal' && <DealEditor shipped={deal} palette={palette} lookup={lookup} base={base} />}
-      {tab === 'mine' && <MyLevelsEditor lookup={lookup} palette={palette} refs={refs} base={base} />}
+      {tab === 'mine' && <MyLevelsEditor key="mine" kind="mine" lookup={lookup} palette={palette} refs={refs} base={base} />}
+      {tab === 'testcases' && <MyLevelsEditor key="testcases" kind="testcase" lookup={lookup} palette={palette} refs={refs} base={base} />}
     </div>
   );
 }

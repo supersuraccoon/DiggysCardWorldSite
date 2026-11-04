@@ -14,6 +14,10 @@
  *   GET   ?action=list                    → 返回与 index.json 同结构（带 CORS）
  *   GET   ?action=get&id=xxx              → 代理读 my-levels/{id}.json 原文（带 CORS）
  *   静态 GET my-levels/*.json 也可；若缺 CORS 头，游戏改走 list/get
+ *
+ * 机制试玩场（与 my-levels 并列的 testcases/）：以上任意请求加 ?kind=testcase
+ *   GET  ?kind=testcase&action=list / get&id=   POST ?kind=testcase 整关 / delete
+ *   不带 kind 的行为与旧版完全相同（我的关卡）。
  */
 
 header('Access-Control-Allow-Origin: *');
@@ -27,7 +31,16 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS
     exit;
 }
 
-$dir = dirname(__FILE__) . '/my-levels';
+$kind = isset($_GET['kind']) ? $_GET['kind'] : '';
+if ($kind !== '' && $kind !== 'testcase') {
+    header('HTTP/1.1 400 Bad Request');
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(array('ok' => false, 'error' => '未知 kind；只支持 kind=testcase'));
+    exit;
+}
+$isTestcase = ($kind === 'testcase');
+$subdir = $isTestcase ? 'testcases' : 'my-levels';
+$dir = dirname(__FILE__) . '/' . $subdir;
 $indexPath = $dir . '/index.json';
 
 function diggy_status($code) {
@@ -109,7 +122,7 @@ function diggy_write_index($indexPath, $index) {
             if (!is_array($m) || !isset($m['id'])) {
                 continue;
             }
-            $levels[] = array(
+            $row = array(
                 'id' => $m['id'],
                 'title' => isset($m['title']) ? $m['title'] : '',
                 'theme' => isset($m['theme']) ? $m['theme'] : '',
@@ -117,6 +130,11 @@ function diggy_write_index($indexPath, $index) {
                 'rows' => isset($m['rows']) ? $m['rows'] : 0,
                 'updatedAt' => isset($m['updatedAt']) ? $m['updatedAt'] : diggy_now(),
             );
+            if ($GLOBALS['isTestcase']) {
+                $row['category'] = isset($m['category']) ? $m['category'] : 'other';
+                $row['goal'] = isset($m['goal']) ? $m['goal'] : '';
+            }
+            $levels[] = $row;
         }
     }
     $index['levels'] = $levels;
@@ -137,7 +155,7 @@ function diggy_write_index($indexPath, $index) {
 }
 
 function diggy_meta_from_level($lv) {
-    return array(
+    $m = array(
         'id' => $lv['id'],
         'title' => isset($lv['title']) ? $lv['title'] : '',
         'theme' => isset($lv['theme']) ? $lv['theme'] : '',
@@ -145,6 +163,11 @@ function diggy_meta_from_level($lv) {
         'rows' => isset($lv['rows']) ? $lv['rows'] : 0,
         'updatedAt' => isset($lv['updatedAt']) ? $lv['updatedAt'] : diggy_now(),
     );
+    if ($GLOBALS['isTestcase']) {
+        $m['category'] = isset($lv['category']) ? $lv['category'] : 'other';
+        $m['goal'] = isset($lv['goal']) ? $lv['goal'] : '';
+    }
+    return $m;
 }
 
 function diggy_upsert_meta(&$index, $meta) {
@@ -189,7 +212,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 $idQuery = isset($_GET['id']) ? $_GET['id'] : '';
 
 if (!diggy_ensure_dir($dir)) {
-    diggy_json(500, array('ok' => false, 'error' => '无法创建 my-levels 目录，请在面板确认 diggy_levels/my-levels 可写'));
+    diggy_json(500, array('ok' => false, 'error' => '无法创建 ' . $subdir . ' 目录，请在面板确认 diggy_levels/' . $subdir . ' 可写'));
 }
 
 /* ---------- GET list / get / ping ---------- */
@@ -224,9 +247,9 @@ if ($method === 'GET') {
         }
         diggy_json(200, array(
             'ok' => true,
-            'service' => 'diggy-my-levels',
+            'service' => $isTestcase ? 'diggy-testcases' : 'diggy-my-levels',
             'php' => PHP_VERSION,
-            'dir' => 'my-levels/',
+            'dir' => $subdir . '/',
             'levelCount' => count($index['levels']),
             'hint' => 'POST 整关 JSON 保存；POST {"action":"delete","id"} 删除；GET ?action=list 列表；GET ?action=get&id= 读单关',
         ));
@@ -317,6 +340,18 @@ if ($method === 'POST') {
     if (!isset($body['schemaVersion'])) {
         $body['schemaVersion'] = 1;
     }
+    if ($isTestcase) {
+        /* 交接 §3.4：table 固定「机制试玩」；小屋 / huntHidden 关 arena=false */
+        $body['table'] = "\xE6\x9C\xBA\xE5\x88\xB6\xE8\xAF\x95\xE7\x8E\xA9";
+        if (isset($body['cells']) && is_array($body['cells'])) {
+            foreach ($body['cells'] as $c) {
+                if (is_array($c) && ((isset($c['catalog']) && $c['catalog'] === 'cabin') || (isset($c['huntHidden']) && $c['huntHidden'] === true))) {
+                    $body['arena'] = false;
+                    break;
+                }
+            }
+        }
+    }
 
     $path = $dir . '/' . $id . '.json';
     $json = json_encode($body);
@@ -325,7 +360,7 @@ if ($method === 'POST') {
     }
     $tmp = $path . '.tmp';
     if (@file_put_contents($tmp, $json) === false) {
-        diggy_json(500, array('ok' => false, 'error' => '写入失败，请确认 my-levels 目录可写'));
+        diggy_json(500, array('ok' => false, 'error' => '写入失败，请确认 ' . $subdir . ' 目录可写'));
     }
     if (!@rename($tmp, $path)) {
         @unlink($tmp);
@@ -344,7 +379,7 @@ if ($method === 'POST') {
         'ok' => true,
         'action' => 'save',
         'id' => $id,
-        'path' => 'my-levels/' . $id . '.json',
+        'path' => $subdir . '/' . $id . '.json',
         'index' => $index,
     ));
 }

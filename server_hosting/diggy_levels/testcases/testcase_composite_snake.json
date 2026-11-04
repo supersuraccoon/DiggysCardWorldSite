@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "table": "机制试玩",
+  "id": "testcase_composite_snake",
+  "theme": "world1",
+  "cols": 5,
+  "rows": 4,
+  "arena": true,
+  "cells": [
+    {
+      "x": 0,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "",
+      "mole": true
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "boss_hose_snake",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "ground": "stairs",
+      "catalog": "",
+      "mole": false
+    }
+  ],
+  "title": "复合·软管蛇",
+  "category": "composite",
+  "goal": "观察三节软管蛇怎么走、先打哪一节",
+  "updatedAt": "2026-11-04T00:00:00.000Z"
+}

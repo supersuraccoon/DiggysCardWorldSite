@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-04T00:00:00.000Z",
+  "levels": [
+    {
+      "id": "testcase_status_confuse",
+      "title": "状态·混乱",
+      "category": "status",
+      "goal": "捡起邻格剑，普攻观察是否按文档触发混乱",
+      "theme": "world1",
+      "cols": 5,
+      "rows": 4,
+      "updatedAt": "2026-11-04T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_mechanic_hunt_hidden",
+      "title": "机制·隐藏追踪",
+      "category": "mechanic",
+      "goal": "原地等一等，牌背下的小虫会靠近",
+      "theme": "world1",
+      "cols": 5,
+      "rows": 4,
+      "updatedAt": "2026-11-04T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_skill_monster_venom_lick",
+      "title": "技能·怪毒液舔舔",
+      "category": "skill",
+      "goal": "邻格怪冷却好了会舔，观察中毒",
+      "theme": "world1",
+      "cols": 5,
+      "rows": 4,
+      "updatedAt": "2026-11-04T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_skill_hero_venom_lick",
+      "title": "技能·英雄毒液舔舔",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放毒液舔舔",
+      "theme": "world1",
+      "cols": 5,
+      "rows": 4,
+      "updatedAt": "2026-11-04T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_event_cabin",
+      "title": "事件·怪物小屋",
+      "category": "event",
+      "goal": "踩邻格小屋进怪物小屋，打完回来",
+      "theme": "world1",
+      "cols": 5,
+      "rows": 4,
+      "updatedAt": "2026-11-04T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_composite_snake",
+      "title": "复合·软管蛇",
+      "category": "composite",
+      "goal": "观察三节软管蛇怎么走、先打哪一节",
+      "theme": "world1",
+      "cols": 5,
+      "rows": 4,
+      "updatedAt": "2026-11-04T00:00:00.000Z"
+    }
+  ]
+}

@@ -83,3 +83,21 @@ curl -sS -X POST https://supersuraccoon-cocos2d.com/diggy_levels/api.php \
 | 探活 | `.../api.php` | `{ ok:true, ... }` |
 
 请求可加 `&t=` / `?t=` 防缓存。
+
+## 机制试玩场 `testcases/`（2026-11-04 新增，与 my-levels 并列）
+
+需要上传（全部来自本目录）：
+
+1. `api.php` → `diggy_levels/api.php`（**覆盖**；新增 `?kind=testcase`，不带 kind 的旧行为不变）
+2. 新建 `diggy_levels/testcases/`，上传其中全部文件：
+   - `.htaccess`（`Header always set` + `ErrorDocument 404` → 缺文件也回 JSON+CORS）
+   - `404.json`
+   - `index.json` 与 6 个 `testcase_*.json`（从游戏仓原样拷）
+3. `testcases/` 对 PHP 可写（同 my-levels，755/775）。
+
+验收：
+```bash
+curl -sSI https://supersuraccoon-cocos2d.com/diggy_levels/testcases/index.json | grep -iE 'http/|access-control|content-type'
+curl -sSI https://supersuraccoon-cocos2d.com/diggy_levels/testcases/nope.json  | grep -iE 'http/|access-control|content-type'
+curl -sS 'https://supersuraccoon-cocos2d.com/diggy_levels/api.php?kind=testcase&action=list'
+```

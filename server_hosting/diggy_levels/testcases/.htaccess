@@ -1,0 +1,18 @@
+# Diggy testcases（机制试玩场）· CORS on JSON（与 my-levels/.htaccess 同，另加 404 也走 JSON+CORS）
+# "always" 让错误响应（404）也带 CORS 头；ErrorDocument 让缺文件回 JSON 而不是 HTML。
+
+<IfModule mod_headers.c>
+  Header always set Access-Control-Allow-Origin "*"
+  Header always set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+  Header always set Access-Control-Allow-Headers "Content-Type, Accept"
+  Header always set Access-Control-Max-Age "86400"
+</IfModule>
+
+AddType application/json .json
+ErrorDocument 404 /diggy_levels/testcases/404.json
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_METHOD} OPTIONS
+  RewriteRule ^ - [R=204,L]
+</IfModule>
