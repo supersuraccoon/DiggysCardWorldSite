@@ -49,6 +49,12 @@ export function Palette({ lookup, palette, base, tool, setTool }) {
           <PItem key={i.id} id={i.id} name={i.name} img={lookup.info[i.id].img} sub={i.desc} active={is(i.id)} onPick={() => pick(i.id)} drag={{ kind: 'card', id: i.id }} />
         ))}
       </div>
+      <h4>服装 <span className="muted small">{(palette.costumes || []).length}</span></h4>
+      <div className="pgrid">
+        {(palette.costumes || []).filter(hit).map((c) => (
+          <PItem key={c.id} id={c.id} name={c.name} img={lookup.info[c.id].img} sub="捡起换上" active={is(c.id)} onPick={() => pick(c.id)} drag={{ kind: 'card', id: c.id }} />
+        ))}
+      </div>
       <p className="hint">怪物数值来自卡牌编辑器那份 角色设定.json。装备数值来自 装备设定.md。「·店」= 只在商店卖，也可以摆在桌上。</p>
     </div>
   );

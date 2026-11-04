@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 1,
+  "table": "机制试玩",
+  "id": "testcase_costume_penguin",
+  "theme": "arena",
+  "cols": 10,
+  "rows": 5,
+  "arena": false,
+  "cells": [
+    {
+      "x": 0,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": true
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "penguin",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "boo",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "chase"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "ground": "stairs",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    }
+  ],
+  "title": "服装·企鹅服",
+  "category": "item",
+  "goal": "捡企鹅服换上，普攻看是否打晕",
+  "updatedAt": "2026-11-04T12:00:00.000Z"
+}
