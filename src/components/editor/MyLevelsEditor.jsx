@@ -44,7 +44,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
   const hostOpt = { kind: K.hostKind };
   const normLv = (d) => normalizeMyLevel(d, K);
   const blankLv = (o) => blankMyLevel(o, K);
-  const fmtLv = (d) => fmtLv(d, K);
+  const fmtLv = (d) => formatMyLevelJson(d, K);
   const fmtIdx = (list) => formatMyIndexJson(list.map(myLevelMeta), K);
   const [levels, setLevels] = useState([]);
   const [past, setPast] = useState([]);
