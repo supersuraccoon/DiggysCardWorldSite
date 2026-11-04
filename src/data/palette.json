@@ -159,6 +159,38 @@
       "where": "仅商店",
       "shopOnly": true,
       "img": "images/level/equip/a_quilt_vest.png"
+    },
+    {
+      "id": "attack_testcase",
+      "name": "测试武器",
+      "prefab": "equipment_attack_testcase_prefab",
+      "heart": 0,
+      "tooth": 1,
+      "armor": 0,
+      "durability": 99,
+      "equipType": "weapon",
+      "price": 0,
+      "where": "仅机制试玩",
+      "shopOnly": false,
+      "tableDeal": false,
+      "shopSell": false,
+      "img": "images/level/equip/attack_testcase.png"
+    },
+    {
+      "id": "defend_testcase",
+      "name": "测试防具",
+      "prefab": "equipment_defend_testcase_prefab",
+      "heart": 0,
+      "tooth": 0,
+      "armor": 99,
+      "durability": 99,
+      "equipType": "armor",
+      "price": 0,
+      "where": "仅机制试玩",
+      "shopOnly": false,
+      "tableDeal": false,
+      "shopSell": false,
+      "img": "images/level/equip/defend_testcase.png"
     }
   ],
   "items": [

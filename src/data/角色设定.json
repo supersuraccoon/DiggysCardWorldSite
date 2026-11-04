@@ -411,6 +411,23 @@
       "statuses": [],
       "skills": [],
       "note": "kind 是 boss"
+    },
+    {
+      "id": "stake_testcase",
+      "group": "deal",
+      "name": "测试木桩",
+      "prefab": "enemy_stake_testcase_prefab",
+      "script": null,
+      "heart": 10,
+      "tooth": 1,
+      "armor": 3,
+      "gold": 10,
+      "hunt": "chase",
+      "chaseEvery": 1,
+      "traits": [],
+      "statuses": [],
+      "skills": [],
+      "note": "机制试玩专用，不进发牌/商店"
     }
   ]
 }
