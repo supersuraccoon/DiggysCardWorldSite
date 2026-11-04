@@ -172,7 +172,7 @@
       "x": 3,
       "y": 2,
       "ground": "floor",
-      "catalog": "boo",
+      "catalog": "stake_testcase",
       "mole": false,
       "heart": 20,
       "tooth": 1,

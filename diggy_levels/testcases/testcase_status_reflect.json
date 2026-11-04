@@ -95,7 +95,7 @@
       "x": 2,
       "y": 1,
       "ground": "floor",
-      "catalog": "lid",
+      "catalog": "defend_testcase",
       "mole": false,
       "effects": [
         {
@@ -110,7 +110,7 @@
       "x": 3,
       "y": 1,
       "ground": "floor",
-      "catalog": "boo",
+      "catalog": "stake_testcase",
       "mole": false,
       "heart": 20,
       "tooth": 3,
@@ -372,6 +372,6 @@
   ],
   "title": "反弹",
   "category": "status",
-  "goal": "捡锅盖，站着挨打，看反弹是否生效",
+  "goal": "捡测试防具，站着挨打，看反弹是否生效",
   "updatedAt": "2026-11-04T12:00:00.000Z"
 }

@@ -21,33 +21,33 @@ const COLS = 10;
 const ROWS = 5;
 
 const STATUSES = [
-  { id: "shield", name: "护盾", gear: "lid", effects: [{ id: "shield", value: 5, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "护盾", goal: "捡锅盖，站着挨打，看护盾是否生效" },
-  { id: "dodge", name: "闪避", gear: "lid", effects: [{ id: "dodge", value: 1, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "闪避", goal: "捡锅盖，站着挨打，看闪避是否生效" },
-  { id: "lifesteal", name: "吸血", gear: "sword", effects: [{ id: "lifesteal", value: 50, turns: 0, every: 1 }], tooth: 0, hunt: "idle", title: "吸血", goal: "捡剑普攻怪，看吸血" },
-  { id: "crit", name: "暴击", gear: "sword", effects: [{ id: "crit", value: 1, turns: 0, every: 1 }], tooth: 0, hunt: "idle", title: "暴击", goal: "捡剑普攻怪，看暴击" },
-  { id: "thorns", name: "荆棘", gear: "lid", effects: [{ id: "thorns", value: 2, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "荆棘", goal: "捡锅盖，站着挨打，看荆棘是否生效" },
-  { id: "immune", name: "免疫", gear: "lid", effects: [{ id: "immune", value: 1, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "免疫", goal: "捡锅盖，站着挨打，看免疫是否生效" },
-  { id: "revive", name: "复活", gear: "lid", effects: [{ id: "revive", value: 5, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "复活", goal: "捡锅盖，站着挨打，看复活是否生效" },
-  { id: "regen", name: "回血", gear: "lid", effects: [{ id: "regen", value: 2, turns: 0, every: 1 }], tooth: 1, hunt: "idle", title: "回血", goal: "捡锅盖，观察自身回血" },
-  { id: "atk", name: "加攻", gear: "sword", effects: [{ id: "atk", value: 3, turns: 0, every: 1 }], tooth: 0, hunt: "idle", title: "加攻", goal: "捡剑普攻怪，看加攻" },
-  { id: "hp", name: "加血", gear: "lid", effects: [{ id: "hp", value: 10, turns: 0, every: 1 }], tooth: 1, hunt: "idle", title: "加血", goal: "捡锅盖，观察自身加血" },
-  { id: "reflect", name: "反弹", gear: "lid", effects: [{ id: "reflect", value: 1, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "反弹", goal: "捡锅盖，站着挨打，看反弹是否生效" },
-  { id: "combo", name: "连击", gear: "sword", effects: [{ id: "combo", value: 2, turns: 0, every: 1 }], tooth: 0, hunt: "idle", title: "连击", goal: "捡剑普攻怪，看连击" },
-  { id: "poison", name: "中毒", gear: "sword", effects: [{ id: "poison", value: 2, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "中毒", goal: "捡剑普攻怪，看怪身上出现中毒" },
-  { id: "weak", name: "虚弱", gear: "sword", effects: [{ id: "weak", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "虚弱", goal: "捡剑普攻怪，看怪身上出现虚弱" },
-  { id: "sunder", name: "破甲", gear: "sword", effects: [{ id: "sunder", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "破甲", goal: "捡剑普攻怪，看怪身上出现破甲" },
-  { id: "silence", name: "沉默", gear: "sword", effects: [{ id: "silence", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "沉默", goal: "捡剑普攻怪，看怪身上出现沉默" },
-  { id: "confuse", name: "混乱", gear: "sword", effects: [{ id: "confuse", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "混乱", goal: "捡剑普攻怪，看怪身上出现混乱" },
-  { id: "bleed", name: "流血", gear: "sword", effects: [{ id: "bleed", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "流血", goal: "捡剑普攻怪，看怪身上出现流血" },
-  { id: "stun", name: "眩晕", gear: "sword", effects: [{ id: "stun", value: 1, turns: 1, every: 1 }], tooth: 0, hunt: "chase", title: "眩晕", goal: "捡剑普攻怪，看怪身上出现眩晕" },
-  { id: "knockback", name: "击退", gear: "sword", effects: [{ id: "knockback", value: 2, turns: 0, every: 1 }], tooth: 0, hunt: "idle", extras: true, title: "击退", goal: "捡剑普攻怪，看击退" },
-  { id: "range", name: "射程", gear: "sword", effects: [{ id: "range", value: 3, turns: 0, every: 1, shape: 0 }], tooth: 0, hunt: "idle", extras: true, title: "射程", goal: "捡剑普攻怪，看射程" },
-  { id: "splash", name: "溅射", gear: "sword", effects: [{ id: "splash", value: 1, turns: 0, every: 1, damageScale: 0.5 }], tooth: 0, hunt: "idle", extras: true, title: "溅射", goal: "捡剑普攻怪，看溅射" },
-  { id: "bounce", name: "弹射", gear: "sword", effects: [{ id: "bounce", value: 1, turns: 0, every: 1 }], tooth: 0, hunt: "idle", extras: true, title: "弹射", goal: "捡剑普攻怪，看弹射" },
-  { id: "stuck", name: "黏住", gear: "sword", effects: [{ id: "stuck", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "chase", title: "黏住", goal: "捡剑普攻怪，看怪身上出现黏住" },
-  { id: "stealth", name: "隐身", gear: "lid", effects: [{ id: "stealth", value: 1, turns: 0, every: 1 }], tooth: 1, hunt: "chase", title: "隐身", goal: "捡锅盖，观察自身隐身" },
-  { id: "fly", name: "飞行", gear: "lid", effects: [{ id: "fly", value: 1, turns: 0, every: 1 }], tooth: 1, hunt: "idle", pit: true, title: "飞行", goal: "捡锅盖后试着走过洞" },
-  { id: "freeze", name: "冰冻", gear: "sword", effects: [{ id: "freeze", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "chase", title: "冰冻", goal: "捡剑普攻怪，看怪身上出现冰冻" },
+  { id: "shield", name: "护盾", gear: "defend_testcase", effects: [{ id: "shield", value: 5, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "护盾", goal: "捡测试防具，站着挨打，看护盾是否生效" },
+  { id: "dodge", name: "闪避", gear: "defend_testcase", effects: [{ id: "dodge", value: 1, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "闪避", goal: "捡测试防具，站着挨打，看闪避是否生效" },
+  { id: "lifesteal", name: "吸血", gear: "attack_testcase", effects: [{ id: "lifesteal", value: 50, turns: 0, every: 1 }], tooth: 0, hunt: "idle", title: "吸血", goal: "捡测试武器普攻怪，看吸血" },
+  { id: "crit", name: "暴击", gear: "attack_testcase", effects: [{ id: "crit", value: 1, turns: 0, every: 1 }], tooth: 0, hunt: "idle", title: "暴击", goal: "捡测试武器普攻怪，看暴击" },
+  { id: "thorns", name: "荆棘", gear: "defend_testcase", effects: [{ id: "thorns", value: 2, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "荆棘", goal: "捡测试防具，站着挨打，看荆棘是否生效" },
+  { id: "immune", name: "免疫", gear: "defend_testcase", effects: [{ id: "immune", value: 1, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "免疫", goal: "捡测试防具，站着挨打，看免疫是否生效" },
+  { id: "revive", name: "复活", gear: "defend_testcase", effects: [{ id: "revive", value: 5, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "复活", goal: "捡测试防具，站着挨打，看复活是否生效" },
+  { id: "regen", name: "回血", gear: "defend_testcase", effects: [{ id: "regen", value: 2, turns: 0, every: 1 }], tooth: 1, hunt: "idle", title: "回血", goal: "捡测试防具，观察自身回血" },
+  { id: "atk", name: "加攻", gear: "attack_testcase", effects: [{ id: "atk", value: 3, turns: 0, every: 1 }], tooth: 0, hunt: "idle", title: "加攻", goal: "捡测试武器普攻怪，看加攻" },
+  { id: "hp", name: "加血", gear: "defend_testcase", effects: [{ id: "hp", value: 10, turns: 0, every: 1 }], tooth: 1, hunt: "idle", title: "加血", goal: "捡测试防具，观察自身加血" },
+  { id: "reflect", name: "反弹", gear: "defend_testcase", effects: [{ id: "reflect", value: 1, turns: 0, every: 1 }], tooth: 3, hunt: "idle", title: "反弹", goal: "捡测试防具，站着挨打，看反弹是否生效" },
+  { id: "combo", name: "连击", gear: "attack_testcase", effects: [{ id: "combo", value: 2, turns: 0, every: 1 }], tooth: 0, hunt: "idle", title: "连击", goal: "捡测试武器普攻怪，看连击" },
+  { id: "poison", name: "中毒", gear: "attack_testcase", effects: [{ id: "poison", value: 2, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "中毒", goal: "捡测试武器普攻怪，看怪身上出现中毒" },
+  { id: "weak", name: "虚弱", gear: "attack_testcase", effects: [{ id: "weak", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "虚弱", goal: "捡测试武器普攻怪，看怪身上出现虚弱" },
+  { id: "sunder", name: "破甲", gear: "attack_testcase", effects: [{ id: "sunder", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "破甲", goal: "捡测试武器普攻怪，看怪身上出现破甲" },
+  { id: "silence", name: "沉默", gear: "attack_testcase", effects: [{ id: "silence", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "沉默", goal: "捡测试武器普攻怪，看怪身上出现沉默" },
+  { id: "confuse", name: "混乱", gear: "attack_testcase", effects: [{ id: "confuse", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "混乱", goal: "捡测试武器普攻怪，看怪身上出现混乱" },
+  { id: "bleed", name: "流血", gear: "attack_testcase", effects: [{ id: "bleed", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "idle", title: "流血", goal: "捡测试武器普攻怪，看怪身上出现流血" },
+  { id: "stun", name: "眩晕", gear: "attack_testcase", effects: [{ id: "stun", value: 1, turns: 1, every: 1 }], tooth: 0, hunt: "chase", title: "眩晕", goal: "捡测试武器普攻怪，看怪身上出现眩晕" },
+  { id: "knockback", name: "击退", gear: "attack_testcase", effects: [{ id: "knockback", value: 2, turns: 0, every: 1 }], tooth: 0, hunt: "idle", extras: true, title: "击退", goal: "捡测试武器普攻怪，看击退" },
+  { id: "range", name: "射程", gear: "attack_testcase", effects: [{ id: "range", value: 3, turns: 0, every: 1, shape: 0 }], tooth: 0, hunt: "idle", extras: true, title: "射程", goal: "捡测试武器普攻怪，看射程" },
+  { id: "splash", name: "溅射", gear: "attack_testcase", effects: [{ id: "splash", value: 1, turns: 0, every: 1, damageScale: 0.5 }], tooth: 0, hunt: "idle", extras: true, title: "溅射", goal: "捡测试武器普攻怪，看溅射" },
+  { id: "bounce", name: "弹射", gear: "attack_testcase", effects: [{ id: "bounce", value: 1, turns: 0, every: 1 }], tooth: 0, hunt: "idle", extras: true, title: "弹射", goal: "捡测试武器普攻怪，看弹射" },
+  { id: "stuck", name: "黏住", gear: "attack_testcase", effects: [{ id: "stuck", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "chase", title: "黏住", goal: "捡测试武器普攻怪，看怪身上出现黏住" },
+  { id: "stealth", name: "隐身", gear: "defend_testcase", effects: [{ id: "stealth", value: 1, turns: 0, every: 1 }], tooth: 1, hunt: "chase", title: "隐身", goal: "捡测试防具，观察自身隐身" },
+  { id: "fly", name: "飞行", gear: "defend_testcase", effects: [{ id: "fly", value: 1, turns: 0, every: 1 }], tooth: 1, hunt: "idle", pit: true, title: "飞行", goal: "捡测试防具后试着走过洞" },
+  { id: "freeze", name: "冰冻", gear: "attack_testcase", effects: [{ id: "freeze", value: 1, turns: 3, every: 1 }], tooth: 0, hunt: "chase", title: "冰冻", goal: "捡测试武器普攻怪，看怪身上出现冰冻" },
 ];
 
 const HERO_SKILLS = [
@@ -184,8 +184,8 @@ const MONSTER_SKILLS = [
 const EVENTS = [
   { id: "chest", name: "黑色宝箱", goal: "踩邻格黑色宝箱，看开箱" },
   { id: "duck", name: "黄头鸭的商店", chest: true, goal: "先开邻格宝箱拿钱，再进黄头鸭商店" },
-  { id: "cottage", name: "爱心小屋", boo: true, goal: "可先挨一下打，再进爱心小屋" },
-  { id: "hotspring", name: "咕嘟温泉", boo: true, goal: "可先挨一下打，再进咕嘟温泉" },
+  { id: "cottage", name: "爱心小屋", stake: true, goal: "可先挨一下打，再进爱心小屋" },
+  { id: "hotspring", name: "咕嘟温泉", stake: true, goal: "可先挨一下打，再进咕嘟温泉" },
   { id: "spinner", name: "怪兽转盘", goal: "踩邻格怪兽转盘，看转出来的怪" },
   { id: "cabin", name: "怪物小屋", goal: "踩邻格小屋进怪物小屋，打完回来" },
   { id: "crow", name: "乌鸦的卷轴商店", chest: true, goal: "先开邻格宝箱拿钱，再进乌鸦卷轴店" },
@@ -199,14 +199,14 @@ const EVENTS = [
 const COSTUMES = [
   { id: "diving", name: "潜水服", goal: "捡潜水服换上，看 HUD 心上限" },
   { id: "space", name: "宇航服", pits: [[4, 1], [4, 2]], goal: "捡宇航服换上，试着站到洞上" },
-  { id: "penguin", name: "企鹅服", boo: { hunt: "chase" }, goal: "捡企鹅服换上，普攻看是否打晕" },
-  { id: "ninja", name: "忍者服", boo: { tooth: 3 }, goal: "捡忍者服换上，站着挨打看闪避" },
-  { id: "halloween", name: "万圣节", boo: { heart: 10 }, goal: "捡万圣节换上，把怪打到半血看是否询问加入" },
+  { id: "penguin", name: "企鹅服", stake: { hunt: "chase" }, goal: "捡企鹅服换上，普攻看是否打晕" },
+  { id: "ninja", name: "忍者服", stake: { tooth: 3 }, goal: "捡忍者服换上，站着挨打看闪避" },
+  { id: "halloween", name: "万圣节", stake: { heart: 10 }, goal: "捡万圣节换上，把怪打到半血看是否询问加入" },
   { id: "christmas", name: "圣诞服", extras: true, heart: 3, goal: "捡圣诞服换上，击败怪物看是否掉补给" },
   { id: "miner", name: "矿工服", walls: [[4, 1], [4, 2], [4, 3]], goal: "捡矿工服换上，试着破开挡路的墙" },
-  { id: "cat", name: "猫猫服", boo: {}, goal: "捡猫猫服换上，普攻看是否多打一下" },
-  { id: "frog", name: "青蛙服", boo: { hunt: "chase" }, goal: "捡青蛙服换上，看是否再动一次" },
-  { id: "zombie", name: "僵尸服", boo: {}, goal: "捡僵尸服换上，看心上限和牙" },
+  { id: "cat", name: "猫猫服", stake: {}, goal: "捡猫猫服换上，普攻看是否多打一下" },
+  { id: "frog", name: "青蛙服", stake: { hunt: "chase" }, goal: "捡青蛙服换上，看是否再动一次" },
+  { id: "zombie", name: "僵尸服", stake: {}, goal: "捡僵尸服换上，看心上限和牙" },
 ];
 
 function blankCell(x, y) {
@@ -235,10 +235,10 @@ function put(cells, x, y, patch) {
   Object.assign(cur, patch);
 }
 
-function booAt(x, y, extra) {
+function stakeAt(x, y, extra) {
   const o = extra || {};
   const cell = {
-    catalog: "boo",
+    catalog: "stake_testcase",
     heart: o.heart != null ? o.heart : 20,
     tooth: o.tooth != null ? o.tooth : 0,
     armor: 0,
@@ -293,9 +293,9 @@ function indexRow(file) {
   };
 }
 
-function extraBoos(heart) {
+function extraStakes(heart) {
   const h = heart != null ? heart : 20;
-  return [booAt(5, 1, { heart: h }), booAt(3, 2, { heart: h }), booAt(4, 1, { heart: h })];
+  return [stakeAt(5, 1, { heart: h }), stakeAt(3, 2, { heart: h }), stakeAt(4, 1, { heart: h })];
 }
 
 function makeAll() {
@@ -310,11 +310,11 @@ function makeAll() {
     ];
     if (s.pit) {
       patches.push({ x: 4, y: 1, ground: "pit", catalog: "", mole: false });
-      patches.push(booAt(3, 1, { tooth: s.tooth, hunt: s.hunt }));
+      patches.push(stakeAt(3, 1, { tooth: s.tooth, hunt: s.hunt }));
     } else {
-      patches.push(booAt(3, 1, { tooth: s.tooth, hunt: s.hunt }));
+      patches.push(stakeAt(3, 1, { tooth: s.tooth, hunt: s.hunt }));
       if (s.extras) {
-        patches.push(...extraBoos());
+        patches.push(...extraStakes());
       }
     }
     files.push(layer(id, s.title, "status", s.goal, true, patches));
@@ -326,7 +326,7 @@ function makeAll() {
     const id = "testcase_skill_hero_" + s.id;
     files.push(layer(id, "英雄" + s.name, "skill", "捡邻格技能卡启用，再对怪放" + s.name, true, [
       { x: 2, y: 1, catalog: s.id },
-      booAt(3, 1, { tooth: 0 }),
+      stakeAt(3, 1, { tooth: 0 }),
     ]));
     order.skill_hero.push(id);
   }
@@ -338,13 +338,13 @@ function makeAll() {
     const heart = s.trigger === "on_death" ? 3 : 20;
     const hidden = s.trigger === "on_reveal";
     const patches = [
-      booAt(3, 1, { tooth: 1, heart, hidden, skills: [skill] }),
+      stakeAt(3, 1, { tooth: 1, heart, hidden, skills: [skill] }),
     ];
     if (s.trigger === "active" && s.side === "ally" && s.id !== "summon") {
-      patches.push(booAt(4, 1, { heart: 10, tooth: 0 }));
+      patches.push(stakeAt(4, 1, { heart: 10, tooth: 0 }));
     }
     if (s.trigger === "on_hurt") {
-      patches.push({ x: 2, y: 2, catalog: "sword" });
+      patches.push({ x: 2, y: 2, catalog: "attack_testcase" });
     }
     if (s.id === "steal_coin") {
       patches.push({ x: 2, y: 2, catalog: "chest" });
@@ -371,8 +371,8 @@ function makeAll() {
     if (s.chest) {
       patches.push({ x: 2, y: 2, catalog: "chest" });
     }
-    if (s.boo) {
-      patches.push(booAt(3, 2, { tooth: 1, heart: 20 }));
+    if (s.stake) {
+      patches.push(stakeAt(3, 2, { tooth: 1, heart: 20 }));
     }
     files.push(layer(id, s.name, "event", s.goal, false, patches));
     order.event.push(id);
@@ -392,13 +392,13 @@ function makeAll() {
         patches.push({ x: s.walls[j][0], y: s.walls[j][1], ground: "wall", catalog: "", mole: false });
       }
     }
-    if (s.boo) {
-      patches.push(booAt(3, 1, s.boo));
+    if (s.stake) {
+      patches.push(stakeAt(3, 1, s.stake));
     }
     if (s.extras) {
-      patches.push(booAt(3, 1, { heart: s.heart, tooth: 0 }));
-      patches.push(booAt(5, 1, { heart: s.heart, tooth: 0 }));
-      patches.push(booAt(3, 2, { heart: s.heart, tooth: 0 }));
+      patches.push(stakeAt(3, 1, { heart: s.heart, tooth: 0 }));
+      patches.push(stakeAt(5, 1, { heart: s.heart, tooth: 0 }));
+      patches.push(stakeAt(3, 2, { heart: s.heart, tooth: 0 }));
     }
     files.push(layer(id, s.name, "costume", s.goal, false, patches));
     order.costume.push(id);

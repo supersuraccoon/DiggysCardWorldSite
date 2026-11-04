@@ -109,7 +109,7 @@
       "x": 4,
       "y": 1,
       "ground": "floor",
-      "catalog": "bug",
+      "catalog": "stake_testcase",
       "mole": false,
       "hunt": "chase",
       "huntHidden": true

@@ -102,7 +102,7 @@
       "x": 3,
       "y": 1,
       "ground": "floor",
-      "catalog": "boo",
+      "catalog": "stake_testcase",
       "mole": false,
       "heart": 20,
       "tooth": 1,
@@ -178,7 +178,7 @@
       "x": 2,
       "y": 2,
       "ground": "floor",
-      "catalog": "sword",
+      "catalog": "attack_testcase",
       "mole": false
     },
     {

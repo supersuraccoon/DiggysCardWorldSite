@@ -95,7 +95,7 @@
       "x": 2,
       "y": 1,
       "ground": "floor",
-      "catalog": "sword",
+      "catalog": "attack_testcase",
       "mole": false,
       "effects": [
         {
@@ -110,7 +110,7 @@
       "x": 3,
       "y": 1,
       "ground": "floor",
-      "catalog": "boo",
+      "catalog": "stake_testcase",
       "mole": false,
       "heart": 20,
       "tooth": 0,
@@ -372,6 +372,6 @@
   ],
   "title": "吸血",
   "category": "status",
-  "goal": "捡剑普攻怪，看吸血",
+  "goal": "捡测试武器普攻怪，看吸血",
   "updatedAt": "2026-11-04T12:00:00.000Z"
 }
