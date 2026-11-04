@@ -7,6 +7,7 @@ import {
 import { STAT_ICONS } from '../../lib/icons.js';
 import { asset } from '../../lib/site.js';
 import { Palette } from './Palette.jsx';
+import { buildLookup } from '../../lib/lookup.js';
 
 const LS_KEY = 'diggy.editor.levels.v1';
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -22,28 +23,7 @@ function download(name, data, type) {
 
 export default function LevelEditor({ shippedWorlds, roles, palette, base = '' }) {
   // ---------------- 素材表
-  const lookup = useMemo(() => {
-    const monsters = roles.roles.filter((r) => r.group === 'deal');
-    const byRole = Object.fromEntries(roles.roles.map((r) => [r.id, r]));
-    const kind = {};
-    for (const r of monsters) kind[r.id] = 'monster';
-    for (const e of palette.equipment) kind[e.id] = 'equipment';
-    for (const i of palette.items) kind[i.id] = 'item';
-    for (const s of palette.store) kind[s.id] = 'store';
-    for (const c of palette.costumes || []) kind[c.id] = 'costume';
-    const info = {};
-    for (const r of monsters) info[r.id] = { id: r.id, name: r.name, img: `${base}/images/roles/${r.id}.png`, kind: 'monster', r };
-    for (const e of palette.equipment) info[e.id] = { id: e.id, name: e.name, img: `${base}/${e.img}`, kind: 'equipment', e };
-    for (const i of [...palette.items, ...palette.store]) info[i.id] = { id: i.id, name: i.name, img: `${base}/${i.img}`, kind: kind[i.id], e: i };
-    for (const c of palette.costumes || []) info[c.id] = { id: c.id, name: c.name, img: `${base}/${c.img}`, kind: 'costume', e: c };
-    return {
-      monsters, info,
-      kindOf: (id) => kind[id] || null,
-      role: (id) => byRole[id],
-      shop: new Set(palette.deal.shop),
-      ground: Object.fromEntries(palette.terrain.map((t) => [t.id, { ...t, src: `${base}/${t.img}` }])),
-    };
-  }, [roles, palette, base]);
+  const lookup = useMemo(() => buildLookup(roles, palette, base), [roles, palette, base]);
 
   const shipped = useMemo(() => {
     const m = {};
@@ -558,7 +538,8 @@ function WorldSummary({ world, wmeta, stats, lookup, onPick }) {
   const groups = [
     { title: '怪物', ids: Object.keys(used).filter((id) => lookup.kindOf(id) === 'monster') },
     { title: '装备', ids: Object.keys(used).filter((id) => lookup.kindOf(id) === 'equipment') },
-    { title: '道具 / 事件', ids: Object.keys(used).filter((id) => ['item', 'store'].includes(lookup.kindOf(id))) },
+    { title: '道具', ids: Object.keys(used).filter((id) => lookup.kindOf(id) === 'item') },
+    { title: '事件', ids: Object.keys(used).filter((id) => ['event', 'store'].includes(lookup.kindOf(id))) },
     { title: '服装', ids: Object.keys(used).filter((id) => lookup.kindOf(id) === 'costume') },
     { title: '不认识的', ids: Object.keys(used).filter((id) => !lookup.kindOf(id)) },
   ];
