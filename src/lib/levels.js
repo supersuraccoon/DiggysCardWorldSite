@@ -290,22 +290,31 @@ const kindOf = (k) => {
 };
 const isTestcase = (K) => K.key === 'testcase';
 
-/** 小屋 / huntHidden 关：竞技场踩不了小屋、隐藏追踪需要暗牌 → arena:false */
-export function needsNoArena(lv) {
+/**
+ * 建议勾选「强制隐藏卡牌」的关（小屋 / huntHidden）：仅作 UI 提示，不自动改 arena。
+ * 游戏合同：顶层 arena=true → 开局全翻面（明牌）；arena=false → 暗牌（不显示卡面）。
+ * 无单独 forceHide 字段，编辑器「强制隐藏卡牌」开关即写出 arena:false。
+ */
+export function suggestForceHideCards(lv) {
   return (lv?.cells || []).some((c) => c && (c.catalog === 'cabin' || c.huntHidden === true));
 }
 
+/** @deprecated 用 suggestForceHideCards；保留别名以免旧引用报错 */
+export function needsNoArena(lv) {
+  return suggestForceHideCards(lv);
+}
+
 /**
- * 写出 / 规范化 arena 字段：
- * - cabin / huntHidden → false（优先）
- * - theme === 'arena' → true
- * - 否则保留显式 true/false；缺省时试玩默认 false，我的关卡不写
+ * 写出 / 规范化 arena 字段（不因 cabin/huntHidden 静默改写）：
+ * - 显式 arena === false → false（强制隐藏卡牌）
+ * - theme === 'arena' → true（选竞技场默认全开）
+ * - 显式 arena === true → true
+ * - 缺省：试玩 false，我的关卡不写
  */
 export function resolveArenaFlag(lv, { testcase = false } = {}) {
-  if (needsNoArena(lv)) return false;
+  if (lv?.arena === false) return false;
   if (lv?.theme === 'arena') return true;
   if (lv?.arena === true) return true;
-  if (lv?.arena === false) return false;
   return testcase ? false : undefined;
 }
 
@@ -431,7 +440,7 @@ export function normalizeMyLevel(d, kind) {
     base.category = normCategory(d.category);
     base.goal = (d.goal ?? '').toString();
   }
-  // 用 cells + theme 重算：theme=arena → true；cabin/huntHidden → false
+  // theme=arena → true；显式 arena:false（强制隐藏）保留
   const arena = resolveArenaFlag({ ...base, arena: d.arena }, { testcase: isTestcase(K) });
   if (arena !== undefined) base.arena = arena;
   return base;

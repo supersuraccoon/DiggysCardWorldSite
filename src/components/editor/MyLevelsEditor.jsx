@@ -6,7 +6,7 @@ import {
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
   myLevelMeta, asValidateLevel, MY_LEVEL_DIR, resolveMyLevelId, normalizeMyLevelIdInput,
   stripOverrides, cleanOverrides, hasOverrides,
-  LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, normCategory, needsNoArena, resolveArenaFlag, TESTCASE_ARENA_SIZE,
+  LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, normCategory, suggestForceHideCards, resolveArenaFlag, TESTCASE_ARENA_SIZE,
 } from '../../lib/levels.js';
 import {
   hasToken, getCachedLogin, clearToken, verifyToken,
@@ -664,7 +664,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                       <td>
                         <b>{l.title}</b>
                         <div className="mono muted small">{l.id}</div>
-                        {TC && <div className="muted small">[{l.category}] {l.goal}{l.arena === false || needsNoArena(l) ? ' · arena:false' : ''}</div>}
+                        {TC && <div className="muted small">[{l.category}] {l.goal}{l.arena === false ? ' · 强制隐藏' : ''}</div>}
                       </td>
                       <td>{themeName(l.theme)}</td>
                       <td>{l.cols}×{l.rows}</td>
@@ -770,10 +770,15 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
             <label className="small grow" style={{ display: 'flex', alignItems: 'center', gap: 4, minWidth: 0 }}>验收目标
               <input value={lv.goal || ''} onChange={(e) => updateLevel((l) => ({ ...l, goal: e.target.value, updatedAt: new Date().toISOString() }), true)} style={{ flex: 1, minWidth: 0 }} placeholder="给人看的一句话" />
             </label>
-            <label className="small" title="小屋 / huntHidden 关保存时强制 arena:false">
-              <input type="checkbox" checked={lv.arena !== false && !needsNoArena(lv)} disabled={needsNoArena(lv)}
-                onChange={(e) => updateLevel((l) => ({ ...l, arena: e.target.checked, updatedAt: new Date().toISOString() }))} /> 竞技场 arena
-              {needsNoArena(lv) && <span className="muted"> （有小屋/huntHidden → 自动 false）</span>}
+            <label className="small" title="勾选后写出 arena:false，游戏按暗牌（不显示卡面）走；不勾且主题为竞技场则 arena:true 全开">
+              <input type="checkbox" checked={lv.arena === false}
+                onChange={(e) => updateLevel((l) => ({
+                  ...l,
+                  // 勾选 → arena:false（暗牌）；取消 → arena:true（全开）
+                  arena: !e.target.checked,
+                  updatedAt: new Date().toISOString(),
+                }))} /> 强制隐藏卡牌
+              {suggestForceHideCards(lv) && lv.arena !== false && <span className="muted"> （有小屋/huntHidden，建议勾选）</span>}
             </label>
           </div>
         </div>
@@ -844,9 +849,14 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
               <select value={lv.theme} onChange={(e) => updateLevel((l) => {
                 const theme = e.target.value;
                 const next = { ...l, theme };
-                const arena = resolveArenaFlag(next, { testcase: TC });
-                if (arena !== undefined) next.arena = arena;
-                else delete next.arena;
+                // 选了竞技场 → 默认全开（arena:true）；「强制隐藏」需用户再勾
+                if (theme === 'arena') {
+                  next.arena = true;
+                } else {
+                  const arena = resolveArenaFlag(next, { testcase: TC });
+                  if (arena !== undefined) next.arena = arena;
+                  else delete next.arena;
+                }
                 return next;
               })}>
                 {WORLDS.map((w) => <option key={w.id} value={w.id}>{w.hidden ? `${w.name}（隐藏）` : w.name}</option>)}
