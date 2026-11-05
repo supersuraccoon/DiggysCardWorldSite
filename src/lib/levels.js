@@ -69,6 +69,7 @@ export function cleanEffect(e) {
   if (num(e.shape) !== undefined) o.shape = num(e.shape);
   if (num(e.damageScale) !== undefined) o.damageScale = num(e.damageScale);
   if (o.id === 'range' && PROJECTILE_VALUES.includes(e.projectile)) o.projectile = e.projectile;
+  if (o.id === 'range' && (e.pierce === true || e.pierce === 1 || e.pierce === '1')) o.pierce = true;
   return o;
 }
 export function cleanSkill(k) {

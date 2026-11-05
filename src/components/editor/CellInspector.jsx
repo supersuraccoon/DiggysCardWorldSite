@@ -41,7 +41,14 @@ export default function CellInspector({ lv, sel, lookup, refs, onChange }) {
   const skillIds = [...new Set([...(refs?.skills || []).map((s) => s.id), ...ruleIds.skills])];
   const effects = ov.effects || [];
   const skills = ov.skills || [];
-  const setEff = (i, patch) => set({ effects: effects.map((e, k) => (k === i ? { ...e, ...patch } : e)) });
+  const setEff = (i, patch) => set({
+    effects: effects.map((e, k) => {
+      if (k !== i) return e;
+      const n = { ...e, ...patch };
+      for (const key of Object.keys(patch)) if (patch[key] === undefined) delete n[key];
+      return n;
+    }),
+  });
   const setSk = (i, patch) => set({ skills: skills.map((e, k) => (k === i ? { ...e, ...patch } : e)) });
   const isMonster = kind === 'monster' || kind === 'unknown';
   const isEquip = kind === 'equipment' || kind === 'unknown';
@@ -112,6 +119,17 @@ export default function CellInspector({ lv, sel, lookup, refs, onChange }) {
                 </select>
               </label>
             )}
+            {e.id === 'range' && (() => {
+              const lineOnly = Number(e.shape) === 0;
+              return (
+                <label className={`chk small${lineOnly ? '' : ' muted'}`}
+                  title={lineOnly ? '直线上每个正面怪都挨打' : '只对直线生效'}>
+                  <input type="checkbox" checked={e.pierce === true} disabled={!lineOnly}
+                    onChange={(ev) => setEff(i, { pierce: ev.target.checked ? true : undefined })} />
+                  穿刺{lineOnly ? '' : '（只对直线生效）'}
+                </label>
+              );
+            })()}
             {(e.id === 'splash' || e.damageScale != null) && <NumField label="damageScale" step={0.1} value={e.damageScale} placeholder="—" onChange={(v) => setEff(i, { damageScale: v })} />}
             <button className="btn small" title="删掉这行" onClick={() => set({ effects: effects.filter((_, k) => k !== i) })}>✕</button>
           </div>
