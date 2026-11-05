@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-05T09:45:04.000Z",
+  "updatedAt": "2026-11-05T16:00:00.000Z",
   "levels": [
     {
       "id": "testcase_status_confuse",
@@ -261,6 +261,26 @@
       "cols": 10,
       "rows": 5,
       "updatedAt": "2026-11-04T12:00:00.000Z"
+    },
+    {
+      "id": "testcase_status_range_projectile",
+      "title": "射程飞弹",
+      "category": "status",
+      "goal": "分别捡四把测试武器远程普攻，对比弹弓/火球/激光/水枪飞弹动画",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 7,
+      "updatedAt": "2026-11-05T16:00:00.000Z"
+    },
+    {
+      "id": "testcase_status_range_pierce",
+      "title": "射程穿刺",
+      "category": "status",
+      "goal": "上行勾穿刺：点远处桩或空地，线上正面桩都应挨打；下行无穿刺只打第一个",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T16:00:00.000Z"
     },
     {
       "id": "testcase_status_splash",

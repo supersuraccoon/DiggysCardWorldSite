@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "table": "机制试玩",
+  "id": "testcase_status_range_pierce",
+  "theme": "arena",
+  "cols": 10,
+  "rows": 5,
+  "arena": true,
+  "cells": [
+    {
+      "x": 0,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "attack_testcase",
+      "mole": false,
+      "effects": [
+        {
+          "id": "range",
+          "value": 4,
+          "turns": 0,
+          "every": 1,
+          "shape": 0,
+          "pierce": true
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": true
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "attack_testcase",
+      "mole": false,
+      "effects": [
+        {
+          "id": "range",
+          "value": 4,
+          "turns": 0,
+          "every": 1,
+          "shape": 0
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    }
+  ],
+  "title": "射程穿刺",
+  "category": "status",
+  "goal": "上行勾穿刺：点远处桩或空地，线上正面桩都应挨打；下行无穿刺只打第一个",
+  "updatedAt": "2026-11-05T16:00:00.000Z"
+}
