@@ -6,7 +6,7 @@ import {
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
   myLevelMeta, asValidateLevel, MY_LEVEL_DIR, resolveMyLevelId, normalizeMyLevelIdInput,
   stripOverrides, cleanOverrides, hasOverrides,
-  LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, normCategory, needsNoArena, TESTCASE_ARENA_SIZE,
+  LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, normCategory, needsNoArena, resolveArenaFlag, TESTCASE_ARENA_SIZE,
 } from '../../lib/levels.js';
 import {
   hasToken, getCachedLogin, clearToken, verifyToken,
@@ -841,7 +841,14 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
           <div className="le-tools sketch">
             <div className="ed-row">
               <span className="flabel">主题</span>
-              <select value={lv.theme} onChange={(e) => updateLevel((l) => ({ ...l, theme: e.target.value }))}>
+              <select value={lv.theme} onChange={(e) => updateLevel((l) => {
+                const theme = e.target.value;
+                const next = { ...l, theme };
+                const arena = resolveArenaFlag(next, { testcase: TC });
+                if (arena !== undefined) next.arena = arena;
+                else delete next.arena;
+                return next;
+              })}>
                 {WORLDS.map((w) => <option key={w.id} value={w.id}>{w.hidden ? `${w.name}（隐藏）` : w.name}</option>)}
               </select>
               <span className="flabel">地形</span>

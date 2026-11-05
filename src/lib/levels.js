@@ -295,6 +295,20 @@ export function needsNoArena(lv) {
   return (lv?.cells || []).some((c) => c && (c.catalog === 'cabin' || c.huntHidden === true));
 }
 
+/**
+ * 写出 / 规范化 arena 字段：
+ * - cabin / huntHidden → false（优先）
+ * - theme === 'arena' → true
+ * - 否则保留显式 true/false；缺省时试玩默认 false，我的关卡不写
+ */
+export function resolveArenaFlag(lv, { testcase = false } = {}) {
+  if (needsNoArena(lv)) return false;
+  if (lv?.theme === 'arena') return true;
+  if (lv?.arena === true) return true;
+  if (lv?.arena === false) return false;
+  return testcase ? false : undefined;
+}
+
 /** id = ml_ / testcase_ + 6～8 位小写字母数字 */
 export function newMyLevelId(kind) {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -387,8 +401,9 @@ export function blankMyLevel(opts = {}, kind) {
   if (isTestcase(K)) {
     out.category = normCategory(category);
     out.goal = goal || '';
-    out.arena = false; // 新建试玩：无怪，走楼梯过关
   }
+  const arena = resolveArenaFlag(out, { testcase: tc });
+  if (arena !== undefined) out.arena = arena;
   return out;
 }
 
@@ -415,8 +430,10 @@ export function normalizeMyLevel(d, kind) {
   if (isTestcase(K)) {
     base.category = normCategory(d.category);
     base.goal = (d.goal ?? '').toString();
-    base.arena = d.arena === false ? false : true;
-  } else if (d.arena === false) base.arena = false;
+  }
+  // 用 cells + theme 重算：theme=arena → true；cabin/huntHidden → false
+  const arena = resolveArenaFlag({ ...base, arena: d.arena }, { testcase: isTestcase(K) });
+  if (arena !== undefined) base.arena = arena;
   return base;
 }
 
@@ -424,7 +441,9 @@ export function normalizeMyLevel(d, kind) {
 export function formatMyLevelJson(data, kind) {
   const K = kindOf(kind);
   const d = { ...data, schemaVersion: SCHEMA_VERSION, table: K.table, updatedAt: data.updatedAt || new Date().toISOString() };
-  if (isTestcase(K) && needsNoArena(d)) d.arena = false;
+  const arena = resolveArenaFlag(d, { testcase: isTestcase(K) });
+  if (arena !== undefined) d.arena = arena;
+  else delete d.arena;
   // 每格一行（含 effects/skills 嵌套也压成一行）
   const cells = d.cells || [];
   const txt = JSON.stringify({ ...d, cells: cells.map((_, i) => `@@CELL${i}@@`) }, null, 2);
