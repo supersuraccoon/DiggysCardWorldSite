@@ -23,6 +23,14 @@ import { Palette } from './Palette.jsx';
 import CellInspector from './CellInspector.jsx';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
+const downloadLevelJson = (l) => {
+  const blob = new Blob([JSON.stringify(l, null, 2) + '\n'], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `${l.id}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
 const DRAG_MIME = 'text/x-diggy-piece';
 
 function download(name, data, type) {
@@ -665,6 +673,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                         <button className="btn small" onClick={() => saveOne(l.id)} disabled={ghBusy}>
                           {cloudTarget === 'host' ? '☁保存' : patOn ? '☁保存' : dirHandle ? '保存' : '⬇'}
                         </button>{' '}
+                        <button className="btn small" title={`下载 ${l.id}.json`} onClick={() => downloadLevelJson(l)}>下载</button>{' '}
                         <button className="btn small" onClick={() => deleteLevel(l.id)} disabled={ghBusy}>删除</button>
                       </td>
                     </tr>
