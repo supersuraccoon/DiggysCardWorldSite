@@ -267,10 +267,31 @@ export const MY_LEVEL_TABLE = '我的关卡';
 export const MY_LEVEL_DIR = '我的关卡';
 
 /** 关卡「种类」：我的关卡 / 机制试玩场。路径、id 前缀、table 都从这里取，避免两套漂移。 */
+/** 机制试玩 8 大类（顺序即列表折叠顺序） */
 export const TESTCASE_CATEGORIES = ['monster', 'item', 'costume', 'event', 'status', 'skill', 'weather', 'special'];
-/** 旧 category → 8 大类 */
+/** 旧 category → 8 大类（无服装；早期服装误标 item/other 见 categoryFromId） */
 const LEGACY_CATEGORY = { mechanic: 'special', composite: 'monster', other: 'special' };
-export function normCategory(c) {
+/**
+ * 批量生成 id 前缀 → 类别。id 是准绳：曾把 testcase_costume_* 写成 item/other，
+ * 归一化后必须进「服装」，不能掉进「特殊」。
+ */
+export function categoryFromId(id) {
+  if (!id || typeof id !== 'string') return null;
+  if (id.startsWith('testcase_costume_')) return 'costume';
+  if (id.startsWith('testcase_status_')) return 'status';
+  if (id.startsWith('testcase_skill_')) return 'skill';
+  if (id.startsWith('testcase_event_')) return 'event';
+  if (id.startsWith('testcase_item_')) return 'item';
+  if (id.startsWith('testcase_weather_')) return 'weather';
+  if (id.startsWith('testcase_monster_')) return 'monster';
+  if (id.startsWith('testcase_mechanic_')) return 'special';
+  if (id.startsWith('testcase_composite_')) return 'monster';
+  return null;
+}
+/** @param {string} [c] @param {string} [id] 有生成前缀时以 id 为准 */
+export function normCategory(c, id) {
+  const inferred = categoryFromId(id);
+  if (inferred) return inferred;
   const v = LEGACY_CATEGORY[c] || c;
   return TESTCASE_CATEGORIES.includes(v) ? v : 'special';
 }
@@ -408,7 +429,7 @@ export function blankMyLevel(opts = {}, kind) {
   };
   if (author != null && author !== '') out.author = author;
   if (isTestcase(K)) {
-    out.category = normCategory(category);
+    out.category = normCategory(category, out.id);
     out.goal = goal || '';
   }
   const arena = resolveArenaFlag(out, { testcase: tc });
@@ -437,7 +458,7 @@ export function normalizeMyLevel(d, kind) {
   };
   if (d.author != null && d.author !== '') base.author = String(d.author);
   if (isTestcase(K)) {
-    base.category = normCategory(d.category);
+    base.category = normCategory(d.category, base.id);
     base.goal = (d.goal ?? '').toString();
   }
   // theme=arena → true；显式 arena:false（强制隐藏）保留
@@ -464,7 +485,7 @@ export function formatMyIndexJson(levelsMeta, kind) {
   const levels = (levelsMeta || []).map((m) => ({
     id: m.id,
     title: m.title,
-    ...(tc ? { category: normCategory(m.category), goal: m.goal || '' } : {}),
+    ...(tc ? { category: normCategory(m.category, m.id), goal: m.goal || '' } : {}),
     theme: m.theme,
     cols: m.cols,
     rows: m.rows,
@@ -475,7 +496,7 @@ export function formatMyIndexJson(levelsMeta, kind) {
 
 export function myLevelMeta(lv) {
   const m = { id: lv.id, title: lv.title, theme: lv.theme, cols: lv.cols, rows: lv.rows, updatedAt: lv.updatedAt };
-  if (lv.category != null) m.category = lv.category;
+  if (lv.category != null || lv.id) m.category = normCategory(lv.category, lv.id);
   if (lv.goal != null) m.goal = lv.goal;
   return m;
 }

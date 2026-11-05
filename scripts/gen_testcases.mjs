@@ -4,8 +4,15 @@
  * 写到 diggy_levels/testcases/ 与 server_hosting/diggy_levels/testcases/（404.json 不动）。
  * 不写游戏仓 assets/resources/levels/testcases/。
  *
+ * category 只能是 8 大类之一（与网站/游戏 Cates 一致）：
+ *   monster | item | costume | event | status | skill | weather | special
+ * 服装必须写 costume（不要 item/other）；旧 mechanic→special，composite→monster。
+ * id 前缀约定：testcase_{category}_…（costume/status/skill/event/…）；
+ *   mechanic_* → special，composite_* → monster。
+ *
  * 用法：node scripts/gen_testcases.mjs
  */
+
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";

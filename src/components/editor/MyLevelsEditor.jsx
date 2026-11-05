@@ -664,7 +664,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                       <td>
                         <b>{l.title}</b>
                         <div className="mono muted small">{l.id}</div>
-                        {TC && <div className="muted small">[{l.category}] {l.goal}{l.arena === false ? ' · 强制隐藏' : ''}</div>}
+                        {TC && <div className="muted small">[{normCategory(l.category, l.id)}] {l.goal}{l.arena === false ? ' · 强制隐藏' : ''}</div>}
                       </td>
                       <td>{themeName(l.theme)}</td>
                       <td>{l.cols}×{l.rows}</td>
@@ -684,7 +684,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                   );
                   };
                   if (!TC) return levels.map(row);
-                  const groups = TESTCASE_CATEGORIES.map((cat) => [cat, levels.filter((l) => normCategory(l.category) === cat)]).filter(([, it]) => it.length);
+                  const groups = TESTCASE_CATEGORIES.map((cat) => [cat, levels.filter((l) => normCategory(l.category, l.id) === cat)]).filter(([, it]) => it.length);
                   const anySet = Object.keys(sumOpen).length > 0;
                   return groups.map(([cat, items], gi) => {
                     const open = anySet ? !!sumOpen[cat] : gi === 0;
@@ -763,7 +763,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
         <div className="ed-bar sketch le-bar tc-meta">
           <div className="ed-row">
             <label className="small">分类
-              <select value={normCategory(lv.category)} onChange={(e) => updateLevel((l) => ({ ...l, category: e.target.value, updatedAt: new Date().toISOString() }))} style={{ marginLeft: 4 }}>
+              <select value={normCategory(lv.category, lv.id)} onChange={(e) => updateLevel((l) => ({ ...l, category: e.target.value, updatedAt: new Date().toISOString() }))} style={{ marginLeft: 4 }}>
                 {TESTCASE_CATEGORIES.map((c) => <option key={c} value={c}>{TESTCASE_CATEGORY_LABELS[c] || c}</option>)}
               </select>
             </label>
@@ -807,7 +807,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
             )}
           </div>
           {TC && TESTCASE_CATEGORIES.map((cat) => {
-            const items = levels.filter((l) => normCategory(l.category) === cat);
+            const items = levels.filter((l) => normCategory(l.category, l.id) === cat);
             if (!items.length) return null;
             const hasCur = items.some((l) => l.id === editId);
             const open = catOpen[cat] ?? hasCur;
