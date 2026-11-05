@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 1,
+  "table": "机制试玩",
+  "id": "testcase_status_blind",
+  "theme": "arena",
+  "cols": 10,
+  "rows": 5,
+  "arena": true,
+  "cells": [
+    {
+      "x": 0,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": true,
+      "effects": [
+        {
+          "id": "blind",
+          "value": 50,
+          "turns": 5,
+          "every": 1
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "ground": "stairs",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    }
+  ],
+  "title": "致盲",
+  "category": "status",
+  "goal": "开局命中×0.5，默认普攻约一半落空",
+  "updatedAt": "2026-11-05T00:00:00.000Z"
+}

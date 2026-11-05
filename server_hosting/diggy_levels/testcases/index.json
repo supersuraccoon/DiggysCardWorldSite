@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-05T01:41:07.000Z",
+  "updatedAt": "2026-11-05T09:45:04.000Z",
   "levels": [
     {
       "id": "testcase_status_confuse",
@@ -1761,6 +1761,66 @@
       "cols": 10,
       "rows": 5,
       "updatedAt": "2026-11-04T12:00:00.000Z"
+    },
+    {
+      "id": "testcase_status_burn",
+      "title": "燃烧",
+      "category": "status",
+      "goal": "捡测试武器打中间木桩，邻桩约一半被点燃、回合减半；贴着的英雄不被烧",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_status_rage",
+      "title": "狂暴",
+      "category": "status",
+      "goal": "开局血减半（最少1）；伤害=原始攻×2+装备",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_status_blind",
+      "title": "致盲",
+      "category": "status",
+      "goal": "开局命中×0.5，默认普攻约一半落空",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_status_slow",
+      "title": "减速",
+      "category": "status",
+      "goal": "会动的怪动1休1回合",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_status_haste",
+      "title": "加速",
+      "category": "status",
+      "goal": "每回合可行动2次",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_status_charm",
+      "title": "魅惑",
+      "category": "status",
+      "goal": "被命中的怪去打别的怪；对鼹鼠施加无效",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T00:00:00.000Z"
     }
   ]
 }

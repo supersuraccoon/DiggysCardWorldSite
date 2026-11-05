@@ -278,6 +278,48 @@
       "name": "冰冻",
       "polarity": "debuff",
       "implemented": true
+    },
+    {
+      "kind": 28,
+      "id": "burn",
+      "name": "燃烧",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 29,
+      "id": "rage",
+      "name": "狂暴",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 30,
+      "id": "blind",
+      "name": "致盲",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 31,
+      "id": "slow",
+      "name": "减速",
+      "polarity": "debuff",
+      "implemented": true
+    },
+    {
+      "kind": 32,
+      "id": "haste",
+      "name": "加速",
+      "polarity": "buff",
+      "implemented": true
+    },
+    {
+      "kind": 33,
+      "id": "charm",
+      "name": "魅惑",
+      "polarity": "debuff",
+      "implemented": true
     }
   ],
   "hunts": [
