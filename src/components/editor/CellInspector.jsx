@@ -89,7 +89,17 @@ export default function CellInspector({ lv, sel, lookup, refs, onChange }) {
             <NumField label="value" value={e.value} placeholder="1" onChange={(v) => setEff(i, { value: v ?? 1 })} />
             <NumField label="turns" value={e.turns} placeholder="0" onChange={(v) => setEff(i, { turns: v ?? 0 })} />
             <NumField label="every" value={e.every} placeholder="1" onChange={(v) => setEff(i, { every: v ?? 1 })} />
-            {(e.id === 'range' || e.shape != null) && <NumField label="shape" value={e.shape} placeholder="—" onChange={(v) => setEff(i, { shape: v })} />}
+            {(e.id === 'range' || e.shape != null) && (
+              <label className="ci-num"><span>shape 射程</span>
+                <select value={e.shape == null ? '' : String(e.shape)}
+                  onChange={(ev) => setEff(i, { shape: ev.target.value === '' ? undefined : +ev.target.value })}>
+                  <option value="">—</option>
+                  <option value="0">直线</option>
+                  <option value="1">环绕</option>
+                  <option value="2">十字</option>
+                </select>
+              </label>
+            )}
             {(e.id === 'splash' || e.damageScale != null) && <NumField label="damageScale" step={0.1} value={e.damageScale} placeholder="—" onChange={(v) => setEff(i, { damageScale: v })} />}
             <button className="btn small" title="删掉这行" onClick={() => set({ effects: effects.filter((_, k) => k !== i) })}>✕</button>
           </div>
