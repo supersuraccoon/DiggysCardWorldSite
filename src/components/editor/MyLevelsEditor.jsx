@@ -48,6 +48,8 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
   const fmtIdx = (list) => formatMyIndexJson(list.map(myLevelMeta), K);
   const [levels, setLevels] = useState([]);
   const [catOpen, setCatOpen] = useState({});
+  const [sumOpen, setSumOpen] = useState(() => { try { return JSON.parse(localStorage.getItem('le-sum-open') || 'null') || {}; } catch { return {}; } });
+  useEffect(() => { try { localStorage.setItem('le-sum-open', JSON.stringify(sumOpen)); } catch {} }, [sumOpen]);
   const [past, setPast] = useState([]);
   const [future, setFuture] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -641,7 +643,8 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                 </tr>
               </thead>
               <tbody>
-                {levels.map((l) => {
+                {(() => {
+                  const row = (l) => {
                   const c = checks[l.id] || [];
                   const bad = c.filter((x) => x.sev === 'err').length;
                   return (
@@ -666,7 +669,20 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                       </td>
                     </tr>
                   );
-                })}
+                  };
+                  if (!TC) return levels.map(row);
+                  const groups = TESTCASE_CATEGORIES.map((cat) => [cat, levels.filter((l) => normCategory(l.category) === cat)]).filter(([, it]) => it.length);
+                  const anySet = Object.keys(sumOpen).length > 0;
+                  return groups.map(([cat, items], gi) => {
+                    const open = anySet ? !!sumOpen[cat] : gi === 0;
+                    return [
+                      <tr key={'g-' + cat} className="le-sum-group" onClick={() => setSumOpen((o) => { const base = Object.keys(o).length ? o : Object.fromEntries(groups.map(([c], k) => [c, k === 0])); return { ...base, [cat]: !open }; })} style={{ cursor: 'pointer', background: 'rgba(0,0,0,0.06)' }}>
+                        <td colSpan={6}><b>{open ? '▾' : '▸'} {TESTCASE_CATEGORY_LABELS[cat] || cat}</b> <span className="muted small">（{items.length}）</span></td>
+                      </tr>,
+                      ...(open ? items.map(row) : []),
+                    ];
+                  });
+                })()}
               </tbody>
             </table>
           )}
