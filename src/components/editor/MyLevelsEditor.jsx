@@ -4,7 +4,7 @@ import {
   cellIndex, resizeLevel, isEmptyLevel, validateLevel, levelStats,
   makeZip, resolveConfigDir, writeText,
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
-  myLevelMeta, asValidateLevel, MY_LEVEL_DIR,
+  myLevelMeta, asValidateLevel, MY_LEVEL_DIR, resolveMyLevelId, normalizeMyLevelIdInput,
   stripOverrides, cleanOverrides, hasOverrides,
   LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, normCategory, needsNoArena, TESTCASE_ARENA_SIZE,
 } from '../../lib/levels.js';
@@ -263,12 +263,16 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
   const st = lv ? levelStats(lv, lookup) : null;
 
   // -------- CRUD
-  const createLevel = ({ title, theme, cols, rows, category, goal }) => {
-    const lvNew = blankLv({ title, theme, cols, rows, category, goal });
+  const createLevel = ({ title, theme, cols, rows, category, goal, id }) => {
+    const existing = levels.map((l) => l.id);
+    const resolved = resolveMyLevelId(id, K, existing);
+    const wanted = normalizeMyLevelIdInput(id, K);
+    const lvNew = blankLv({ title, theme, cols, rows, category, goal, id: resolved });
     commit((cur) => [...cur, lvNew]);
     setNewOpen(false);
     setEditId(lvNew.id);
-    flash(`已新建「${lvNew.title}」（${lvNew.id}）`);
+    const autoNote = (id || '').trim() && wanted !== resolved ? ' · id 已自动生成' : '';
+    flash(`已新建「${lvNew.title}」（${lvNew.id}）${autoNote}`);
   };
   const duplicateLevel = (id) => {
     const src = levels.find((l) => l.id === id);
@@ -696,7 +700,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
             </table>
           )}
         </div>
-        {newOpen && <NewDialog testcase={TC} prefix={K.prefix} onOk={createLevel} onCancel={() => setNewOpen(false)} />}
+        {newOpen && <NewDialog testcase={TC} kind={K} existingIds={levels.map((l) => l.id)} onOk={createLevel} onCancel={() => setNewOpen(false)} />}
         {renameId && (
           <RenameDialog
             title={levels.find((l) => l.id === renameId)?.title || ''}
@@ -976,18 +980,35 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
   );
 }
 
-function NewDialog({ onOk, onCancel, testcase = false, prefix = 'ml_' }) {
+function NewDialog({ onOk, onCancel, testcase = false, kind, existingIds = [] }) {
+  const prefix = (kind && kind.prefix) || (testcase ? 'testcase_' : 'ml_');
   const [title, setTitle] = useState(testcase ? '未命名试玩' : '未命名关卡');
+  const [idInput, setIdInput] = useState('');
   const [category, setCategory] = useState('status');
   const [goal, setGoal] = useState('');
   const [theme, setTheme] = useState(testcase ? 'arena' : 'world1');
   const [cols, setCols] = useState(testcase ? TESTCASE_ARENA_SIZE.cols : DEFAULT_SIZE.cols);
   const [rows, setRows] = useState(testcase ? TESTCASE_ARENA_SIZE.rows : DEFAULT_SIZE.rows);
+  const previewId = useMemo(() => {
+    const n = normalizeMyLevelIdInput(idInput, kind || (testcase ? 'testcase' : 'mine'));
+    if (!n) return `${prefix}…（自动）`;
+    if (existingIds.includes(n)) return `${n}（已存在 → 将自动生成）`;
+    return n;
+  }, [idInput, kind, prefix, testcase, existingIds]);
   return (
     <div className="modal-bg" onClick={onCancel}>
       <div className="modal sketch" onClick={(e) => e.stopPropagation()}>
         <h3>新建关卡</h3>
         <label>标题<input value={title} onChange={(e) => setTitle(e.target.value)} autoFocus /></label>
+        <label>id（可选）
+          <input
+            value={idInput}
+            onChange={(e) => setIdInput(e.target.value)}
+            spellCheck={false}
+            placeholder={`留空自动生成；可只写后缀，会补 ${prefix}`}
+          />
+        </label>
+        <p className="hint">将使用：<code>{previewId}</code>。空 / 重复 / 不合法 → 自动生成。</p>
         <label>主题（美术）
           <select value={theme} onChange={(e) => setTheme(e.target.value)}>
             {WORLDS.map((w) => <option key={w.id} value={w.id}>{w.name}{w.hidden ? '（隐藏）' : ''}</option>)}
@@ -1011,11 +1032,11 @@ function NewDialog({ onOk, onCancel, testcase = false, prefix = 'ml_' }) {
             <label>验收目标<input value={goal} onChange={(e) => setGoal(e.target.value)} placeholder="例：捡起剑，普攻观察混乱" /></label>
           </>
         )}
-        <p className="hint">会自动生成 id（{prefix}…），并默认放 1 只黄鼹鼠 + 1 个楼梯{testcase ? '（位置随机）' : ''}。</p>
+        <p className="hint">默认放 1 只黄鼹鼠 + 1 个楼梯{testcase ? '（位置随机）' : ''}。</p>
         <div className="ps-foot">
           <button className="btn small" onClick={onCancel}>取消</button>
           <span className="grow" />
-          <button className="btn small yellow" disabled={!title.trim()} onClick={() => onOk({ title: title.trim(), theme, cols, rows, category, goal })}>创建</button>
+          <button className="btn small yellow" disabled={!title.trim()} onClick={() => onOk({ title: title.trim(), theme, cols, rows, category, goal, id: idInput.trim() })}>创建</button>
         </div>
       </div>
     </div>

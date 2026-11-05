@@ -283,7 +283,11 @@ export const LEVEL_KINDS = {
   mine: { key: 'mine', table: MY_LEVEL_TABLE, prefix: 'ml_', dir: 'my-levels', folder: MY_LEVEL_DIR, lsKey: 'diggy.editor.mylevels.v1', label: '我的关卡', hostKind: '' },
   testcase: { key: 'testcase', table: '机制试玩', prefix: 'testcase_', dir: 'testcases', folder: 'testcases', lsKey: 'diggy.editor.testcases.v1', label: '机制试玩场', hostKind: 'testcase' },
 };
-const kindOf = (k) => (k && typeof k === 'object' && k.table ? k : LEVEL_KINDS.mine);
+const kindOf = (k) => {
+  if (k && typeof k === 'object' && k.table) return k;
+  if (typeof k === 'string' && LEVEL_KINDS[k]) return LEVEL_KINDS[k];
+  return LEVEL_KINDS.mine;
+};
 const isTestcase = (K) => K.key === 'testcase';
 
 /** 小屋 / huntHidden 关：竞技场踩不了小屋、隐藏追踪需要暗牌 → arena:false */
@@ -291,13 +295,44 @@ export function needsNoArena(lv) {
   return (lv?.cells || []).some((c) => c && (c.catalog === 'cabin' || c.huntHidden === true));
 }
 
-/** id = ml_ + 6～8 位小写字母数字 */
+/** id = ml_ / testcase_ + 6～8 位小写字母数字 */
 export function newMyLevelId(kind) {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
   const n = 6 + (Math.random() < 0.5 ? 0 : 2);
   let s = kindOf(kind).prefix;
   for (let i = 0; i < n; i++) s += alphabet[(Math.random() * alphabet.length) | 0];
   return s;
+}
+
+/** 规范化用户填写的 id：补前缀、小写、仅 [a-z0-9_]。空/非法 → null */
+export function normalizeMyLevelIdInput(raw, kind) {
+  const K = kindOf(kind);
+  if (raw == null) return null;
+  let s = String(raw).trim().toLowerCase();
+  if (!s) return null;
+  if (s.startsWith(K.prefix)) s = s.slice(K.prefix.length);
+  s = s.replace(/[^a-z0-9_]+/g, '_').replace(/^_+|_+$/g, '').replace(/_+/g, '_');
+  if (!s) return null;
+  return K.prefix + s;
+}
+
+/**
+ * 解析新建关卡 id：
+ * - 空 → 自动生成
+ * - 合法且不在 existingIds → 用用户 id（可只写后缀，自动补前缀）
+ * - 重复或不合法 → 自动生成（保证不撞 existingIds）
+ */
+export function resolveMyLevelId(raw, kind, existingIds = []) {
+  const K = kindOf(kind);
+  const taken = new Set(existingIds || []);
+  const auto = () => {
+    let id;
+    do { id = newMyLevelId(K); } while (taken.has(id));
+    return id;
+  };
+  const normalized = normalizeMyLevelIdInput(raw, K);
+  if (!normalized || taken.has(normalized)) return auto();
+  return normalized;
 }
 
 /** 新建一层：默认放 1 鼹鼠 + 1 楼梯，方便通过校验 */
@@ -335,7 +370,9 @@ export function blankMyLevel(opts = {}, kind) {
   const out = {
     schemaVersion: SCHEMA_VERSION,
     table: K.table,
-    id: newMyLevelId(K),
+    id: (typeof opts.id === 'string' && opts.id.startsWith(K.prefix) && opts.id.length > K.prefix.length)
+      ? opts.id
+      : newMyLevelId(K),
     title,
     theme,
     cols,
