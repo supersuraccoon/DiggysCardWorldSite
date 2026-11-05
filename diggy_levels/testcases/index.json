@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-05T16:20:00.000Z",
+  "updatedAt": "2026-11-05T17:30:00.000Z",
   "levels": [
     {
       "id": "testcase_status_confuse",
@@ -1851,6 +1851,96 @@
       "cols": 10,
       "rows": 5,
       "updatedAt": "2026-11-05T16:20:00.000Z"
+    },
+    {
+      "id": "testcase_costume_king",
+      "title": "国王服",
+      "category": "costume",
+      "goal": "捡国王服换上，下楼看心上限与甲是否各 +1",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T17:30:00.000Z"
+    },
+    {
+      "id": "testcase_costume_mech",
+      "title": "机甲服",
+      "category": "costume",
+      "goal": "捡机甲服换上，挨毒牙/刺击怪打，看 bleed/poison 是否上不去",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T17:30:00.000Z"
+    },
+    {
+      "id": "testcase_costume_firefighter",
+      "title": "消防员服",
+      "category": "costume",
+      "goal": "捡消防员服换上，挨火球怪打，看 burn 是否上不去",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T17:30:00.000Z"
+    },
+    {
+      "id": "testcase_costume_vampire",
+      "title": "吸血鬼服",
+      "category": "costume",
+      "goal": "捡吸血鬼服换上，亲手击杀木桩，看是否回 1 心",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T17:30:00.000Z"
+    },
+    {
+      "id": "testcase_costume_detective",
+      "title": "侦查服",
+      "category": "costume",
+      "goal": "捡侦查服换上，看第二圈上下左右隐藏格是否翻开",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T17:30:00.000Z"
+    },
+    {
+      "id": "testcase_costume_matador",
+      "title": "斗牛士服",
+      "category": "costume",
+      "goal": "捡斗牛士服换上，站着挨普攻，看是否 30% 闪开",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T17:30:00.000Z"
+    },
+    {
+      "id": "testcase_costume_magician",
+      "title": "魔术师服",
+      "category": "costume",
+      "goal": "捡魔术师服换上，普攻小怪，看是否 30% 魅惑",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T17:30:00.000Z"
+    },
+    {
+      "id": "testcase_costume_snowman",
+      "title": "雪人服",
+      "category": "costume",
+      "goal": "捡雪人服换上：近身打怪看减速；挨火技看 burn 是否免疫",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T17:30:00.000Z"
+    },
+    {
+      "id": "testcase_costume_pirate",
+      "title": "海盗服",
+      "category": "costume",
+      "goal": "捡海盗服换上：开箱看是否多一件；击杀看掉金是否 +50%",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T17:30:00.000Z"
     }
   ]
 }
