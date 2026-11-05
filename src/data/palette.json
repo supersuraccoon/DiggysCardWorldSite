@@ -1876,6 +1876,51 @@
       "id": "zombie",
       "name": "僵尸服",
       "img": "images/level/costume/zombie.png"
+    },
+    {
+      "id": "king",
+      "name": "国王服",
+      "img": "images/level/costume/king.png"
+    },
+    {
+      "id": "mech",
+      "name": "机甲服",
+      "img": "images/level/costume/mech.png"
+    },
+    {
+      "id": "firefighter",
+      "name": "消防员服",
+      "img": "images/level/costume/firefighter.png"
+    },
+    {
+      "id": "vampire",
+      "name": "吸血鬼服",
+      "img": "images/level/costume/vampire.png"
+    },
+    {
+      "id": "detective",
+      "name": "侦探服",
+      "img": "images/level/costume/detective.png"
+    },
+    {
+      "id": "matador",
+      "name": "斗牛士服",
+      "img": "images/level/costume/matador.png"
+    },
+    {
+      "id": "magician",
+      "name": "魔术师服",
+      "img": "images/level/costume/magician.png"
+    },
+    {
+      "id": "snowman",
+      "name": "雪人服",
+      "img": "images/level/costume/snowman.png"
+    },
+    {
+      "id": "pirate",
+      "name": "海盗服",
+      "img": "images/level/costume/pirate.png"
     }
   ],
   "deal": {
@@ -1961,7 +2006,16 @@
       "miner",
       "cat",
       "frog",
-      "zombie"
+      "zombie",
+      "king",
+      "mech",
+      "firefighter",
+      "vampire",
+      "detective",
+      "matador",
+      "magician",
+      "snowman",
+      "pirate"
     ],
     "supplyItems": [
       "syrup_heal",
