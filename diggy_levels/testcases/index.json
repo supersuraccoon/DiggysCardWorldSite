@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-05T16:00:00.000Z",
+  "updatedAt": "2026-11-05T16:20:00.000Z",
   "levels": [
     {
       "id": "testcase_status_confuse",
@@ -1841,6 +1841,16 @@
       "cols": 10,
       "rows": 5,
       "updatedAt": "2026-11-05T00:00:00.000Z"
+    },
+    {
+      "id": "testcase_status_multi_stack",
+      "title": "多状态叠加",
+      "category": "status",
+      "goal": "捡盾给自己叠5个状态；捡剑打桩给怪叠4个状态",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-05T16:20:00.000Z"
     }
   ]
 }
