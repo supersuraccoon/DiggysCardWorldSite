@@ -100,6 +100,18 @@ export default function CellInspector({ lv, sel, lookup, refs, onChange }) {
                 </select>
               </label>
             )}
+            {e.id === 'range' && (
+              <label className="ci-num"><span>飞弹</span>
+                <select value={e.projectile || ''}
+                  onChange={(ev) => setEff(i, { projectile: ev.target.value || undefined })}>
+                  <option value="">默认弹弓</option>
+                  <option value="sling_pellet">sling_pellet 弹弓</option>
+                  <option value="fireball">fireball 火球</option>
+                  <option value="laser">laser 激光</option>
+                  <option value="water_gun">water_gun 水枪</option>
+                </select>
+              </label>
+            )}
             {(e.id === 'splash' || e.damageScale != null) && <NumField label="damageScale" step={0.1} value={e.damageScale} placeholder="—" onChange={(v) => setEff(i, { damageScale: v })} />}
             <button className="btn small" title="删掉这行" onClick={() => set({ effects: effects.filter((_, k) => k !== i) })}>✕</button>
           </div>

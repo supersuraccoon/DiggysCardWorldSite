@@ -62,11 +62,13 @@ export const HUNT_VALUES = ['idle', 'chase', 'wander', 'flee'];
 export const MOLE_OVERRIDE_KEYS = ['heart', 'tooth', 'armor', 'gold', 'skills', 'effects'];
 export const SKILL_DEFAULT = { cooldown: 0, firstCd: 0, chance: 100, uses: -1 };
 const num = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : (v !== '' && v != null && Number.isFinite(+v) ? +v : undefined));
+export const PROJECTILE_VALUES = ['sling_pellet', 'fireball', 'laser', 'water_gun'];
 export function cleanEffect(e) {
   if (!e || typeof e.id !== 'string' || !e.id) return null;
   const o = { id: e.id, value: num(e.value) ?? 1, turns: num(e.turns) ?? 0, every: num(e.every) ?? 1 };
   if (num(e.shape) !== undefined) o.shape = num(e.shape);
   if (num(e.damageScale) !== undefined) o.damageScale = num(e.damageScale);
+  if (o.id === 'range' && PROJECTILE_VALUES.includes(e.projectile)) o.projectile = e.projectile;
   return o;
 }
 export function cleanSkill(k) {
