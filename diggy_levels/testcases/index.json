@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-05T17:30:00.000Z",
+  "updatedAt": "2026-11-06T11:56:21.000Z",
   "levels": [
     {
       "id": "testcase_status_confuse",
@@ -23,24 +23,1144 @@
       "updatedAt": "2026-11-04T09:00:00.000Z"
     },
     {
-      "id": "testcase_skill_monster_venom_lick",
-      "title": "怪毒液舔舔",
-      "category": "skill",
-      "goal": "邻格怪会放毒液舔舔",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_venom_lick",
-      "title": "英雄毒液舔舔",
+      "id": "testcase_skill_venom_lick",
+      "title": "毒液舔舔",
       "category": "skill",
       "goal": "捡邻格技能卡启用，再对怪放毒液舔舔",
       "theme": "arena",
       "cols": 10,
       "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_venom_bite",
+      "title": "毒液咬咬",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放毒液咬咬",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_venom_bomb",
+      "title": "毒液炸弹",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放毒液炸弹（约7只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_venom_fang",
+      "title": "毒牙牙",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再普攻邻格怪，看毒牙牙",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_tiny_flame",
+      "title": "小火苗",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放小火苗",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_hot_spatula",
+      "title": "烫烫锅铲",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放烫烫锅铲",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_fire_ball",
+      "title": "大火球",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再沿直线对怪放大火球",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_water_gun",
+      "title": "呲呲水枪",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再沿直线对怪放呲呲水枪",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_water_bucket",
+      "title": "哗啦水桶",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放哗啦水桶看击退（后方留空）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_flood_wave",
+      "title": "大浪浪",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再沿直线对怪放大浪浪",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_ice_cube",
+      "title": "小冰块",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放小冰块",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_popsicle",
+      "title": "冰棒棒",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放冰棒棒（约2只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_blizzard",
+      "title": "呼呼暴风雪",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再点范围内怪放呼呼暴风雪看溅射",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_ice_spike",
+      "title": "冰锥",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再沿直线对怪放冰锥",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_freeze_cast",
+      "title": "冰冻",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再普攻邻格怪，看冰冻",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_pot_lid_up",
+      "title": "锅盖举举",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放锅盖举举",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_pillow_block",
+      "title": "枕头挡挡",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放枕头挡挡",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_blanket_fort",
+      "title": "被窝城堡",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放被窝城堡",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_shell_tuck",
+      "title": "缩缩壳",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再挨邻格怪打，看缩缩壳",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_soap_slide",
+      "title": "肥皂溜溜",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放肥皂溜溜，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_bubble_wrap",
+      "title": "泡泡飘飘",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放泡泡飘飘，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_bedsheet_ghost",
+      "title": "床单隐身",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放床单隐身，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_straw_sip",
+      "title": "吸管吸吸",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放吸管吸吸，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_juice_slurp",
+      "title": "果汁咕嘟",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放果汁咕嘟，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_big_slurp",
+      "title": "大口吸溜",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放大口吸溜，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_pencil_sharpen",
+      "title": "削削铅笔",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放削削铅笔，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_sharp_sharp",
+      "title": "尖尖尖",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放尖尖尖，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_cactus_hug",
+      "title": "仙人掌抱抱",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放仙人掌抱抱，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_prickly_sweater",
+      "title": "刺刺毛衣",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放刺刺毛衣，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_hedgehog_bag",
+      "title": "刺猬睡袋",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放刺猬睡袋，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_face_mask",
+      "title": "戴戴口罩",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放戴戴口罩",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_bubble_bath",
+      "title": "泡泡浴",
+      "category": "skill",
+      "goal": "鼹鼠已带中毒+虚弱；捡邻格技能卡启用，再放泡泡浴清减益",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_nine_lives",
+      "title": "九条命",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放九条命，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_hug_patch",
+      "title": "抱抱贴",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放抱抱贴看回血（可先挨打）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_warm_milk",
+      "title": "热牛奶",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放热牛奶看回血（可先挨打）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_cozy_quilt",
+      "title": "暖暖被子",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放暖暖被子看回血（可先挨打）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_extra_bowl",
+      "title": "再来一碗",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放再来一碗看回血（可先挨打）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_big_tummy",
+      "title": "圆滚滚",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放圆滚滚看回血（可先挨打）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_heal",
+      "title": "治疗",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放治疗看回血（可先挨打）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_regen_sprout",
+      "title": "再生",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放再生看回血（可先挨打）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_grind_teeth",
+      "title": "磨磨牙",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放磨磨牙，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_angry_puff",
+      "title": "气鼓鼓",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放气鼓鼓，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_super_angry",
+      "title": "超级生气",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放超级生气，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_mirror_peek",
+      "title": "照照镜子",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放照照镜子，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_mirror_wall",
+      "title": "镜子墙",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放镜子墙，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_pat_pat",
+      "title": "啪啪",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放啪啪，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_drum_roll",
+      "title": "啪啪啪",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放啪啪啪，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_tickle",
+      "title": "挠痒痒",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放挠痒痒",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_big_yawn",
+      "title": "打哈欠",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放打哈欠",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_lullaby",
+      "title": "摇篮曲",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放摇篮曲",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_shush",
+      "title": "嘘安静",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放嘘安静",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_tape_mouth",
+      "title": "胶带封嘴",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放胶带封嘴",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_spin_spin",
+      "title": "转圈圈",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放转圈圈",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_dizzy_top",
+      "title": "晕晕陀螺",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放晕晕陀螺",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_prick",
+      "title": "小刺刺",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放小刺刺",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_snip_snip",
+      "title": "剪刀咔嚓",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放剪刀咔嚓",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_thorn_storm",
+      "title": "刺刺雨",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放刺刺雨",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_dong_drum",
+      "title": "咚咚鼓",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放咚咚鼓",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_frying_pan",
+      "title": "平底锅咚",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放平底锅咚",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_big_bonk",
+      "title": "超级大咚",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放超级大咚",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_nudge",
+      "title": "推推",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放推推看击退（后方留空）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_bouncy_ball",
+      "title": "弹弹球",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再沿直线对怪放弹弹球",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_hair_dryer",
+      "title": "吹风机",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再沿直线对怪放吹风机",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_snore_suck",
+      "title": "呼噜吸",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对远处怪放呼噜吸看拉近",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_sonic",
+      "title": "音波",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放音波看范围击退（留空落地）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_pat_head",
+      "title": "摸摸头",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放摸摸头（约7只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_bedtime_story",
+      "title": "讲故事",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放讲故事（约9只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_cheer_buddy",
+      "title": "点个赞",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放点个赞",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_group_hug",
+      "title": "抱成一团",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放抱成一团（约7只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_wipe_clean",
+      "title": "擦擦干净",
+      "category": "skill",
+      "goal": "邻格单位已带中毒+混乱；捡技能卡后对目标放擦擦干净清减益",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_wake_up",
+      "title": "起床啦",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对隐藏怪放起床啦（或翻开后验证）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_purify",
+      "title": "净化",
+      "category": "skill",
+      "goal": "鼹鼠已带中毒+虚弱；捡邻格技能卡启用，再放净化清减益",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_smelly_cloud",
+      "title": "臭臭云",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放臭臭云",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_sticky_web",
+      "title": "黏黏蛛网",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再普攻邻格怪，看黏黏蛛网",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_hug_and_bite",
+      "title": "抱住咬",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放抱住咬",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_iron_turtle",
+      "title": "铁乌龟",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放铁乌龟，挨邻格怪打验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_ring_ring",
+      "title": "叮铃铃",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对隐藏怪放叮铃铃（或翻开后验证）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_cheer_up",
+      "title": "加油加油",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放加油加油，普攻邻格怪验证",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_pop_goodbye",
+      "title": "啪嗒散开",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用；可打死低血怪或挨打倒下，观察啪嗒散开",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_glare_light",
+      "title": "刺眼光",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放刺眼光（约7只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_mole_claw",
+      "title": "爪爪爪",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放爪爪爪",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_mole_spike",
+      "title": "地刺",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再沿直线对怪放地刺",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_mole_top",
+      "title": "鼹鼠陀螺",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放鼹鼠陀螺打十字邻格怪",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_lightning",
+      "title": "落雷",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放落雷（约7只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_meteor",
+      "title": "陨石",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再点范围内怪放陨石看溅射",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_laser",
+      "title": "激光",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再沿直线对怪放激光",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_quake",
+      "title": "地震",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放地震（约7只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_whirlwind",
+      "title": "旋风",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放旋风（约2只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_stardust",
+      "title": "星光",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放星光（约9只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_blackhole",
+      "title": "黑洞",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放黑洞（约7只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_swap",
+      "title": "换位",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放换位换位",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_teleport",
+      "title": "传送",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再点空地或单位放传送",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_burrow",
+      "title": "挖洞",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放挖洞",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_steal_coin",
+      "title": "偷金币",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对带金币的怪放偷金币（旁有宝箱可先捡）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_bubble",
+      "title": "泡泡",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放泡泡",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_sandstorm",
+      "title": "沙暴",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对范围内怪放沙暴（约7只）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_split",
+      "title": "分裂",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放分裂（周围留空地给召唤/分身）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_summon",
+      "title": "召唤",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再放召唤（周围留空地给召唤/分身）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_sacrifice",
+      "title": "献祭",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放献祭（扣己血打伤害）",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_mirror_copy",
+      "title": "镜像",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放镜像",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_sleep",
+      "title": "睡眠",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放睡眠",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_entangle",
+      "title": "缠绕",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放缠绕",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_honey",
+      "title": "蜜糖",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放蜜糖",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_blind",
+      "title": "致盲",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放致盲",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_slow",
+      "title": "减速",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放减速",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_haste",
+      "title": "加速",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放加速",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_shrink",
+      "title": "变小",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放变小",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_charm",
+      "title": "魅惑",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放魅惑",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_taunt",
+      "title": "嘲讽",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放嘲讽",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_curse",
+      "title": "诅咒",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对怪放诅咒",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_charge",
+      "title": "蓄力",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放蓄力",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_luck",
+      "title": "幸运",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再对自己放幸运",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_wet",
+      "title": "湿漉漉",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再普攻邻格怪，看湿漉漉",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
+    },
+    {
+      "id": "testcase_skill_ignite",
+      "title": "着火",
+      "category": "skill",
+      "goal": "捡邻格技能卡启用，再普攻邻格怪，看着火",
+      "theme": "arena",
+      "cols": 10,
+      "rows": 5,
+      "updatedAt": "2026-11-06T11:56:21.000Z"
     },
     {
       "id": "testcase_event_cabin",
@@ -337,1236 +1457,6 @@
       "title": "冰冻",
       "category": "status",
       "goal": "捡测试武器普攻怪，看怪身上出现冰冻",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_venom_bite",
-      "title": "英雄毒液咬咬",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放毒液咬咬",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_venom_bomb",
-      "title": "英雄毒液炸弹",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放毒液炸弹",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_venom_fang",
-      "title": "英雄毒牙牙",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放毒牙牙",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_pot_lid_up",
-      "title": "英雄锅盖举举",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放锅盖举举",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_frying_pan",
-      "title": "英雄平底锅咚",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放平底锅咚",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_dong_drum",
-      "title": "英雄咚咚鼓",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放咚咚鼓",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_pat_head",
-      "title": "英雄摸摸头",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放摸摸头",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_mole_claw",
-      "title": "英雄爪爪爪",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放爪爪爪",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_mole_spike",
-      "title": "英雄地刺",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放地刺",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_hero_mole_top",
-      "title": "英雄鼹鼠陀螺",
-      "category": "skill",
-      "goal": "捡邻格技能卡启用，再对怪放鼹鼠陀螺",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_venom_bite",
-      "title": "怪毒液咬咬",
-      "category": "skill",
-      "goal": "邻格怪会放毒液咬咬",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_venom_bomb",
-      "title": "怪毒液炸弹",
-      "category": "skill",
-      "goal": "邻格怪会放毒液炸弹",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_venom_fang",
-      "title": "怪毒牙牙",
-      "category": "skill",
-      "goal": "普攻邻格怪，看毒牙牙",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_pot_lid_up",
-      "title": "怪锅盖举举",
-      "category": "skill",
-      "goal": "邻格怪会放锅盖举举",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_frying_pan",
-      "title": "怪平底锅咚",
-      "category": "skill",
-      "goal": "邻格怪会放平底锅咚",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_dong_drum",
-      "title": "怪咚咚鼓",
-      "category": "skill",
-      "goal": "邻格怪会放咚咚鼓",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_pat_head",
-      "title": "怪摸摸头",
-      "category": "skill",
-      "goal": "邻格怪会放摸摸头",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_mole_claw",
-      "title": "怪爪爪爪",
-      "category": "skill",
-      "goal": "邻格怪会放爪爪爪",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_mole_spike",
-      "title": "怪地刺",
-      "category": "skill",
-      "goal": "邻格怪会放地刺",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_mole_top",
-      "title": "怪鼹鼠陀螺",
-      "category": "skill",
-      "goal": "邻格怪会放鼹鼠陀螺",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_tiny_flame",
-      "title": "怪小火苗",
-      "category": "skill",
-      "goal": "邻格怪会放小火苗",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_hot_spatula",
-      "title": "怪烫烫锅铲",
-      "category": "skill",
-      "goal": "邻格怪会放烫烫锅铲",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_fire_ball",
-      "title": "怪大火球",
-      "category": "skill",
-      "goal": "邻格怪会放大火球",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_water_gun",
-      "title": "怪呲呲水枪",
-      "category": "skill",
-      "goal": "邻格怪会放呲呲水枪",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_water_bucket",
-      "title": "怪哗啦水桶",
-      "category": "skill",
-      "goal": "邻格怪会放哗啦水桶",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_flood_wave",
-      "title": "怪大浪浪",
-      "category": "skill",
-      "goal": "邻格怪会放大浪浪",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_ice_cube",
-      "title": "怪小冰块",
-      "category": "skill",
-      "goal": "邻格怪会放小冰块",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_popsicle",
-      "title": "怪冰棒棒",
-      "category": "skill",
-      "goal": "邻格怪会放冰棒棒",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_blizzard",
-      "title": "怪呼呼暴风雪",
-      "category": "skill",
-      "goal": "邻格怪会放呼呼暴风雪",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_ice_spike",
-      "title": "怪冰锥",
-      "category": "skill",
-      "goal": "邻格怪会放冰锥",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_freeze_cast",
-      "title": "怪冰冻",
-      "category": "skill",
-      "goal": "普攻邻格怪，看冰冻",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_lightning",
-      "title": "怪落雷",
-      "category": "skill",
-      "goal": "邻格怪会放落雷",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_meteor",
-      "title": "怪陨石",
-      "category": "skill",
-      "goal": "邻格怪会放陨石",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_laser",
-      "title": "怪激光",
-      "category": "skill",
-      "goal": "邻格怪会放激光",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_quake",
-      "title": "怪地震",
-      "category": "skill",
-      "goal": "邻格怪会放地震",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_whirlwind",
-      "title": "怪旋风",
-      "category": "skill",
-      "goal": "邻格怪会放旋风",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_stardust",
-      "title": "怪星光",
-      "category": "skill",
-      "goal": "邻格怪会放星光",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_blackhole",
-      "title": "怪黑洞",
-      "category": "skill",
-      "goal": "邻格怪会放黑洞",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_swap",
-      "title": "怪换位",
-      "category": "skill",
-      "goal": "邻格怪会放换位",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_burrow",
-      "title": "怪挖洞",
-      "category": "skill",
-      "goal": "邻格怪会放挖洞",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_steal_coin",
-      "title": "怪偷金币",
-      "category": "skill",
-      "goal": "先捡金币，再让邻格怪放偷金币",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_bubble",
-      "title": "怪泡泡",
-      "category": "skill",
-      "goal": "邻格怪会放泡泡",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_sandstorm",
-      "title": "怪沙暴",
-      "category": "skill",
-      "goal": "邻格怪会放沙暴",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_split",
-      "title": "怪分裂",
-      "category": "skill",
-      "goal": "邻格怪会放分裂",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_summon",
-      "title": "怪出小蜘蛛",
-      "category": "skill",
-      "goal": "普攻邻格怪，看出小蜘蛛",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_sacrifice",
-      "title": "怪献祭",
-      "category": "skill",
-      "goal": "邻格怪会放献祭",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_mirror_copy",
-      "title": "怪镜像",
-      "category": "skill",
-      "goal": "邻格怪会放镜像",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_sleep",
-      "title": "怪睡眠",
-      "category": "skill",
-      "goal": "邻格怪会放睡眠",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_entangle",
-      "title": "怪缠绕",
-      "category": "skill",
-      "goal": "邻格怪会放缠绕",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_honey",
-      "title": "怪蜜糖",
-      "category": "skill",
-      "goal": "邻格怪会放蜜糖",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_blind",
-      "title": "怪致盲",
-      "category": "skill",
-      "goal": "邻格怪会放致盲",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_slow",
-      "title": "怪减速",
-      "category": "skill",
-      "goal": "邻格怪会放减速",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_haste",
-      "title": "怪加速",
-      "category": "skill",
-      "goal": "邻格怪会放加速",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_shrink",
-      "title": "怪变小",
-      "category": "skill",
-      "goal": "邻格怪会放变小",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_charm",
-      "title": "怪魅惑",
-      "category": "skill",
-      "goal": "邻格怪会放魅惑",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_taunt",
-      "title": "怪嘲讽",
-      "category": "skill",
-      "goal": "邻格怪会放嘲讽",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_curse",
-      "title": "怪诅咒",
-      "category": "skill",
-      "goal": "邻格怪会放诅咒",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_charge",
-      "title": "怪蓄力",
-      "category": "skill",
-      "goal": "邻格怪会放蓄力",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_luck",
-      "title": "怪幸运",
-      "category": "skill",
-      "goal": "邻格怪会放幸运",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_pillow_block",
-      "title": "怪枕头挡挡",
-      "category": "skill",
-      "goal": "邻格怪会放枕头挡挡",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_blanket_fort",
-      "title": "怪被窝城堡",
-      "category": "skill",
-      "goal": "邻格怪会放被窝城堡",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_shell_tuck",
-      "title": "怪缩缩壳",
-      "category": "skill",
-      "goal": "普攻邻格怪，看缩缩壳",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_big_bonk",
-      "title": "怪超级大咚",
-      "category": "skill",
-      "goal": "邻格怪会放超级大咚",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_bubble_wrap",
-      "title": "怪泡泡飘飘",
-      "category": "skill",
-      "goal": "邻格怪会放泡泡飘飘",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_bedsheet_ghost",
-      "title": "怪床单隐身",
-      "category": "skill",
-      "goal": "邻格怪会放床单隐身",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_soap_slide",
-      "title": "怪肥皂溜溜",
-      "category": "skill",
-      "goal": "邻格怪会放肥皂溜溜",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_straw_sip",
-      "title": "怪吸管吸吸",
-      "category": "skill",
-      "goal": "邻格怪会放吸管吸吸",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_juice_slurp",
-      "title": "怪果汁咕嘟",
-      "category": "skill",
-      "goal": "邻格怪会放果汁咕嘟",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_big_slurp",
-      "title": "怪大口吸溜",
-      "category": "skill",
-      "goal": "邻格怪会放大口吸溜",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_pencil_sharpen",
-      "title": "怪削削铅笔",
-      "category": "skill",
-      "goal": "邻格怪会放削削铅笔",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_sharp_sharp",
-      "title": "怪尖尖尖",
-      "category": "skill",
-      "goal": "邻格怪会放尖尖尖",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_cactus_hug",
-      "title": "怪仙人掌抱抱",
-      "category": "skill",
-      "goal": "邻格怪会放仙人掌抱抱",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_prickly_sweater",
-      "title": "怪刺刺毛衣",
-      "category": "skill",
-      "goal": "邻格怪会放刺刺毛衣",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_hedgehog_bag",
-      "title": "怪刺猬睡袋",
-      "category": "skill",
-      "goal": "邻格怪会放刺猬睡袋",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_face_mask",
-      "title": "怪戴戴口罩",
-      "category": "skill",
-      "goal": "邻格怪会放戴戴口罩",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_bubble_bath",
-      "title": "怪泡泡浴",
-      "category": "skill",
-      "goal": "邻格怪会放泡泡浴",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_nine_lives",
-      "title": "怪九条命",
-      "category": "skill",
-      "goal": "邻格怪会放九条命",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_hug_patch",
-      "title": "怪抱抱贴",
-      "category": "skill",
-      "goal": "邻格怪会放抱抱贴",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_warm_milk",
-      "title": "怪热牛奶",
-      "category": "skill",
-      "goal": "邻格怪会放热牛奶",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_cozy_quilt",
-      "title": "怪暖暖被子",
-      "category": "skill",
-      "goal": "邻格怪会放暖暖被子",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_extra_bowl",
-      "title": "怪再来一碗",
-      "category": "skill",
-      "goal": "邻格怪会放再来一碗",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_big_tummy",
-      "title": "怪圆滚滚",
-      "category": "skill",
-      "goal": "邻格怪会放圆滚滚",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_heal",
-      "title": "怪治疗",
-      "category": "skill",
-      "goal": "邻格怪会放治疗",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_regen_sprout",
-      "title": "怪再生",
-      "category": "skill",
-      "goal": "邻格怪会放再生",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_grind_teeth",
-      "title": "怪磨磨牙",
-      "category": "skill",
-      "goal": "邻格怪会放磨磨牙",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_angry_puff",
-      "title": "怪气鼓鼓",
-      "category": "skill",
-      "goal": "邻格怪会放气鼓鼓",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_super_angry",
-      "title": "怪超级生气",
-      "category": "skill",
-      "goal": "邻格怪会放超级生气",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_mirror_peek",
-      "title": "怪照照镜子",
-      "category": "skill",
-      "goal": "邻格怪会放照照镜子",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_mirror_wall",
-      "title": "怪镜子墙",
-      "category": "skill",
-      "goal": "邻格怪会放镜子墙",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_pat_pat",
-      "title": "怪啪啪",
-      "category": "skill",
-      "goal": "邻格怪会放啪啪",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_drum_roll",
-      "title": "怪啪啪啪",
-      "category": "skill",
-      "goal": "邻格怪会放啪啪啪",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_tickle",
-      "title": "怪挠痒痒",
-      "category": "skill",
-      "goal": "邻格怪会放挠痒痒",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_big_yawn",
-      "title": "怪打哈欠",
-      "category": "skill",
-      "goal": "邻格怪会放打哈欠",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_lullaby",
-      "title": "怪摇篮曲",
-      "category": "skill",
-      "goal": "邻格怪会放摇篮曲",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_shush",
-      "title": "怪嘘安静",
-      "category": "skill",
-      "goal": "邻格怪会放嘘安静",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_tape_mouth",
-      "title": "怪胶带封嘴",
-      "category": "skill",
-      "goal": "邻格怪会放胶带封嘴",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_spin_spin",
-      "title": "怪转圈圈",
-      "category": "skill",
-      "goal": "邻格怪会放转圈圈",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_dizzy_top",
-      "title": "怪晕晕陀螺",
-      "category": "skill",
-      "goal": "邻格怪会放晕晕陀螺",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_prick",
-      "title": "怪小刺刺",
-      "category": "skill",
-      "goal": "邻格怪会放小刺刺",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_snip_snip",
-      "title": "怪剪刀咔嚓",
-      "category": "skill",
-      "goal": "邻格怪会放剪刀咔嚓",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_thorn_storm",
-      "title": "怪刺刺雨",
-      "category": "skill",
-      "goal": "邻格怪会放刺刺雨",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_nudge",
-      "title": "怪推推",
-      "category": "skill",
-      "goal": "邻格怪会放推推",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_bouncy_ball",
-      "title": "怪弹弹球",
-      "category": "skill",
-      "goal": "邻格怪会放弹弹球",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_hair_dryer",
-      "title": "怪吹风机",
-      "category": "skill",
-      "goal": "邻格怪会放吹风机",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_snore_suck",
-      "title": "怪呼噜吸",
-      "category": "skill",
-      "goal": "邻格怪会放呼噜吸",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_sonic",
-      "title": "怪音波",
-      "category": "skill",
-      "goal": "邻格怪会放音波",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_bedtime_story",
-      "title": "怪讲故事",
-      "category": "skill",
-      "goal": "邻格怪会放讲故事",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_cheer_buddy",
-      "title": "怪点个赞",
-      "category": "skill",
-      "goal": "邻格怪会放点个赞",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_group_hug",
-      "title": "怪抱成一团",
-      "category": "skill",
-      "goal": "邻格怪会放抱成一团",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_wipe_clean",
-      "title": "怪擦擦干净",
-      "category": "skill",
-      "goal": "邻格怪会放擦擦干净",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_wake_up",
-      "title": "怪起床啦",
-      "category": "skill",
-      "goal": "翻开隐藏怪，看起床啦",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_purify",
-      "title": "怪净化",
-      "category": "skill",
-      "goal": "邻格怪会放净化",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_smelly_cloud",
-      "title": "怪臭臭云",
-      "category": "skill",
-      "goal": "邻格怪会放臭臭云",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_sticky_web",
-      "title": "怪黏黏蛛网",
-      "category": "skill",
-      "goal": "普攻邻格怪，看黏黏蛛网",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_hug_and_bite",
-      "title": "怪抱住咬",
-      "category": "skill",
-      "goal": "邻格怪会放抱住咬",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_iron_turtle",
-      "title": "怪铁乌龟",
-      "category": "skill",
-      "goal": "邻格怪会放铁乌龟",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_ring_ring",
-      "title": "怪叮铃铃",
-      "category": "skill",
-      "goal": "翻开隐藏怪，看叮铃铃",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_cheer_up",
-      "title": "怪加油加油",
-      "category": "skill",
-      "goal": "邻格怪会放加油加油",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_pop_goodbye",
-      "title": "怪啪嗒散开",
-      "category": "skill",
-      "goal": "打死邻格怪，看啪嗒散开",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_glare_light",
-      "title": "怪刺眼光",
-      "category": "skill",
-      "goal": "邻格怪会放刺眼光",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_wet",
-      "title": "怪湿漉漉",
-      "category": "skill",
-      "goal": "普攻邻格怪，看湿漉漉",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_ignite",
-      "title": "怪着火",
-      "category": "skill",
-      "goal": "普攻邻格怪，看着火",
-      "theme": "arena",
-      "cols": 10,
-      "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
-    },
-    {
-      "id": "testcase_skill_monster_teleport",
-      "title": "怪传送",
-      "category": "skill",
-      "goal": "邻格怪会放传送",
       "theme": "arena",
       "cols": 10,
       "rows": 5,

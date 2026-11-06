@@ -1,0 +1,383 @@
+{
+  "schemaVersion": 1,
+  "table": "机制试玩",
+  "id": "testcase_skill_wipe_clean",
+  "theme": "arena",
+  "cols": 10,
+  "rows": 5,
+  "arena": true,
+  "cells": [
+    {
+      "x": 0,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": true
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "wipe_clean",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle",
+      "effects": [
+        {
+          "id": "poison",
+          "value": 2,
+          "turns": 5,
+          "every": 1
+        },
+        {
+          "id": "confuse",
+          "value": 1,
+          "turns": 3,
+          "every": 1
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "ground": "stairs",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    }
+  ],
+  "title": "擦擦干净",
+  "category": "skill",
+  "goal": "邻格单位已带中毒+混乱；捡技能卡后对目标放擦擦干净清减益",
+  "updatedAt": "2026-11-06T11:56:21.000Z"
+}

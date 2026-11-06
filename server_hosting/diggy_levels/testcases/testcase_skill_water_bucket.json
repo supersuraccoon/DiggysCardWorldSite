@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 1,
+  "table": "机制试玩",
+  "id": "testcase_skill_water_bucket",
+  "theme": "arena",
+  "cols": 10,
+  "rows": 5,
+  "arena": true,
+  "cells": [
+    {
+      "x": 0,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": true
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "water_bucket",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "stake_testcase",
+      "mole": false,
+      "heart": 20,
+      "tooth": 0,
+      "armor": 0,
+      "hunt": "idle"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "ground": "stairs",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "ground": "wall",
+      "catalog": "",
+      "mole": false
+    }
+  ],
+  "title": "哗啦水桶",
+  "category": "skill",
+  "goal": "捡邻格技能卡启用，再对怪放哗啦水桶看击退（后方留空）",
+  "updatedAt": "2026-11-06T11:56:21.000Z"
+}
