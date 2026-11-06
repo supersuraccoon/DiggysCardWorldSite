@@ -1676,11 +1676,11 @@
       "id": "testcase_event_falltrap",
       "title": "落下陷阱",
       "category": "event",
-      "goal": "踩上去观察触发即可（单层没有下一层）",
+      "goal": "踩落下陷阱进同一张图下一层，再踩一次回列表（floors:2）",
       "theme": "arena",
       "cols": 10,
       "rows": 5,
-      "updatedAt": "2026-11-04T12:00:00.000Z"
+      "updatedAt": "2026-11-06T01:42:45.000Z"
     },
     {
       "id": "testcase_costume_diving",
@@ -1856,11 +1856,11 @@
       "id": "testcase_costume_king",
       "title": "国王服",
       "category": "costume",
-      "goal": "捡国王服换上即可",
+      "goal": "捡国王服换上，下楼看心上限与甲是否各 +1",
       "theme": "arena",
       "cols": 10,
       "rows": 5,
-      "updatedAt": "2026-11-06T01:28:01.000Z"
+      "updatedAt": "2026-11-06T01:42:37.000Z"
     },
     {
       "id": "testcase_costume_mech",
