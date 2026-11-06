@@ -102,6 +102,13 @@
       "x": 3,
       "y": 1,
       "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "ground": "floor",
       "catalog": "stake_testcase",
       "mole": false,
       "heart": 3,
@@ -109,13 +116,6 @@
       "armor": 0,
       "hunt": "idle",
       "hidden": true
-    },
-    {
-      "x": 4,
-      "y": 1,
-      "ground": "floor",
-      "catalog": "",
-      "mole": false
     },
     {
       "x": 5,
@@ -170,13 +170,8 @@
       "x": 2,
       "y": 2,
       "ground": "floor",
-      "catalog": "stake_testcase",
-      "mole": false,
-      "heart": 3,
-      "tooth": 0,
-      "armor": 0,
-      "hunt": "idle",
-      "hidden": true
+      "catalog": "",
+      "mole": false
     },
     {
       "x": 3,
@@ -238,6 +233,13 @@
       "x": 1,
       "y": 3,
       "ground": "floor",
+      "catalog": "",
+      "mole": false
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "ground": "floor",
       "catalog": "stake_testcase",
       "mole": false,
       "heart": 3,
@@ -245,13 +247,6 @@
       "armor": 0,
       "hunt": "idle",
       "hidden": true
-    },
-    {
-      "x": 2,
-      "y": 3,
-      "ground": "floor",
-      "catalog": "",
-      "mole": false
     },
     {
       "x": 3,
@@ -375,6 +370,6 @@
   ],
   "title": "侦查服",
   "category": "costume",
-  "goal": "捡侦查服换上，看第二圈上下左右隐藏格是否翻开",
-  "updatedAt": "2026-11-05T17:30:00.000Z"
+  "goal": "捡侦查服换上，看东两格、南两格隐藏桩是否翻开",
+  "updatedAt": "2026-11-06T01:28:01.000Z"
 }

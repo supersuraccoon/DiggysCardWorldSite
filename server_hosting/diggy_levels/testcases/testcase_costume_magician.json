@@ -5,7 +5,7 @@
   "theme": "arena",
   "cols": 10,
   "rows": 5,
-  "arena": true,
+  "arena": false,
   "cells": [
     {
       "x": 0,
@@ -365,5 +365,5 @@
   "title": "魔术师服",
   "category": "costume",
   "goal": "捡魔术师服换上，普攻小怪，看是否 30% 魅惑",
-  "updatedAt": "2026-11-05T17:30:00.000Z"
+  "updatedAt": "2026-11-06T01:28:01.000Z"
 }

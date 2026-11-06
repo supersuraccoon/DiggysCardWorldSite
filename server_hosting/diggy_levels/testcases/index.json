@@ -1856,11 +1856,11 @@
       "id": "testcase_costume_king",
       "title": "国王服",
       "category": "costume",
-      "goal": "捡国王服换上，下楼看心上限与甲是否各 +1",
+      "goal": "捡国王服换上即可",
       "theme": "arena",
       "cols": 10,
       "rows": 5,
-      "updatedAt": "2026-11-05T17:30:00.000Z"
+      "updatedAt": "2026-11-06T01:28:01.000Z"
     },
     {
       "id": "testcase_costume_mech",
@@ -1886,21 +1886,21 @@
       "id": "testcase_costume_vampire",
       "title": "吸血鬼服",
       "category": "costume",
-      "goal": "捡吸血鬼服换上，亲手击杀木桩，看是否回 1 心",
+      "goal": "先让闲置桩打掉血，再亲手击杀心 1 木桩，看是否回 1 心",
       "theme": "arena",
       "cols": 10,
       "rows": 5,
-      "updatedAt": "2026-11-05T17:30:00.000Z"
+      "updatedAt": "2026-11-06T01:28:01.000Z"
     },
     {
       "id": "testcase_costume_detective",
       "title": "侦查服",
       "category": "costume",
-      "goal": "捡侦查服换上，看第二圈上下左右隐藏格是否翻开",
+      "goal": "捡侦查服换上，看东两格、南两格隐藏桩是否翻开",
       "theme": "arena",
       "cols": 10,
       "rows": 5,
-      "updatedAt": "2026-11-05T17:30:00.000Z"
+      "updatedAt": "2026-11-06T01:28:01.000Z"
     },
     {
       "id": "testcase_costume_matador",
@@ -1920,7 +1920,7 @@
       "theme": "arena",
       "cols": 10,
       "rows": 5,
-      "updatedAt": "2026-11-05T17:30:00.000Z"
+      "updatedAt": "2026-11-06T01:28:01.000Z"
     },
     {
       "id": "testcase_costume_snowman",
@@ -1940,7 +1940,7 @@
       "theme": "arena",
       "cols": 10,
       "rows": 5,
-      "updatedAt": "2026-11-05T17:30:00.000Z"
+      "updatedAt": "2026-11-06T01:28:01.000Z"
     }
   ]
 }

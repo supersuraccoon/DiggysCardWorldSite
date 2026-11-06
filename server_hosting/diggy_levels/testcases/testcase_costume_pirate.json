@@ -121,7 +121,8 @@
       "heart": 1,
       "tooth": 0,
       "armor": 0,
-      "hunt": "idle"
+      "hunt": "idle",
+      "gold": 10
     },
     {
       "x": 6,
@@ -365,5 +366,5 @@
   "title": "海盗服",
   "category": "costume",
   "goal": "捡海盗服换上：开箱看是否多一件；击杀看掉金是否 +50%",
-  "updatedAt": "2026-11-05T17:30:00.000Z"
+  "updatedAt": "2026-11-06T01:28:01.000Z"
 }
