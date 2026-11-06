@@ -88,11 +88,15 @@ export function Palette({ lookup, palette, base, tool, setTool }) {
       <WorldFold section="item" list={items} open={open} toggle={toggle} searching={searching} render={(i) => card(i, i.desc)} />
       <h4>事件 <span className="muted small">{events.length}</span></h4>
       <div className="pgrid">{events.map((i) => card(i, i.desc))}</div>
+      <h4>技能 <span className="muted small">{(palette.skills || []).length}</span></h4>
+      <div className="pgrid">
+        {(palette.skills || []).filter(hit).map((s) => card(s, '捡起学会'))}
+      </div>
       <h4>服装 <span className="muted small">{(palette.costumes || []).length}</span></h4>
       <div className="pgrid">
         {(palette.costumes || []).filter(hit).map((c) => card(c, '捡起换上'))}
       </div>
-      <p className="hint">点「世界N」「其他」展开/收起；搜索时自动展开命中的组。世界批次卡来自游戏仓 prefabs/cards/*/worldN（tools/sync_world_cards.py 同步）。「·店」= 只在商店卖。</p>
+      <p className="hint">点「世界N」「其他」展开/收起；搜索时自动展开命中的组。世界批次卡来自游戏仓 prefabs/cards/*/worldN（tools/sync_world_cards.py 同步）。「·店」= 只在商店卖。技能 = 桌上技能卡（捡起学会）；服装 = 换装卡（捡起换上）。</p>
     </div>
   );
 }

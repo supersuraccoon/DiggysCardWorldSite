@@ -1826,6 +1826,63 @@
       "desc": "站上去，换装屋开门一次。"
     }
   ],
+  "skills": [
+    {
+      "id": "mole_claw",
+      "name": "爪爪爪",
+      "img": "images/level/skill/mole_claw.png"
+    },
+    {
+      "id": "mole_spike",
+      "name": "地刺",
+      "img": "images/level/skill/mole_spike.png"
+    },
+    {
+      "id": "mole_top",
+      "name": "鼹鼠陀螺",
+      "img": "images/level/skill/mole_top.png"
+    },
+    {
+      "id": "venom_lick",
+      "name": "毒液舔舔",
+      "img": "images/level/skill/venom_lick.png"
+    },
+    {
+      "id": "venom_bite",
+      "name": "毒液咬咬",
+      "img": "images/level/skill/venom_bite.png"
+    },
+    {
+      "id": "venom_bomb",
+      "name": "毒液炸弹",
+      "img": "images/level/skill/venom_bomb.png"
+    },
+    {
+      "id": "venom_fang",
+      "name": "毒牙牙",
+      "img": "images/level/skill/venom_fang.png"
+    },
+    {
+      "id": "pot_lid_up",
+      "name": "锅盖举举",
+      "img": "images/level/skill/pot_lid_up.png"
+    },
+    {
+      "id": "frying_pan",
+      "name": "平底锅咚",
+      "img": "images/level/skill/frying_pan.png"
+    },
+    {
+      "id": "dong_drum",
+      "name": "咚咚鼓",
+      "img": "images/level/skill/dong_drum.png"
+    },
+    {
+      "id": "pat_head",
+      "name": "摸摸头",
+      "img": "images/level/skill/pat_head.png"
+    }
+  ],
   "costumes": [
     {
       "id": "cat",

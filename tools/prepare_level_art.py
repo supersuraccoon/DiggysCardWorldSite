@@ -80,7 +80,7 @@ terrain_src = {
 for k, p in terrain_src.items():
     save(os.path.join(IMG, p), os.path.join(OUT, f'terrain/{k}.png'), 200)
 
-# ---- 道具卡（json/道具卡.json）、事件卡（json/事件卡.json）、换装卡（images/cards/costume）
+# ---- 道具卡（json/道具卡.json）、事件卡（json/事件卡.json）、换装卡（images/cards/costume）、技能卡（images/cards/skill，桌上捡起学会）
 JSON_DIR = os.path.join(repo, 'notes/配置表/json')
 def load_json(name):
     f = os.path.join(JSON_DIR, name)
@@ -127,7 +127,9 @@ if not any(s['id'] == 'duck' for s in stores):
     stores.insert(0, {'id': 'duck', 'name': '黄头鸭的商店', 'kind': 'store', 'price': 0, 'prefab': 'item_duck_prefab', 'img': 'images/level/item/duck.png', 'desc': '踩到开一次商店，牌消失'})
 
 COSTUME_NAMES = {'diving': '潜水服', 'space': '宇航服', 'penguin': '企鹅服', 'ninja': '忍者服', 'halloween': '万圣节',
-                 'christmas': '圣诞服', 'miner': '矿工服', 'cat': '猫猫服', 'frog': '青蛙服', 'zombie': '僵尸服'}
+                 'christmas': '圣诞服', 'miner': '矿工服', 'cat': '猫猫服', 'frog': '青蛙服', 'zombie': '僵尸服',
+                 'king': '国王服', 'mech': '机甲服', 'firefighter': '消防员服', 'vampire': '吸血鬼服',
+                 'detective': '侦查服', 'matador': '斗牛士服', 'magician': '魔术师服', 'snowman': '雪人服', 'pirate': '海盗服'}
 costumes = []
 COSTUME_DIR = os.path.join(IMG, 'cards/costume')
 if os.path.isdir(COSTUME_DIR):
@@ -136,6 +138,21 @@ if os.path.isdir(COSTUME_DIR):
             cid = fn[:-4]
             save(os.path.join(COSTUME_DIR, fn), os.path.join(OUT, f'costume/{cid}.png'), 160)
             costumes.append({'id': cid, 'name': COSTUME_NAMES.get(cid, cid), 'img': f'images/level/costume/{cid}.png'})
+
+# 桌上可捡的技能卡（与 levelJson PLANTABLE_IDS 技能段对齐；副标题「捡起学会」）
+SKILL_IDS = [
+    ('mole_claw', '爪爪爪'), ('mole_spike', '地刺'), ('mole_top', '鼹鼠陀螺'),
+    ('venom_lick', '毒液舔舔'), ('venom_bite', '毒液咬咬'), ('venom_bomb', '毒液炸弹'), ('venom_fang', '毒牙牙'),
+    ('pot_lid_up', '锅盖举举'), ('frying_pan', '平底锅咚'), ('dong_drum', '咚咚鼓'), ('pat_head', '摸摸头'),
+]
+skills = []
+SKILL_DIR = os.path.join(IMG, 'cards/skill')
+for sid, sname in SKILL_IDS:
+    src = os.path.join(SKILL_DIR, f'{sid}.png')
+    if not os.path.exists(src):
+        continue
+    save(src, os.path.join(OUT, f'skill/{sid}.png'), 160)
+    skills.append({'id': sid, 'name': sname, 'img': f'images/level/skill/{sid}.png'})
 
 palette = {
     'source': 'tools/prepare_level_art.py',
@@ -151,6 +168,7 @@ palette = {
     ] + events + items,
     'store': stores,
     'costumes': costumes,
+    'skills': skills,
     'deal': {
         'monsters': id_list('DEAL_MONSTERS'), 'equipment': id_list('DEAL_EQUIPMENT'),
         'shopEquipment': id_list('DEAL_SHOP_EQUIPMENT'), 'items': id_list('DEAL_ITEMS'),
