@@ -1881,6 +1881,521 @@
       "id": "pat_head",
       "name": "摸摸头",
       "img": "images/level/skill/pat_head.png"
+    },
+    {
+      "id": "angry_puff",
+      "name": "气鼓鼓",
+      "img": "images/level/skill/angry_puff.png"
+    },
+    {
+      "id": "bedsheet_ghost",
+      "name": "床单隐身",
+      "img": "images/level/skill/bedsheet_ghost.png"
+    },
+    {
+      "id": "bedtime_story",
+      "name": "讲故事",
+      "img": "images/level/skill/bedtime_story.png"
+    },
+    {
+      "id": "big_bonk",
+      "name": "超级大咚",
+      "img": "images/level/skill/big_bonk.png"
+    },
+    {
+      "id": "big_slurp",
+      "name": "大口吸溜",
+      "img": "images/level/skill/big_slurp.png"
+    },
+    {
+      "id": "big_tummy",
+      "name": "圆滚滚",
+      "img": "images/level/skill/big_tummy.png"
+    },
+    {
+      "id": "big_yawn",
+      "name": "打哈欠",
+      "img": "images/level/skill/big_yawn.png"
+    },
+    {
+      "id": "blackhole",
+      "name": "黑洞",
+      "img": "images/level/skill/blackhole.png"
+    },
+    {
+      "id": "blanket_fort",
+      "name": "被窝城堡",
+      "img": "images/level/skill/blanket_fort.png"
+    },
+    {
+      "id": "blind",
+      "name": "致盲",
+      "img": "images/level/skill/blind.png"
+    },
+    {
+      "id": "blizzard",
+      "name": "呼呼暴风雪",
+      "img": "images/level/skill/blizzard.png"
+    },
+    {
+      "id": "bouncy_ball",
+      "name": "弹弹球",
+      "img": "images/level/skill/bouncy_ball.png"
+    },
+    {
+      "id": "bubble",
+      "name": "泡泡",
+      "img": "images/level/skill/bubble.png"
+    },
+    {
+      "id": "bubble_bath",
+      "name": "泡泡浴",
+      "img": "images/level/skill/bubble_bath.png"
+    },
+    {
+      "id": "bubble_wrap",
+      "name": "泡泡飘飘",
+      "img": "images/level/skill/bubble_wrap.png"
+    },
+    {
+      "id": "burrow",
+      "name": "挖洞",
+      "img": "images/level/skill/burrow.png"
+    },
+    {
+      "id": "cactus_hug",
+      "name": "仙人掌抱抱",
+      "img": "images/level/skill/cactus_hug.png"
+    },
+    {
+      "id": "charge",
+      "name": "蓄力",
+      "img": "images/level/skill/charge.png"
+    },
+    {
+      "id": "charm",
+      "name": "魅惑",
+      "img": "images/level/skill/charm.png"
+    },
+    {
+      "id": "cheer_buddy",
+      "name": "点个赞",
+      "img": "images/level/skill/cheer_buddy.png"
+    },
+    {
+      "id": "cheer_up",
+      "name": "加油加油",
+      "img": "images/level/skill/cheer_up.png"
+    },
+    {
+      "id": "cozy_quilt",
+      "name": "暖暖被子",
+      "img": "images/level/skill/cozy_quilt.png"
+    },
+    {
+      "id": "curse",
+      "name": "诅咒",
+      "img": "images/level/skill/curse.png"
+    },
+    {
+      "id": "dizzy_top",
+      "name": "晕晕陀螺",
+      "img": "images/level/skill/dizzy_top.png"
+    },
+    {
+      "id": "drum_roll",
+      "name": "啪啪啪",
+      "img": "images/level/skill/drum_roll.png"
+    },
+    {
+      "id": "entangle",
+      "name": "缠绕",
+      "img": "images/level/skill/entangle.png"
+    },
+    {
+      "id": "extra_bowl",
+      "name": "再来一碗",
+      "img": "images/level/skill/extra_bowl.png"
+    },
+    {
+      "id": "face_mask",
+      "name": "戴戴口罩",
+      "img": "images/level/skill/face_mask.png"
+    },
+    {
+      "id": "fire_ball",
+      "name": "大火球",
+      "img": "images/level/skill/fire_ball.png"
+    },
+    {
+      "id": "flood_wave",
+      "name": "大浪浪",
+      "img": "images/level/skill/flood_wave.png"
+    },
+    {
+      "id": "freeze_cast",
+      "name": "冰冻",
+      "img": "images/level/skill/freeze_cast.png"
+    },
+    {
+      "id": "glare_light",
+      "name": "刺眼光",
+      "img": "images/level/skill/glare_light.png"
+    },
+    {
+      "id": "grind_teeth",
+      "name": "磨磨牙",
+      "img": "images/level/skill/grind_teeth.png"
+    },
+    {
+      "id": "group_hug",
+      "name": "抱成一团",
+      "img": "images/level/skill/group_hug.png"
+    },
+    {
+      "id": "hair_dryer",
+      "name": "吹风机",
+      "img": "images/level/skill/hair_dryer.png"
+    },
+    {
+      "id": "haste",
+      "name": "加速",
+      "img": "images/level/skill/haste.png"
+    },
+    {
+      "id": "heal",
+      "name": "治疗",
+      "img": "images/level/skill/heal.png"
+    },
+    {
+      "id": "hedgehog_bag",
+      "name": "刺猬睡袋",
+      "img": "images/level/skill/hedgehog_bag.png"
+    },
+    {
+      "id": "honey",
+      "name": "蜜糖",
+      "img": "images/level/skill/honey.png"
+    },
+    {
+      "id": "hot_spatula",
+      "name": "烫烫锅铲",
+      "img": "images/level/skill/hot_spatula.png"
+    },
+    {
+      "id": "hug_and_bite",
+      "name": "抱住咬",
+      "img": "images/level/skill/hug_and_bite.png"
+    },
+    {
+      "id": "hug_patch",
+      "name": "抱抱贴",
+      "img": "images/level/skill/hug_patch.png"
+    },
+    {
+      "id": "ice_cube",
+      "name": "小冰块",
+      "img": "images/level/skill/ice_cube.png"
+    },
+    {
+      "id": "ice_spike",
+      "name": "冰锥",
+      "img": "images/level/skill/ice_spike.png"
+    },
+    {
+      "id": "ignite",
+      "name": "着火",
+      "img": "images/level/skill/ignite.png"
+    },
+    {
+      "id": "iron_turtle",
+      "name": "铁乌龟",
+      "img": "images/level/skill/iron_turtle.png"
+    },
+    {
+      "id": "juice_slurp",
+      "name": "果汁咕嘟",
+      "img": "images/level/skill/juice_slurp.png"
+    },
+    {
+      "id": "laser",
+      "name": "激光",
+      "img": "images/level/skill/laser.png"
+    },
+    {
+      "id": "lightning",
+      "name": "落雷",
+      "img": "images/level/skill/lightning.png"
+    },
+    {
+      "id": "luck",
+      "name": "幸运",
+      "img": "images/level/skill/luck.png"
+    },
+    {
+      "id": "lullaby",
+      "name": "摇篮曲",
+      "img": "images/level/skill/lullaby.png"
+    },
+    {
+      "id": "meteor",
+      "name": "陨石",
+      "img": "images/level/skill/meteor.png"
+    },
+    {
+      "id": "mirror_copy",
+      "name": "镜像",
+      "img": "images/level/skill/mirror_copy.png"
+    },
+    {
+      "id": "mirror_peek",
+      "name": "照照镜子",
+      "img": "images/level/skill/mirror_peek.png"
+    },
+    {
+      "id": "mirror_wall",
+      "name": "镜子墙",
+      "img": "images/level/skill/mirror_wall.png"
+    },
+    {
+      "id": "nine_lives",
+      "name": "九条命",
+      "img": "images/level/skill/nine_lives.png"
+    },
+    {
+      "id": "nudge",
+      "name": "推推",
+      "img": "images/level/skill/nudge.png"
+    },
+    {
+      "id": "pat_pat",
+      "name": "啪啪",
+      "img": "images/level/skill/pat_pat.png"
+    },
+    {
+      "id": "pencil_sharpen",
+      "name": "削削铅笔",
+      "img": "images/level/skill/pencil_sharpen.png"
+    },
+    {
+      "id": "pillow_block",
+      "name": "枕头挡挡",
+      "img": "images/level/skill/pillow_block.png"
+    },
+    {
+      "id": "pop_goodbye",
+      "name": "啪嗒散开",
+      "img": "images/level/skill/pop_goodbye.png"
+    },
+    {
+      "id": "popsicle",
+      "name": "冰棒棒",
+      "img": "images/level/skill/popsicle.png"
+    },
+    {
+      "id": "prick",
+      "name": "小刺刺",
+      "img": "images/level/skill/prick.png"
+    },
+    {
+      "id": "prickly_sweater",
+      "name": "刺刺毛衣",
+      "img": "images/level/skill/prickly_sweater.png"
+    },
+    {
+      "id": "purify",
+      "name": "净化",
+      "img": "images/level/skill/purify.png"
+    },
+    {
+      "id": "quake",
+      "name": "地震",
+      "img": "images/level/skill/quake.png"
+    },
+    {
+      "id": "regen_sprout",
+      "name": "再生",
+      "img": "images/level/skill/regen_sprout.png"
+    },
+    {
+      "id": "ring_ring",
+      "name": "叮铃铃",
+      "img": "images/level/skill/ring_ring.png"
+    },
+    {
+      "id": "sacrifice",
+      "name": "献祭",
+      "img": "images/level/skill/sacrifice.png"
+    },
+    {
+      "id": "sandstorm",
+      "name": "沙暴",
+      "img": "images/level/skill/sandstorm.png"
+    },
+    {
+      "id": "sharp_sharp",
+      "name": "尖尖尖",
+      "img": "images/level/skill/sharp_sharp.png"
+    },
+    {
+      "id": "shell_tuck",
+      "name": "缩缩壳",
+      "img": "images/level/skill/shell_tuck.png"
+    },
+    {
+      "id": "shrink",
+      "name": "变小",
+      "img": "images/level/skill/shrink.png"
+    },
+    {
+      "id": "shush",
+      "name": "嘘安静",
+      "img": "images/level/skill/shush.png"
+    },
+    {
+      "id": "sleep",
+      "name": "睡眠",
+      "img": "images/level/skill/sleep.png"
+    },
+    {
+      "id": "slow",
+      "name": "减速",
+      "img": "images/level/skill/slow.png"
+    },
+    {
+      "id": "smelly_cloud",
+      "name": "臭臭云",
+      "img": "images/level/skill/smelly_cloud.png"
+    },
+    {
+      "id": "snip_snip",
+      "name": "剪刀咔嚓",
+      "img": "images/level/skill/snip_snip.png"
+    },
+    {
+      "id": "snore_suck",
+      "name": "呼噜吸",
+      "img": "images/level/skill/snore_suck.png"
+    },
+    {
+      "id": "soap_slide",
+      "name": "肥皂溜溜",
+      "img": "images/level/skill/soap_slide.png"
+    },
+    {
+      "id": "sonic",
+      "name": "音波",
+      "img": "images/level/skill/sonic.png"
+    },
+    {
+      "id": "spin_spin",
+      "name": "转圈圈",
+      "img": "images/level/skill/spin_spin.png"
+    },
+    {
+      "id": "split",
+      "name": "分裂",
+      "img": "images/level/skill/split.png"
+    },
+    {
+      "id": "stardust",
+      "name": "星光",
+      "img": "images/level/skill/stardust.png"
+    },
+    {
+      "id": "steal_coin",
+      "name": "偷金币",
+      "img": "images/level/skill/steal_coin.png"
+    },
+    {
+      "id": "sticky_web",
+      "name": "黏黏蛛网",
+      "img": "images/level/skill/sticky_web.png"
+    },
+    {
+      "id": "straw_sip",
+      "name": "吸管吸吸",
+      "img": "images/level/skill/straw_sip.png"
+    },
+    {
+      "id": "summon",
+      "name": "召唤",
+      "img": "images/level/skill/summon.png"
+    },
+    {
+      "id": "super_angry",
+      "name": "超级生气",
+      "img": "images/level/skill/super_angry.png"
+    },
+    {
+      "id": "swap",
+      "name": "换位",
+      "img": "images/level/skill/swap.png"
+    },
+    {
+      "id": "tape_mouth",
+      "name": "胶带封嘴",
+      "img": "images/level/skill/tape_mouth.png"
+    },
+    {
+      "id": "taunt",
+      "name": "嘲讽",
+      "img": "images/level/skill/taunt.png"
+    },
+    {
+      "id": "teleport",
+      "name": "传送",
+      "img": "images/level/skill/teleport.png"
+    },
+    {
+      "id": "thorn_storm",
+      "name": "刺刺雨",
+      "img": "images/level/skill/thorn_storm.png"
+    },
+    {
+      "id": "tickle",
+      "name": "挠痒痒",
+      "img": "images/level/skill/tickle.png"
+    },
+    {
+      "id": "tiny_flame",
+      "name": "小火苗",
+      "img": "images/level/skill/tiny_flame.png"
+    },
+    {
+      "id": "wake_up",
+      "name": "起床啦",
+      "img": "images/level/skill/wake_up.png"
+    },
+    {
+      "id": "warm_milk",
+      "name": "热牛奶",
+      "img": "images/level/skill/warm_milk.png"
+    },
+    {
+      "id": "water_bucket",
+      "name": "哗啦水桶",
+      "img": "images/level/skill/water_bucket.png"
+    },
+    {
+      "id": "water_gun",
+      "name": "呲呲水枪",
+      "img": "images/level/skill/water_gun.png"
+    },
+    {
+      "id": "wet",
+      "name": "湿漉漉",
+      "img": "images/level/skill/wet.png"
+    },
+    {
+      "id": "whirlwind",
+      "name": "旋风",
+      "img": "images/level/skill/whirlwind.png"
+    },
+    {
+      "id": "wipe_clean",
+      "name": "擦擦干净",
+      "img": "images/level/skill/wipe_clean.png"
     }
   ],
   "costumes": [

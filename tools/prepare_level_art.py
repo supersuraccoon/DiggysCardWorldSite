@@ -139,19 +139,54 @@ if os.path.isdir(COSTUME_DIR):
             save(os.path.join(COSTUME_DIR, fn), os.path.join(OUT, f'costume/{cid}.png'), 160)
             costumes.append({'id': cid, 'name': COSTUME_NAMES.get(cid, cid), 'img': f'images/level/costume/{cid}.png'})
 
-# 桌上可捡的技能卡（与 levelJson PLANTABLE_IDS 技能段对齐；副标题「捡起学会」）
+# 技能卡（编辑器检查认这些 id；含已实现与设计中的全部技能图；副标题「捡起学会」）
 SKILL_IDS = [
     ('mole_claw', '爪爪爪'), ('mole_spike', '地刺'), ('mole_top', '鼹鼠陀螺'),
-    ('venom_lick', '毒液舔舔'), ('venom_bite', '毒液咬咬'), ('venom_bomb', '毒液炸弹'), ('venom_fang', '毒牙牙'),
-    ('pot_lid_up', '锅盖举举'), ('frying_pan', '平底锅咚'), ('dong_drum', '咚咚鼓'), ('pat_head', '摸摸头'),
+    ('venom_lick', '毒液舔舔'), ('venom_bite', '毒液咬咬'), ('venom_bomb', '毒液炸弹'),
+    ('venom_fang', '毒牙牙'), ('pot_lid_up', '锅盖举举'), ('frying_pan', '平底锅咚'),
+    ('dong_drum', '咚咚鼓'), ('pat_head', '摸摸头'), ('angry_puff', '气鼓鼓'),
+    ('bedsheet_ghost', '床单隐身'), ('bedtime_story', '讲故事'), ('big_bonk', '超级大咚'),
+    ('big_slurp', '大口吸溜'), ('big_tummy', '圆滚滚'), ('big_yawn', '打哈欠'),
+    ('blackhole', '黑洞'), ('blanket_fort', '被窝城堡'), ('blind', '致盲'),
+    ('blizzard', '呼呼暴风雪'), ('bouncy_ball', '弹弹球'), ('bubble', '泡泡'),
+    ('bubble_bath', '泡泡浴'), ('bubble_wrap', '泡泡飘飘'), ('burrow', '挖洞'),
+    ('cactus_hug', '仙人掌抱抱'), ('charge', '蓄力'), ('charm', '魅惑'),
+    ('cheer_buddy', '点个赞'), ('cheer_up', '加油加油'), ('cozy_quilt', '暖暖被子'),
+    ('curse', '诅咒'), ('dizzy_top', '晕晕陀螺'), ('drum_roll', '啪啪啪'),
+    ('entangle', '缠绕'), ('extra_bowl', '再来一碗'), ('face_mask', '戴戴口罩'),
+    ('fire_ball', '大火球'), ('flood_wave', '大浪浪'), ('freeze_cast', '冰冻'),
+    ('glare_light', '刺眼光'), ('grind_teeth', '磨磨牙'), ('group_hug', '抱成一团'),
+    ('hair_dryer', '吹风机'), ('haste', '加速'), ('heal', '治疗'),
+    ('hedgehog_bag', '刺猬睡袋'), ('honey', '蜜糖'), ('hot_spatula', '烫烫锅铲'),
+    ('hug_and_bite', '抱住咬'), ('hug_patch', '抱抱贴'), ('ice_cube', '小冰块'),
+    ('ice_spike', '冰锥'), ('ignite', '着火'), ('iron_turtle', '铁乌龟'),
+    ('juice_slurp', '果汁咕嘟'), ('laser', '激光'), ('lightning', '落雷'),
+    ('luck', '幸运'), ('lullaby', '摇篮曲'), ('meteor', '陨石'),
+    ('mirror_copy', '镜像'), ('mirror_peek', '照照镜子'), ('mirror_wall', '镜子墙'),
+    ('nine_lives', '九条命'), ('nudge', '推推'), ('pat_pat', '啪啪'),
+    ('pencil_sharpen', '削削铅笔'), ('pillow_block', '枕头挡挡'), ('pop_goodbye', '啪嗒散开'),
+    ('popsicle', '冰棒棒'), ('prick', '小刺刺'), ('prickly_sweater', '刺刺毛衣'),
+    ('purify', '净化'), ('quake', '地震'), ('regen_sprout', '再生'),
+    ('ring_ring', '叮铃铃'), ('sacrifice', '献祭'), ('sandstorm', '沙暴'),
+    ('sharp_sharp', '尖尖尖'), ('shell_tuck', '缩缩壳'), ('shrink', '变小'),
+    ('shush', '嘘安静'), ('sleep', '睡眠'), ('slow', '减速'),
+    ('smelly_cloud', '臭臭云'), ('snip_snip', '剪刀咔嚓'), ('snore_suck', '呼噜吸'),
+    ('soap_slide', '肥皂溜溜'), ('sonic', '音波'), ('spin_spin', '转圈圈'),
+    ('split', '分裂'), ('stardust', '星光'), ('steal_coin', '偷金币'),
+    ('sticky_web', '黏黏蛛网'), ('straw_sip', '吸管吸吸'), ('summon', '召唤'),
+    ('super_angry', '超级生气'), ('swap', '换位'), ('tape_mouth', '胶带封嘴'),
+    ('taunt', '嘲讽'), ('teleport', '传送'), ('thorn_storm', '刺刺雨'),
+    ('tickle', '挠痒痒'), ('tiny_flame', '小火苗'), ('wake_up', '起床啦'),
+    ('warm_milk', '热牛奶'), ('water_bucket', '哗啦水桶'), ('water_gun', '呲呲水枪'),
+    ('wet', '湿漉漉'), ('whirlwind', '旋风'), ('wipe_clean', '擦擦干净'),
 ]
 skills = []
 SKILL_DIR = os.path.join(IMG, 'cards/skill')
 for sid, sname in SKILL_IDS:
     src = os.path.join(SKILL_DIR, f'{sid}.png')
-    if not os.path.exists(src):
-        continue
-    save(src, os.path.join(OUT, f'skill/{sid}.png'), 160)
+    dst = os.path.join(OUT, f'skill/{sid}.png')
+    if os.path.exists(src):
+        save(src, dst, 160)
     skills.append({'id': sid, 'name': sname, 'img': f'images/level/skill/{sid}.png'})
 
 palette = {
