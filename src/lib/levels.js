@@ -342,6 +342,17 @@ export function resolveArenaFlag(lv, { testcase = false } = {}) {
   return testcase ? false : undefined;
 }
 
+
+/** 试玩顶层 floors：合法 1～20 整数；缺省 / 非法 → 1。保存时 1 不写字段。 */
+export function normFloors(v) {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return 1;
+  const i = Math.trunc(n);
+  if (i < 1) return 1;
+  if (i > 20) return 20;
+  return i;
+}
+
 /** id = ml_ / testcase_ + 6～8 位小写字母数字 */
 export function newMyLevelId(kind) {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -434,6 +445,7 @@ export function blankMyLevel(opts = {}, kind) {
   if (isTestcase(K)) {
     out.category = normCategory(category, out.id);
     out.goal = goal || '';
+    out.floors = normFloors(opts.floors);
   }
   const arena = resolveArenaFlag(out, { testcase: tc });
   if (arena !== undefined) out.arena = arena;
@@ -463,6 +475,7 @@ export function normalizeMyLevel(d, kind) {
   if (isTestcase(K)) {
     base.category = normCategory(d.category, base.id);
     base.goal = (d.goal ?? '').toString();
+    base.floors = normFloors(d.floors);
   }
   // theme=arena → true；显式 arena:false（强制隐藏）保留
   const arena = resolveArenaFlag({ ...base, arena: d.arena }, { testcase: isTestcase(K) });
@@ -473,10 +486,19 @@ export function normalizeMyLevel(d, kind) {
 /** 与 formatWorldJson 同风格：格子压成单行 */
 export function formatMyLevelJson(data, kind) {
   const K = kindOf(kind);
+  const tc = isTestcase(K);
   const d = { ...data, schemaVersion: SCHEMA_VERSION, table: K.table, updatedAt: data.updatedAt || new Date().toISOString() };
-  const arena = resolveArenaFlag(d, { testcase: isTestcase(K) });
+  const arena = resolveArenaFlag(d, { testcase: tc });
   if (arena !== undefined) d.arena = arena;
   else delete d.arena;
+  // floors：仅机制试玩；1 / 缺省不写；2～20 写整数。我的关卡绝不写出。
+  if (tc) {
+    const floors = normFloors(d.floors);
+    if (floors > 1) d.floors = floors;
+    else delete d.floors;
+  } else {
+    delete d.floors;
+  }
   // 每格一行（含 effects/skills 嵌套也压成一行）
   const cells = d.cells || [];
   const txt = JSON.stringify({ ...d, cells: cells.map((_, i) => `@@CELL${i}@@`) }, null, 2);

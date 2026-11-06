@@ -6,7 +6,7 @@ import {
   blankMyLevel, normalizeMyLevel, formatMyLevelJson, formatMyIndexJson,
   myLevelMeta, asValidateLevel, MY_LEVEL_DIR, resolveMyLevelId, normalizeMyLevelIdInput,
   stripOverrides, cleanOverrides, hasOverrides,
-  LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, normCategory, suggestForceHideCards, resolveArenaFlag, TESTCASE_ARENA_SIZE,
+  LEVEL_KINDS, TESTCASE_CATEGORIES, TESTCASE_CATEGORY_LABELS, normCategory, normFloors, suggestForceHideCards, resolveArenaFlag, TESTCASE_ARENA_SIZE,
 } from '../../lib/levels.js';
 import {
   hasToken, getCachedLogin, clearToken, verifyToken,
@@ -664,7 +664,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                       <td>
                         <b>{l.title}</b>
                         <div className="mono muted small">{l.id}</div>
-                        {TC && <div className="muted small">[{normCategory(l.category, l.id)}] {l.goal}{l.arena === false ? ' · 强制隐藏' : ''}</div>}
+                        {TC && <div className="muted small">[{normCategory(l.category, l.id)}] {l.goal}{l.arena === false ? ' · 强制隐藏' : ''}{normFloors(l.floors) > 1 ? ` · ${normFloors(l.floors)} 层` : ''}</div>}
                       </td>
                       <td>{themeName(l.theme)}</td>
                       <td>{l.cols}×{l.rows}</td>
@@ -779,6 +779,22 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                   updatedAt: new Date().toISOString(),
                 }))} /> 强制隐藏卡牌
               {suggestForceHideCards(lv) && lv.arena !== false && <span className="muted"> （有小屋/huntHidden，建议勾选）</span>}
+            </label>
+            <label className="small" title="楼梯/落下陷阱会反复进同一张图；最后一层才回列表。1=不写 floors 字段；2～20 写整数">
+              层数
+              <input
+                type="number"
+                min={1}
+                max={20}
+                step={1}
+                value={normFloors(lv.floors)}
+                onChange={(e) => updateLevel((l) => ({
+                  ...l,
+                  floors: normFloors(e.target.value),
+                  updatedAt: new Date().toISOString(),
+                }))}
+                style={{ width: 52, marginLeft: 4 }}
+              />
             </label>
           </div>
         </div>
