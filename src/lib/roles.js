@@ -245,6 +245,10 @@ export function validateRole(r, refs = null) {
     else if (v < -1) e(f, '最小是 -1（-1 = 用图鉴）');
     else if (v > 999) e(f, '太大了（>999）');
   }
+  if (r.drop != null) {
+    if (!Array.isArray(r.drop) || r.drop.some((d) => typeof d !== 'string' || !d)) e('drop', 'drop 必须是卡牌 id 数组');
+    else if (r.drop.includes(r.id)) e('drop', '不能掉落自己（会无限循环）');
+  }
   if (r.group !== 'catalogOnly') {
     if (!HUNT_KINDS.some((k) => k.key === r.hunt)) e('hunt', '追击方式不对');
     if (!Number.isInteger(r.chaseEvery) || r.chaseEvery < 1) e('chaseEvery', '间隔是 ≥1 的整数');

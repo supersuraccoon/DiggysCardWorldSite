@@ -87,9 +87,12 @@ export function cleanOverrides(c, keys) {
   if (ok('huntHidden') && typeof c.huntHidden === 'boolean') o.huntHidden = c.huntHidden;
   if (ok('recruitable') && typeof c.recruitable === 'boolean') o.recruitable = c.recruitable;
   if (ok('effects') && Array.isArray(c.effects)) { const a = c.effects.map(cleanEffect).filter(Boolean); if (a.length) o.effects = a; }
+  if (ok('drop')) { const a = cleanDrop(c.drop); if (a.length) o.drop = a; }
   if (ok('skills') && Array.isArray(c.skills)) { const a = c.skills.map(cleanSkill).filter(Boolean); if (a.length) o.skills = a; }
   return o;
 }
+/** 掉落（方案-掉落drop.md）：卡牌 id 数组，可重复，顺序保留；空 / 不写 = 不掉。关卡里的卡写了就覆盖图鉴默认 */
+export const cleanDrop = (d) => (Array.isArray(d) ? d.filter((x) => typeof x === 'string' && x) : []);
 export const hasOverrides = (c) => Object.keys(cleanOverrides(c)).length > 0;
 export const stripOverrides = (c) => ({ x: c.x, y: c.y, ground: c.ground, catalog: c.catalog, mole: c.mole });
 
@@ -151,6 +154,10 @@ export function validateLevel(lv, known) {
     if (c.catalog && !known.kindOf(c.catalog)) E(`不认识的牌 id「${c.catalog}」`, [[c.x, c.y]]);
     if (c.catalog && c.ground !== 'floor') E(`${c.catalog} 放在${GROUNDS.find((g) => g.id === c.ground)?.name}上`, [[c.x, c.y]]);
     if (c.mole && c.ground !== 'floor') E('黄鼹鼠要站在地板上', [[c.x, c.y]]);
+    if (c.catalog && Array.isArray(c.drop)) {
+      if (c.drop.includes(c.catalog)) E(`${c.catalog} 不能掉落自己（会无限循环）`, [[c.x, c.y]]);
+      for (const d of new Set(c.drop)) if (!known.kindOf(d)) W(`${c.catalog} 的掉落里有不认识的 id「${d}」（游戏会跳过这一项）`, [[c.x, c.y]]);
+    }
   }
   const ducks = lv.cells.filter((c) => c.catalog === 'duck');
   if (ducks.length > 1) W(`有 ${ducks.length} 只黄头鸭（一层一般一只）`, ducks.map((c) => [c.x, c.y]));
