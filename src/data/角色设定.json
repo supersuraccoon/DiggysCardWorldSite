@@ -46,7 +46,7 @@
       "id": "mole",
       "group": "hero",
       "name": "黄鼹鼠",
-      "prefab": "prefabs/cards/hero/hero_mole_prefab",
+      "prefab": "prefabs/cards/common/hero/hero_mole_prefab",
       "script": "HeroMole.ts",
       "heart": 10,
       "tooth": 1,

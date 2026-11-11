@@ -10,7 +10,7 @@
 //   notes/配置表/json/角色设定.json（有就用；旧位置 配置表/角色设定.json 也认；都没有就把 角色设定.md 转成 json）
 //   notes/配置表/json/关卡/*.json、json/地下城发牌.json（世界/关卡编辑器）
 //   notes/配置表/技能卡.md、状态效果.md（编辑器的技能 / 状态下拉表）
-//   assets/resources/images/cards/enemy/*.png、cards/hero/mole.png
+//   assets/resources/images/cards/{dungeon,testcase,world1…world9}/enemy/*.png、cards/common/hero/*.png（出处目录见私有仓 notes/工程/卡牌出处目录.md）
 // 写：
 //   src/data/角色设定.json   网站用的正本副本
 //   src/data/refs.json       技能 / 状态 / 追击参考表
@@ -93,7 +93,11 @@ write('角色设定.json', text);
 console.log(`  ${data.roles.length} 行：` + ['hero', 'deal', 'catalogOnly'].map((g) => `${g} ${data.roles.filter((r) => r.group === g).length}`).join('，'));
 
 // 3) 图片：图鉴 id = 图片 stem
-const ENEMY = 'assets/resources/images/cards/enemy', HERO = 'assets/resources/images/cards/hero';
+// 新目录：images/cards/{出处}/{种类}/。怪物图在 dungeon（优先）、testcase、world1…world9 的 enemy/ 里；英雄在 common/hero/
+const CARDS = 'assets/resources/images/cards';
+const HERO = `${CARDS}/common/hero`;
+const ENEMY_DIRS = ['dungeon', 'testcase', 'arena', ...Array.from({ length: 9 }, (_, i) => `world${i + 1}`)].map((o) => `${CARDS}/${o}/enemy`);
+const enemyDirOf = (file) => ENEMY_DIRS.find((d) => listDir(d).includes(file));
 const extra = extraImages && fs.existsSync(extraImages) ? new Set(fs.readdirSync(extraImages)) : new Set();
 const have = {};
 for (const r of data.roles) {
@@ -101,7 +105,7 @@ for (const r of data.roles) {
   let buf = null, from = '';
   if (extra.has(file)) { buf = fs.readFileSync(path.join(extraImages, file)); from = '额外目录'; }
   else if (r.group === 'hero') { buf = readBuf(`${HERO}/${file}`); from = 'hero'; }
-  else if (listDir(ENEMY).includes(file)) { buf = readBuf(`${ENEMY}/${file}`); from = 'enemy'; }
+  else { const d = enemyDirOf(file); if (d) { buf = readBuf(`${d}/${file}`); from = d.split('/').slice(-2).join('/'); } }
   if (buf) { write(`public/images/roles/${file}`, buf); have[r.id] = `images/roles/${file}`; }
   else console.log(`  没有图：${r.id}（${r.name}）→ 网站显示占位`);
 }

@@ -1,4 +1,5 @@
 """一次性：把 /workspace 里已有的美术整理、压缩后放进 public/images。
+卡牌图用新出处目录 images/cards/{出处}/{种类}/（见私有仓 notes/工程/卡牌出处目录.md）。
 不读游戏仓库的工作区（只读 origin/main 的 worktree /workspace/dcw_main）。
 怪物图和角色数据由 scripts/sync-from-game.mjs 负责，这里不处理。"""
 import os, shutil
@@ -30,23 +31,23 @@ for a, b in [('heart', 'heart'), ('theeth', 'tooth'), ('defend', 'armor'), ('coi
 for f in os.listdir(f'{G}/buffs'):
     if f.endswith('.png'): save_png(f'{G}/buffs/{f}', f'{P}/status/{f}', 112)
 # 英雄 / 表情 / 鸭子 / 系统用图
-save_png(f'{G}/cards/hero/mole.png', f'{P}/hero/mole.png', 500)
-save_png(f'{G}/cards/hero/jumping_mole.png', f'{P}/hero/jumping_mole.png', 400)
+save_png(f'{G}/cards/common/hero/mole.png', f'{P}/hero/mole.png', 500)
+save_png(f'{G}/cards/common/hero/jumping_mole.png', f'{P}/hero/jumping_mole.png', 400)
 for e in ['happy', 'proud', 'surprised', 'love', 'confused', 'scared', 'smug', 'laughing_tears', 'sleepy', 'dizzy']:
     p = f'{G}/system/emotes/mole_{e}.png'
     if os.path.exists(p): save_png(p, f'{P}/emotes/mole_{e}.png', 220)
 picks = {
     'duck': f'{G}/ui/shop/duck.png', 'duck_sign': f'{G}/ui/shop/duck_sign.png',
-    'chest': f'{G}/cards/item/chest.png', 'floor_back': f'{G}/cards/terrain/terrain_floor_back.png',
-    'stairs': f'{G}/cards/terrain/terrain_down.png', 'hole': f'{G}/cards/terrain/terrain_hole.png',
-    'wall': f'{G}/cards/terrain/terrain_wall.png',
-    'sword': f'{G}/cards/equipment/sword.png', 'lid': f'{G}/cards/equipment/lid.png',
-    'mittens': f'{G}/cards/equipment/armor_mittens.png', 'rolling_pin': f'{G}/cards/equipment/weapon_rolling_pin.png',
-    'slingshot': f'{G}/cards/equipment/weapon_slingshot.png', 'bandage': f'{G}/cards/item/bandage_item.png',
+    'chest': f'{G}/cards/dungeon/item/chest.png', 'floor_back': f'{G}/cards/dungeon/terrain/terrain_floor_back.png',
+    'stairs': f'{G}/cards/dungeon/terrain/terrain_down.png', 'hole': f'{G}/cards/dungeon/terrain/terrain_hole.png',
+    'wall': f'{G}/cards/dungeon/terrain/terrain_wall.png',
+    'sword': f'{G}/cards/dungeon/equipment/sword.png', 'lid': f'{G}/cards/dungeon/equipment/lid.png',
+    'mittens': f'{G}/cards/dungeon/equipment/armor_mittens.png', 'rolling_pin': f'{G}/cards/dungeon/equipment/weapon_rolling_pin.png',
+    'slingshot': f'{G}/cards/dungeon/equipment/weapon_slingshot.png', 'bandage': f'{G}/cards/dungeon/item/bandage_item.png',
     'paw': f'{G}/ui/companion/pet_paw.png', 'pet_frame': f'{G}/ui/companion/pet_portrait_frame.png',
     'recruit_heart': f'{G}/ui/companion/recruit_heart.png',
-    'skill_front': f'{G}/cards/frame/card_skill_front.png', 'card_monster': f'{G}/cards/frame/card_monster.png',
-    'card_hero': f'{G}/cards/frame/card_hero.png',
+    'skill_front': f'{G}/cards/common/frame/card_skill_front.png', 'card_monster': f'{G}/cards/common/frame/monster.png',
+    'card_hero': f'{G}/cards/common/frame/hero.png',
     'castle': f'{G}/ui/loading/loading_castle.png', 'lock': f'{G}/ui/modes/icon_lock.png',
     'intent': f'{G}/ui/skill/intent_exclaim.png', 'crosshair': f'{G}/ui/skill/target_crosshair.png',
 }

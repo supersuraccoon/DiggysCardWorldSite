@@ -21,23 +21,32 @@ const worldName = (w) => {
   return `世界${w}${x ? `·${x.name}` : ''}`;
 };
 
-// 按 world 字段分组：世界1…世界N，最后「其他」（无 world 的卡）
-function groupByWorld(list) {
+// 按出处分组：世界1…世界N，然后 地下城 / 竞技场 / 试玩 / 共用（出处见游戏仓 notes/工程/卡牌出处目录.md）。
+// 只是方便找，不做过滤；出处来自卡自带的 world 字段，或 palette.origins[prefab]（sync_world_cards.py 写入），查不到的归地下城。
+const ORIGIN_GROUPS = [['dungeon', '地下城'], ['arena', '竞技场'], ['testcase', '试玩'], ['common', '共用']];
+const originOf = (x, origins) => {
+  if (Number.isInteger(x.world)) return `world${x.world}`;
+  const o = x.origin || (origins || {})[x.prefab];
+  return o || 'dungeon';
+};
+function groupByOrigin(list, origins) {
   const m = new Map();
   for (const x of list) {
-    const k = Number.isInteger(x.world) ? x.world : 0;
+    const k = originOf(x, origins);
     if (!m.has(k)) m.set(k, []);
     m.get(k).push(x);
   }
-  const keys = [...m.keys()].filter((k) => k > 0).sort((a, b) => a - b);
-  const out = keys.map((k) => ({ key: `w${k}`, title: worldName(k), items: m.get(k) }));
-  if (m.has(0)) out.push({ key: 'other', title: '其他', items: m.get(0) });
+  const wnum = (k) => { const r = /^world(\d+)$/.exec(k); return r ? +r[1] : 0; };
+  const ws = [...m.keys()].filter((k) => wnum(k) > 0).sort((a, b) => wnum(a) - wnum(b));
+  const out = ws.map((k) => ({ key: k, title: worldName(wnum(k)), items: m.get(k) }));
+  for (const [k, title] of ORIGIN_GROUPS) if (m.has(k)) out.push({ key: k, title, items: m.get(k) });
+  for (const k of m.keys()) if (!ws.includes(k) && !ORIGIN_GROUPS.some(([g]) => g === k)) out.push({ key: k, title: k, items: m.get(k) });
   return out;
 }
 
 // 可折叠分组；搜索时自动展开有命中的组
-function WorldFold({ section, list, render, open, toggle, searching }) {
-  return groupByWorld(list).map((g) => {
+function WorldFold({ section, list, render, open, toggle, searching, origins }) {
+  return groupByOrigin(list, origins).map((g) => {
     const k = `${section}:${g.key}`;
     const isOpen = searching || !!open[k];
     return (
@@ -53,7 +62,7 @@ function WorldFold({ section, list, render, open, toggle, searching }) {
 
 export function Palette({ lookup, palette, base, tool, setTool }) {
   const [q, setQ] = useState('');
-  const [open, setOpen] = useState({ 'monster:other': true, 'equipment:other': true, 'item:other': true });
+  const [open, setOpen] = useState({ 'monster:dungeon': true, 'equipment:dungeon': true, 'item:dungeon': true });
   const toggle = (k) => setOpen((o) => ({ ...o, [k]: !o[k] }));
   const hit = (x) => !q || `${x.id} ${x.name}`.toLowerCase().includes(q.toLowerCase());
   const pick = (id) => setTool({ kind: 'card', id });
@@ -79,13 +88,13 @@ export function Palette({ lookup, palette, base, tool, setTool }) {
         ))}
       </div>
       <h4>怪物 <span className="muted small">{monsters.length}</span></h4>
-      <WorldFold section="monster" list={monsters} open={open} toggle={toggle} searching={searching}
+      <WorldFold origins={palette.origins} section="monster" list={monsters} open={open} toggle={toggle} searching={searching}
         render={(r) => card(r, statLine(r.heart, r.tooth, r.armor))} />
       <h4>装备 <span className="muted small">{equipment.length}</span></h4>
-      <WorldFold section="equipment" list={equipment} open={open} toggle={toggle} searching={searching}
+      <WorldFold origins={palette.origins} section="equipment" list={equipment} open={open} toggle={toggle} searching={searching}
         render={(e) => card(e, `+${statLine(e.heart, e.tooth, e.armor)}`, e.name + (e.shopOnly ? '·店' : ''))} />
       <h4>道具 <span className="muted small">{items.length}</span></h4>
-      <WorldFold section="item" list={items} open={open} toggle={toggle} searching={searching} render={(i) => card(i, i.desc)} />
+      <WorldFold origins={palette.origins} section="item" list={items} open={open} toggle={toggle} searching={searching} render={(i) => card(i, i.desc)} />
       <h4>事件 <span className="muted small">{events.length}</span></h4>
       <div className="pgrid">{events.map((i) => card(i, i.desc))}</div>
       <h4>技能 <span className="muted small">{(palette.skills || []).length}</span></h4>
@@ -96,7 +105,7 @@ export function Palette({ lookup, palette, base, tool, setTool }) {
       <div className="pgrid">
         {(palette.costumes || []).filter(hit).map((c) => card(c, '捡起换上'))}
       </div>
-      <p className="hint">点「世界N」「其他」展开/收起；搜索时自动展开命中的组。世界批次卡来自游戏仓 prefabs/cards/*/worldN（tools/sync_world_cards.py 同步）。「·店」= 只在商店卖。技能 = 桌上技能卡（捡起学会）；服装 = 换装卡（捡起换上）。</p>
+      <p className="hint">点「世界N」「地下城」「竞技场」「试玩」「共用」展开/收起（只是按出处分组，不限制能放哪张卡）；搜索时自动展开命中的组。世界批次卡来自游戏仓 prefabs/cards/worldN/*（tools/sync_world_cards.py 同步）。「·店」= 只在商店卖。技能 = 桌上技能卡（捡起学会）；服装 = 换装卡（捡起换上）。</p>
     </div>
   );
 }

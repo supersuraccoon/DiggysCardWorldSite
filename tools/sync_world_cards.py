@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # 同步后再跑：已含缩略图 160px
-"""从游戏仓 prefabs/cards/{enemy,equipment,item}/worldN 同步世界批次卡到 src/data/palette.json（带 world 字段），
-图片拷到 public/images/level/world/。用法：python3 tools/sync_world_cards.py [游戏仓路径]"""
+"""从游戏仓 prefabs/cards/worldN/{enemy,equipment,item}（出处目录，见私有仓 notes/工程/卡牌出处目录.md）同步世界批次卡到 src/data/palette.json（带 world 字段），
+图片拷到 public/images/level/world/。
+另外扫 prefabs/cards/{出处}/{种类}/ 全部预制体，把「预制体名 → 出处」写进 palette.json 的 origins，编辑器素材栏按它分组
+（世界N/地下城/竞技场/试玩/共用，只是方便找，不做过滤）。用法：python3 tools/sync_world_cards.py [游戏仓路径]"""
 import json, os, sys, glob, shutil, re
 GAME = sys.argv[1] if len(sys.argv) > 1 else '/workspace/DiggysCardWorld'
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,11 +41,16 @@ def parse(path):
     return comp, name, img, desc
 pal_path = f'{SITE}/src/data/palette.json'
 pal = json.load(open(pal_path))
+# 预制体名 → 出处（world1…world9/dungeon/arena/testcase/common）
+origins = {}
+for p in sorted(glob.glob(f'{CARDS}/*/*/*_prefab.prefab')):
+    parts = p.split('/')
+    origins[os.path.basename(p)[:-len('.prefab')]] = parts[-3]
 out = {'monsters': [], 'equipment': [], 'items': []}
 for cat, key, pre in [('enemy', 'monsters', 'enemy_'), ('equipment', 'equipment', 'equipment_'), ('item', 'items', 'item_')]:
-    for wdir in sorted(glob.glob(f'{CARDS}/{cat}/world*'), key=lambda p: int(re.sub(r'\D', '', os.path.basename(p)) or 0)):
+    for wdir in sorted(glob.glob(f'{CARDS}/world*/{cat}'), key=lambda p: int(re.sub(r'\D', '', os.path.basename(os.path.dirname(p))) or 0)):
         if not os.path.isdir(wdir): continue
-        w = int(re.sub(r'\D', '', os.path.basename(wdir)))
+        w = int(re.sub(r'\D', '', os.path.basename(os.path.dirname(wdir))))
         for p in sorted(glob.glob(f'{wdir}/*_prefab.prefab')):
             prefab = os.path.basename(p)[:-len('.prefab')]
             cid = prefab[len(pre):-len('_prefab')]
@@ -54,16 +61,18 @@ for cat, key, pre in [('enemy', 'monsters', 'enemy_'), ('equipment', 'equipment'
                 os.makedirs(os.path.dirname(f'{SITE}/public/{rel}'), exist_ok=True)
                 from PIL import Image
                 im = Image.open(png); im.thumbnail((160, 160)); im.save(f'{SITE}/public/{rel}', optimize=True)
-            e = {'id': cid, 'name': name or cid, 'prefab': prefab, 'world': w,
+            e = {'id': cid, 'name': name or cid, 'prefab': prefab, 'world': w, 'origin': f'world{w}',
                  'heart': comp.get('heart', comp.get('addHeart', 0)), 'tooth': comp.get('tooth', comp.get('addTooth', 0)), 'armor': comp.get('armor', comp.get('addArmor', 0)), 'img': rel}
             if key == 'monsters': e['gold'] = comp.get('gold', 0)
             if key == 'items': e['kind'] = 'item'; e['desc'] = desc
             out[key].append(e)
 # 替换旧的世界条目，保留非世界条目
 pal['worldMonsters'] = out['monsters']
+pal['origins'] = origins
 for key in ('equipment', 'items'):
     ids = {e['id'] for e in out[key]}
     pal[key] = [e for e in pal[key] if 'world' not in e and e['id'] not in ids] + out[key]
 json.dump(pal, open(pal_path, 'w'), ensure_ascii=False, indent=2)
 open(pal_path, 'a').write('\n')
-print({k: len(v) for k, v in out.items()}, 'missing img:', [e['id'] for v in out.values() for e in v if not e['img']])
+from collections import Counter
+print({k: len(v) for k, v in out.items()}, 'origins:', len(origins), dict(Counter(origins.values())), 'missing img:', [e['id'] for v in out.values() for e in v if not e['img']])

@@ -4,10 +4,11 @@
   python3 tools/prepare_level_art.py <游戏仓库路径>
 
 读（只读）：
-  assets/resources/images/cards/equipment/{id}.png   装备图
-  assets/resources/images/cards/item/chest.png       宝箱
+  （卡牌图都按新出处目录 images/cards/{出处}/{种类}/，见私有仓 notes/工程/卡牌出处目录.md）
+  assets/resources/images/cards/{dungeon,testcase,arena}/equipment/{id}.png   装备图
+  assets/resources/images/cards/dungeon/item/chest.png       宝箱
   assets/resources/images/ui/shop/duck.png           黄头鸭
-  assets/resources/images/cards/terrain/*.png、cards/obstacle/tree_02.png   地形（和 terrain_*_prefab 用的同一张）
+  assets/resources/images/cards/dungeon/terrain/*.png、cards/dungeon/obstacle/tree_02.png   地形（和 terrain_*_prefab 用的同一张）
   notes/配置表/装备设定.md                             装备的中文名 / 数值 / 售价 / 出现
   assets/scripts/deal.ts                               DEAL_SHOP（商店默认货架）
 写：
@@ -24,6 +25,16 @@ if not repo or not os.path.isdir(repo):
     sys.exit(__doc__)
 IMG = os.path.join(repo, 'assets/resources/images')
 OUT = os.path.join(SITE, 'public/images/level')
+
+
+# 非世界卡的出处目录（世界卡由 sync_world_cards.py 负责）；装备按出处依次找
+ORIGINS = ['dungeon', 'testcase', 'arena', 'common']
+def card_png(kind, cid):
+    for o in ORIGINS:
+        p = os.path.join(IMG, f'cards/{o}/{kind}/{cid}.png')
+        if os.path.exists(p):
+            return p
+    return os.path.join(IMG, f'cards/dungeon/{kind}/{cid}.png')
 
 
 def save(src, dst, box):
@@ -48,7 +59,7 @@ for line in md.splitlines():
         'where': where, 'shopOnly': '仅商店' in where,
         'img': f'images/level/equip/{eid}.png',
     })
-    save(os.path.join(IMG, f'cards/equipment/{eid}.png'), os.path.join(OUT, f'equip/{eid}.png'), 220)
+    save(card_png('equipment', eid), os.path.join(OUT, f'equip/{eid}.png'), 220)
 
 deal = open(os.path.join(repo, 'assets/scripts/deal.ts'), encoding='utf8').read()
 def id_list(name, depth=0):
@@ -70,27 +81,27 @@ def id_list(name, depth=0):
             out += id_list(other, depth + 1)
     return out
 
-save(os.path.join(IMG, 'cards/item/chest.png'), os.path.join(OUT, 'item/chest.png'), 220)
+save(os.path.join(IMG, 'cards/dungeon/item/chest.png'), os.path.join(OUT, 'item/chest.png'), 220)
 save(os.path.join(IMG, 'ui/shop/duck.png'), os.path.join(OUT, 'item/duck.png'), 220)
 terrain_src = {
-    'floor': 'cards/terrain/terrain_empty.png', 'wall': 'cards/obstacle/tree_02.png',
-    'pit': 'cards/terrain/terrain_hole.png', 'stairs': 'cards/terrain/terrain_down.png',
-    'back': 'cards/terrain/terrain_floor_back.png',
+    'floor': 'cards/dungeon/terrain/terrain_empty.png', 'wall': 'cards/dungeon/obstacle/tree_02.png',
+    'pit': 'cards/dungeon/terrain/terrain_hole.png', 'stairs': 'cards/dungeon/terrain/terrain_down.png',
+    'back': 'cards/dungeon/terrain/terrain_floor_back.png',
 }
 for k, p in terrain_src.items():
     save(os.path.join(IMG, p), os.path.join(OUT, f'terrain/{k}.png'), 200)
 
-# ---- 道具卡（json/道具卡.json）、事件卡（json/事件卡.json）、换装卡（images/cards/costume）、技能卡（images/cards/skill，桌上捡起学会）
+# ---- 道具卡（json/道具卡.json）、事件卡（json/事件卡.json）、换装卡（images/cards/dungeon/costume）、技能卡（images/cards/common/skill，桌上捡起学会）
 JSON_DIR = os.path.join(repo, 'notes/配置表/json')
 def load_json(name):
     f = os.path.join(JSON_DIR, name)
     return json.load(open(f, encoding='utf8')) if os.path.exists(f) else {}
 
 items = []
-fallback_scroll = os.path.join(IMG, 'cards/item/badge_scroll.png')
+fallback_scroll = os.path.join(IMG, 'cards/dungeon/item/badge_scroll.png')
 for it in load_json('道具卡.json').get('items', []):
     iid = it['id']
-    src = os.path.join(repo, 'assets/resources', (it.get('art') or f'images/cards/item/{iid}') + '.png')
+    src = os.path.join(repo, 'assets/resources', (it.get('art') or f'images/cards/dungeon/item/{iid}') + '.png')
     if not os.path.exists(src):
         src = fallback_scroll if iid.startswith('scroll_') and os.path.exists(fallback_scroll) else None
     if src:
@@ -113,7 +124,7 @@ for ev in load_json('事件卡.json').get('events', []):
     if eid == 'duck':
         src = os.path.join(IMG, 'ui/shop/duck.png')
     else:
-        src = os.path.join(IMG, f'cards/event/{eid}.png')
+        src = os.path.join(IMG, f'cards/dungeon/event/{eid}.png')
     if not os.path.exists(src):
         continue
     save(src, os.path.join(OUT, f'item/{eid}.png'), 220)
@@ -131,10 +142,10 @@ COSTUME_NAMES = {'diving': '潜水服', 'space': '宇航服', 'penguin': '企鹅
                  'king': '国王服', 'mech': '机甲服', 'firefighter': '消防员服', 'vampire': '吸血鬼服',
                  'detective': '侦查服', 'matador': '斗牛士服', 'magician': '魔术师服', 'snowman': '雪人服', 'pirate': '海盗服'}
 costumes = []
-COSTUME_DIR = os.path.join(IMG, 'cards/costume')
+COSTUME_DIR = os.path.join(IMG, 'cards/dungeon/costume')
 if os.path.isdir(COSTUME_DIR):
     for fn in sorted(os.listdir(COSTUME_DIR)):
-        if fn.endswith('.png'):
+        if fn.endswith('.png') and not fn.endswith('_color.png'):
             cid = fn[:-4]
             save(os.path.join(COSTUME_DIR, fn), os.path.join(OUT, f'costume/{cid}.png'), 160)
             costumes.append({'id': cid, 'name': COSTUME_NAMES.get(cid, cid), 'img': f'images/level/costume/{cid}.png'})
@@ -181,7 +192,7 @@ SKILL_IDS = [
     ('wet', '湿漉漉'), ('whirlwind', '旋风'), ('wipe_clean', '擦擦干净'),
 ]
 skills = []
-SKILL_DIR = os.path.join(IMG, 'cards/skill')
+SKILL_DIR = os.path.join(IMG, 'cards/common/skill')
 for sid, sname in SKILL_IDS:
     src = os.path.join(SKILL_DIR, f'{sid}.png')
     dst = os.path.join(OUT, f'skill/{sid}.png')
