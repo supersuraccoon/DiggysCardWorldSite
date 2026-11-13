@@ -38,9 +38,9 @@ for e in ['happy', 'proud', 'surprised', 'love', 'confused', 'scared', 'smug', '
     if os.path.exists(p): save_png(p, f'{P}/emotes/mole_{e}.png', 220)
 picks = {
     'duck': f'{G}/ui/shop/duck.png', 'duck_sign': f'{G}/ui/shop/duck_sign.png',
-    'chest': f'{G}/cards/dungeon/item/chest.png', 'floor_back': f'{G}/cards/dungeon/terrain/terrain_floor_back.png',
-    'stairs': f'{G}/cards/dungeon/terrain/terrain_down.png', 'hole': f'{G}/cards/dungeon/terrain/terrain_hole.png',
-    'wall': f'{G}/cards/dungeon/terrain/terrain_wall.png',
+    'chest': f'{G}/cards/dungeon/item/chest.png', 'floor_back': f'{G}/cards/dungeon/terrain/terrain_back.png',
+    'stairs': f'{G}/cards/common/terrain_down.png', 'hole': f'{G}/cards/dungeon/obstacle/obstacle_hole.png',
+    'wall': f'{G}/cards/dungeon/obstacle/obstacle_wall.png',
     'sword': f'{G}/cards/dungeon/equipment/sword.png', 'lid': f'{G}/cards/dungeon/equipment/lid.png',
     'mittens': f'{G}/cards/dungeon/equipment/armor_mittens.png', 'rolling_pin': f'{G}/cards/dungeon/equipment/weapon_rolling_pin.png',
     'slingshot': f'{G}/cards/dungeon/equipment/weapon_slingshot.png', 'bandage': f'{G}/cards/dungeon/item/bandage_item.png',

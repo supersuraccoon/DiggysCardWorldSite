@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { resolveConfigDir, writeText } from '../../lib/levels.js';
+import { resolveConfigDir, writeText, DEFAULT_SIZE } from '../../lib/levels.js';
+import { scatterFloorIds, cellPreviewArt } from '../../lib/themeTerrain.js';
+import BoardCellArt from './BoardCell.jsx';
 
 // 地下城（随机发牌）每一层的怪池 / 数量 / 商店。只导出 notes/配置表/json/地下城发牌.json，
 // 不同步任何代码（deal.ts 的 FLOOR_DEAL / DEAL_MONSTERS 先不动）。
@@ -48,6 +50,7 @@ export default function DealEditor({ shipped, palette, lookup, base = '' }) {
   const [loaded, setLoaded] = useState(false);
   const [toast, setToast] = useState(null);
   const [canSaveDir, setCanSaveDir] = useState(false);
+  const [previewFloor, setPreviewFloor] = useState(1);
   const fileRef = useRef(null);
   useEffect(() => {
     try {
@@ -75,6 +78,17 @@ export default function DealEditor({ shipped, palette, lookup, base = '' }) {
   const name = (id) => lookup.info[id]?.name || costume[id]?.name || id;
   const img = (id) => lookup.info[id]?.img || (costume[id] ? `${base}/${costume[id].img}` : null);
   const changed = JSON.stringify(data.floors) !== JSON.stringify(shipped.floors) || JSON.stringify(data.defaults) !== JSON.stringify(shipped.defaults);
+  const preview = useMemo(() => {
+    const f = data.floors.find((x) => x.floor === previewFloor) || data.floors[0];
+    if (!f) return null;
+    const cols = f.cols || data.defaults?.cols || DEFAULT_SIZE.cols;
+    const rows = f.rows || data.defaults?.rows || DEFAULT_SIZE.rows;
+    const cells = [];
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) cells.push({ x, y, ground: 'floor', catalog: '', mole: false });
+    const theme = 'dungeon';
+    const scatter = scatterFloorIds(cells, theme, 'dungeon', f.floor);
+    return { f, cols, rows, cells, scatter, theme };
+  }, [data, previewFloor]);
   const newSchema = data.floors.some((f) => typeof f.shop === 'string' || 'cols' in f) || !!data.shopCycle;
   const setFloor = (i, patch) => setData((d) => ({ ...d, floors: d.floors.map((f, k) => (k === i ? { ...f, ...patch } : f)) }));
   const setDefaults = (patch) => setData((d) => ({ ...d, defaults: { ...d.defaults, ...patch } }));
@@ -156,6 +170,36 @@ export default function DealEditor({ shipped, palette, lookup, base = '' }) {
           {data.shopCycle && <>🔁 商店轮换：从第 {data.shopCycle.from} 层起按 {(data.shopCycle.order || []).map(shopLabel).join(' → ')} 循环。 </>}
           {data.deepFloors && <>⛏ 第 {data.deepFloors.from}～{data.deepFloors.to} 层照第 {data.deepFloors.copyOf} 层延伸：怪数 <code>{data.deepFloors.monsterCount}</code>，商店 <code>{data.deepFloors.shop}</code>（只读，改规则请改 deal.ts）。</>}
         </p>
+      )}
+      {preview && (
+        <div className="dl-preview sketch">
+          <div className="dl-preview-head">
+            <h4>空地预览</h4>
+            <label className="small">层
+              <select value={preview.f.floor} onChange={(e) => setPreviewFloor(+e.target.value)}>
+                {data.floors.map((f) => <option key={f.floor} value={f.floor}>{f.floor}（{f.cols || data.defaults?.cols || DEFAULT_SIZE.cols}×{f.rows || data.defaults?.rows || DEFAULT_SIZE.rows}）</option>)}
+              </select>
+            </label>
+            <span className="muted small">空桌先铺空白地板，再按地下城主题散落 30% 地形；卡背用地下城 terrain_back。不模拟发牌后的墙/坑，也不写回 JSON。</span>
+          </div>
+          <div className="le-board-wrap" style={{ boxShadow: 'none', padding: 8 }}>
+            <div className="le-board" style={{ '--cols': preview.cols }}>
+              <div className="le-axis corner" />
+              {Array.from({ length: preview.cols }, (_, x) => <div key={`ax${x}`} className="le-axis top">{x}</div>)}
+              {Array.from({ length: preview.rows }, (_, y) => [
+                <div key={`ay${y}`} className="le-axis left">{y}</div>,
+                ...Array.from({ length: preview.cols }, (_, x) => {
+                  const c = preview.cells[y * preview.cols + x];
+                  return (
+                    <div key={`${x},${y}`} className={`le-cell g-floor`}>
+                      <BoardCellArt {...cellPreviewArt(c, { theme: preview.theme, scatter: preview.scatter, lookup, base })} />
+                    </div>
+                  );
+                }),
+              ])}
+            </div>
+          </div>
+        </div>
       )}
       <div className="tbl-wrap sketch">
         <table className="tbl dl-tbl">

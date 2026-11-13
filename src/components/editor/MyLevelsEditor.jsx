@@ -19,7 +19,9 @@ import {
 } from '../../lib/hostMyLevels.js';
 import { STAT_ICONS } from '../../lib/icons.js';
 import { asset } from '../../lib/site.js';
+import { scatterFloorIds, cellPreviewArt } from '../../lib/themeTerrain.js';
 import { Palette } from './Palette.jsx';
+import BoardCellArt from './BoardCell.jsx';
 import CellInspector from './CellInspector.jsx';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -579,6 +581,10 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
 
   // theme=arena：ground:wall 显示为竞技场墙（obstacle_arena_wall）
   const gView = (g) => (g === 'wall' && lv?.theme === 'arena' && lookup.ground.arena_wall ? lookup.ground.arena_wall : lookup.ground[g]);
+  const scatter = useMemo(
+    () => (lv ? scatterFloorIds(lv.cells, lv.theme, lv.theme, lv.id) : new Map()),
+    [lv],
+  );
   const pieceOf = (c) => (c.mole ? { name: '黄鼹鼠', img: `${base}/images/roles/mole.png`, kind: 'mole' } : c.catalog ? lookup.info[c.catalog] || { name: c.catalog, img: null, kind: 'unknown' } : null);
   const toolLabel = tool.kind === 'ground' ? `刷地形：${lookup.ground[tool.id]?.name}` : tool.kind === 'card' ? `放牌：${lookup.info[tool.id]?.name || tool.id}` : tool.kind === 'mole' ? '放黄鼹鼠' : tool.kind === 'select' ? '选择格子（改覆盖字段）' : '橡皮';
   const errs = curChecks.filter((c) => c.sev === 'err').length;
@@ -915,10 +921,10 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                   const inRect = drag && x >= Math.min(drag.x0, drag.x1) && x <= Math.max(drag.x0, drag.x1) && y >= Math.min(drag.y0, drag.y1) && y <= Math.max(drag.y0, drag.y1);
                   return (
                     <div key={`${x},${y}`} className={`le-cell g-${c.ground} ${inRect ? 'rect' : ''} ${hlSet.has(`${x},${y}`) ? 'hl' : ''} ${sel && sel.x === x && sel.y === y ? 'sel' : ''}`}
-                      style={{ backgroundImage: `url(${gView(c.ground)?.src})` }}
                       onMouseDown={(e) => onCellDown(x, y, e)} onMouseEnter={() => onCellEnter(x, y)} onClick={() => onCellClick(x, y)}
                       onDragOver={(e) => e.preventDefault()} onDrop={(e) => onDrop(x, y, e)}
                       title={`(${x}, ${y}) ${gView(c.ground)?.name}${p ? ' · ' + p.name : ''}`}>
+                      <BoardCellArt {...cellPreviewArt(c, { theme: lv.theme, scatter, lookup, base })} />
                       {p && (
                         <div className={`le-piece k-${p.kind}`} draggable={!rectMode && (tool.kind === 'card' || tool.kind === 'mole')}
                           onDragStart={(e) => { e.dataTransfer.setData(DRAG_MIME, JSON.stringify({ move: { x, y } })); e.dataTransfer.effectAllowed = 'move'; }}>
@@ -932,7 +938,7 @@ export default function MyLevelsEditor({ lookup, palette, refs, base = '', kind 
                 }),
               ])}
             </div>
-            <p className="hint le-help">与冒险关卡同一套工具。保存产物是 JSON，游戏直接读取，不再转 Prefab。</p>
+            <p className="hint le-help">与冒险关卡同一套工具。保存产物是 JSON，游戏直接读取，不再转 Prefab。预览：留空地板先铺空白地板，再按主题散落 30% 地形，卡背用当前主题（城堡先回退地下城、不散落）；不写入关卡 JSON。</p>
           </div>
 
           <div className="le-panels">

@@ -119,5 +119,5 @@ for (const f of worldFiles) write(`src/data/levels/${f}`, readBuf(`${LV}/${f}`))
 console.log(`关卡：${worldFiles.length} 个世界 → src/data/levels/${worldFiles.length ? '' : '（仓库里还没有 json/关卡/，网站保留原来的）'}`);
 const dealBuf = readBuf(`${CFG}/json/地下城发牌.json`);
 if (dealBuf) { write('src/data/地下城发牌.json', dealBuf); console.log('地下城发牌：json/地下城发牌.json'); }
-console.log('装备 / 道具 / 地形图和 palette.json 用 python3 tools/prepare_level_art.py <游戏仓库> 更新。');
+console.log('装备 / 道具 / 地形图、主题卡背、terrain_empty 和 palette.json 用 python3 tools/prepare_level_art.py <游戏仓库> 更新。');
 console.log('完成。');

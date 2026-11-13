@@ -6,7 +6,9 @@ import {
 } from '../../lib/levels.js';
 import { STAT_ICONS } from '../../lib/icons.js';
 import { asset } from '../../lib/site.js';
+import { scatterFloorIds, cellPreviewArt } from '../../lib/themeTerrain.js';
 import { Palette } from './Palette.jsx';
+import BoardCellArt from './BoardCell.jsx';
 import { buildLookup } from '../../lib/lookup.js';
 
 const LS_KEY = 'diggy.editor.levels.v1';
@@ -105,6 +107,11 @@ export default function LevelEditor({ shippedWorlds, roles, palette, base = '' }
   const wmeta = WORLDS.find((w) => w.id === wid);
   const lv = world.levels.find((l) => l.level === lvNo) || world.levels[0];
   const shippedLv = shipped[wid].levels.find((l) => l.level === lv.level);
+  const theme = wid;
+  const scatter = useMemo(
+    () => scatterFloorIds(lv.cells, theme, wid, lv.level),
+    [lv.cells, theme, wid, lv.level],
+  );
 
   const updateLevel = useCallback((fn, merge = false) => {
     commit((cur) => {
@@ -391,10 +398,10 @@ export default function LevelEditor({ shippedWorlds, roles, palette, base = '' }
                   const diff = !shippedLv || !orig || orig.ground !== c.ground || orig.catalog !== c.catalog || orig.mole !== c.mole;
                   return (
                     <div key={`${x},${y}`} data-xy={`${x},${y}`} className={`le-cell g-${c.ground} ${inRect ? 'rect' : ''} ${hlSet.has(`${x},${y}`) ? 'hl' : ''} ${diff && changedLv(wid, lv) ? 'diff' : ''}`}
-                      style={{ backgroundImage: `url(${lookup.ground[c.ground]?.src})` }}
                       onMouseDown={(e) => onCellDown(x, y, e)} onMouseEnter={() => onCellEnter(x, y)} onClick={() => onCellClick(x, y)}
                       onDragOver={(e) => e.preventDefault()} onDrop={(e) => onDrop(x, y, e)}
                       title={`(${x}, ${y}) ${lookup.ground[c.ground]?.name}${p ? ' · ' + p.name : ''}`}>
+                      <BoardCellArt {...cellPreviewArt(c, { theme, scatter, lookup, base })} />
                       {p && (
                         <div className={`le-piece k-${p.kind}`} draggable={!rectMode && (tool.kind === 'card' || tool.kind === 'mole')}
                           onDragStart={(e) => { e.dataTransfer.setData(DRAG_MIME, JSON.stringify({ move: { x, y } })); e.dataTransfer.effectAllowed = 'move'; }}>
@@ -407,7 +414,7 @@ export default function LevelEditor({ shippedWorlds, roles, palette, base = '' }
                 }),
               ])}
             </div>
-            <p className="hint">点一下或按住拖着刷；从右边拖牌进格子，或者先点选再点格子；格子里的牌可以直接拖到别的格子。楼梯和黄鼹鼠一层只有一个，新放的会顶掉旧的。Ctrl+Z 撤销。</p>
+            <p className="hint">点一下或按住拖着刷；从右边拖牌进格子，或者先点选再点格子；格子里的牌可以直接拖到别的格子。楼梯和黄鼹鼠一层只有一个，新放的会顶掉旧的。Ctrl+Z 撤销。预览：留空地板先铺空白地板，再按主题散落 30% 地形，卡背用当前主题；不写入关卡 JSON。</p>
           </div>
 
           <div className="le-panels">

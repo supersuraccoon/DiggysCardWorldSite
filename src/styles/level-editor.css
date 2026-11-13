@@ -49,13 +49,16 @@
 .le-board-wrap { padding: 12px; border-radius: 14px; box-shadow: 3px 3px 0 var(--ink); overflow: auto; background: rgba(251,249,243,.7); }
 .le-board { --cw: clamp(40px, calc((min(100vw, 1480px) - 640px) / var(--cols)), 84px); display: grid; grid-template-columns: 18px repeat(var(--cols), var(--cw)); gap: 4px; width: max-content; margin: 0 auto; user-select: none; }
 .le-axis { font-size: .7rem; color: var(--graphite); display: flex; align-items: center; justify-content: center; font-family: ui-monospace, Menlo, monospace; }
-.le-cell { position: relative; width: var(--cw); aspect-ratio: 5 / 7; background-size: cover; background-position: center; border-radius: 5px; box-shadow: 1px 1.5px 0 rgba(31,27,22,.35); cursor: crosshair; outline: 0 solid transparent; transition: transform .08s; }
+.le-cell { position: relative; width: var(--cw); aspect-ratio: 5 / 7; background-size: cover; background-position: center; border-radius: 5px; box-shadow: 1px 1.5px 0 rgba(31,27,22,.35); cursor: crosshair; outline: 0 solid transparent; transition: transform .08s; overflow: visible; }
+.le-card-back, .le-card-face { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; pointer-events: none; }
+.le-card-back { transform: translate(-3px, -4px); z-index: 0; box-shadow: 1px 1px 0 rgba(31,27,22,.25); }
+.le-card-face { z-index: 1; }
 .le-cell:hover { transform: translateY(-2px); box-shadow: 0 0 0 2px var(--ink), 2px 3px 0 rgba(31,27,22,.4); }
 .le-cell.rect { box-shadow: 0 0 0 3px var(--yellow), 0 0 0 5px var(--ink); }
 .le-cell.hl { animation: le-blink .9s ease-in-out 3; box-shadow: 0 0 0 3px var(--danger); }
 .le-cell.diff::after { content: ''; position: absolute; top: 2px; left: 2px; width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); border: 1.5px solid var(--ink); }
 @keyframes le-blink { 50% { box-shadow: 0 0 0 5px var(--danger); } }
-.le-piece { position: absolute; inset: 6% 4% 10%; display: flex; align-items: flex-end; justify-content: center; cursor: grab; }
+.le-piece { position: absolute; inset: 6% 4% 10%; display: flex; align-items: flex-end; justify-content: center; cursor: grab; z-index: 2; }
 .le-piece img { width: 100%; height: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(1px 1px 0 rgba(255,255,255,.9)) drop-shadow(-1px -1px 0 rgba(255,255,255,.9)); pointer-events: none; }
 .le-piece.k-mole::before { content: ''; position: absolute; inset: -4% -2% -6%; border-radius: 50%; background: radial-gradient(var(--yellow-soft), transparent 70%); }
 .le-piece.k-equipment img, .le-piece.k-item img, .le-piece.k-store img { width: 86%; height: 86%; }
@@ -120,6 +123,11 @@
 .psub { font-size: .62rem; color: var(--graphite); line-height: 1.15; }
 
 /* 地下城发牌 */
+.dl-preview { margin: 0 0 16px; padding: 10px 12px 12px; border-radius: 14px; box-shadow: 3px 3px 0 var(--ink); }
+.dl-preview-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; margin-bottom: 8px; }
+.dl-preview-head h4 { margin: 0; }
+.dl-preview .le-cell { cursor: default; }
+.dl-preview .le-board-wrap { margin-top: 4px; }
 .dl-tbl td { vertical-align: top; }
 .dl-tbl .num { width: 84px; }
 .dl-pool { display: flex; flex-direction: column; gap: 3px; min-width: 150px; }

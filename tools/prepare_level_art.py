@@ -8,11 +8,15 @@
   assets/resources/images/cards/{dungeon,testcase,arena}/equipment/{id}.png   装备图
   assets/resources/images/cards/dungeon/item/chest.png       宝箱
   assets/resources/images/ui/shop/duck.png           黄头鸭
-  assets/resources/images/cards/dungeon/terrain/*.png、cards/dungeon/obstacle/tree_02.png   地形（和 terrain_*_prefab 用的同一张）
+  assets/resources/images/cards/common/terrain_empty.png、terrain_down.png
+  assets/resources/images/cards/{world1–world8|dungeon|arena}/{obstacle|terrain}/（含 terrain_back）
+  assets/resources/images/cards/dungeon/obstacle/obstacle_wall.png、obstacle_hole.png
   notes/配置表/装备设定.md                             装备的中文名 / 数值 / 售价 / 出现
   assets/scripts/deal.ts                               DEAL_SHOP（商店默认货架）
 写：
   public/images/level/equip/{id}.png、item/{chest,duck}.png、terrain/{floor,wall,pit,stairs,back}.png
+  public/images/cards/common/terrain_empty（+_color）、terrain_down（+_color）
+  public/images/cards/{theme}/{obstacle|terrain}/*.png（含 _color、terrain_back）
   src/data/palette.json
 需要 Pillow。
 """
@@ -61,6 +65,20 @@ for line in md.splitlines():
     })
     save(card_png('equipment', eid), os.path.join(OUT, f'equip/{eid}.png'), 220)
 
+# 装备设定.md 没有试玩专用武器/防具，从已有 palette 或现成图补回去，避免同步冲掉。
+pal_old_path = os.path.join(SITE, 'src/data/palette.json')
+pal_old = json.load(open(pal_old_path, encoding='utf8')) if os.path.exists(pal_old_path) else {}
+have_eq = {e['id'] for e in equipment}
+for e in pal_old.get('equipment') or []:
+    if e.get('id') in have_eq:
+        continue
+    if e.get('where') == '仅机制试玩' or (e.get('id') or '').endswith('_testcase'):
+        img_rel = e.get('img') or f"images/level/equip/{e['id']}.png"
+        img_abs = os.path.join(SITE, 'public', img_rel)
+        if os.path.exists(img_abs):
+            equipment.append(e)
+            have_eq.add(e['id'])
+
 deal = open(os.path.join(repo, 'assets/scripts/deal.ts'), encoding='utf8').read()
 def id_list(name, depth=0):
     # 支持 `= [..]`、`= [..].concat(OTHER)`、`= OTHER.slice()` 这几种写法
@@ -83,13 +101,64 @@ def id_list(name, depth=0):
 
 save(os.path.join(IMG, 'cards/dungeon/item/chest.png'), os.path.join(OUT, 'item/chest.png'), 220)
 save(os.path.join(IMG, 'ui/shop/duck.png'), os.path.join(OUT, 'item/duck.png'), 220)
+# 预览用：优先上色层；同时把线稿和 _color 拷到 public/images/cards/ 保持成对
+THEME_FOLDERS = ['world1', 'world2', 'world3', 'world4', 'world5', 'world6', 'world7', 'world8', 'dungeon', 'arena']
+# 不要扫 world9 / castle：云雾城堡地形尚未入库
+
+def save_prefer_color(src, dst, box):
+    if src.endswith('.png'):
+        color = src[:-4] + '_color.png'
+        if os.path.exists(color):
+            save(color, dst, box)
+            return
+    save(src, dst, box)
+
+def copy_png_pair(src, dst, box=240):
+    """拷 name.png + name_color.png（若有），缩到 box。dst 是 name.png 路径。"""
+    save(src, dst, box)
+    if src.endswith('.png'):
+        csrc = src[:-4] + '_color.png'
+        if os.path.exists(csrc):
+            cdst = dst[:-4] + '_color.png' if dst.endswith('.png') else dst + '_color.png'
+            save(csrc, cdst, box)
+
 terrain_src = {
-    'floor': 'cards/dungeon/terrain/terrain_empty.png', 'wall': 'cards/dungeon/obstacle/tree_02.png',
-    'pit': 'cards/dungeon/terrain/terrain_hole.png', 'stairs': 'cards/dungeon/terrain/terrain_down.png',
-    'back': 'cards/dungeon/terrain/terrain_floor_back.png',
+    'floor': 'cards/common/terrain_empty.png',
+    'wall': 'cards/dungeon/obstacle/obstacle_wall.png',
+    'pit': 'cards/dungeon/obstacle/obstacle_hole.png',
+    'stairs': 'cards/common/terrain_down.png',
+    'back': 'cards/dungeon/terrain/terrain_back.png',
 }
-for k, p in terrain_src.items():
-    save(os.path.join(IMG, p), os.path.join(OUT, f'terrain/{k}.png'), 200)
+for k, rel in terrain_src.items():
+    save_prefer_color(os.path.join(IMG, rel), os.path.join(OUT, f'terrain/{k}.png'), 200)
+
+# 主题地形 / 卡背 / 障碍图（供编辑器预览；不把 101 个新障碍接进发牌规则或 palette 工具）
+cards_out = os.path.join(SITE, 'public/images/cards')
+copied = {'terrain': 0, 'obstacle': 0, 'common': 0}
+for name in ('terrain_empty', 'terrain_down'):
+    src = os.path.join(IMG, f'cards/common/{name}.png')
+    if os.path.exists(src):
+        copy_png_pair(src, os.path.join(cards_out, 'common', f'{name}.png'), 240)
+        copied['common'] += 1 + int(os.path.exists(src[:-4] + '_color.png'))
+for folder in THEME_FOLDERS:
+    for kind in ('terrain', 'obstacle'):
+        src_dir = os.path.join(IMG, 'cards', folder, kind)
+        if not os.path.isdir(src_dir):
+            continue
+        for fn in sorted(os.listdir(src_dir)):
+            if not fn.endswith('.png') or fn.endswith('_color.png'):
+                continue
+            src = os.path.join(src_dir, fn)
+            dst = os.path.join(cards_out, folder, kind, fn)
+            copy_png_pair(src, dst, 240)
+            copied[kind] += 1 + int(os.path.exists(src[:-4] + '_color.png'))
+# 竞技场墙：编辑器 theme=arena 时 wall 显示此图
+arena_wall = os.path.join(IMG, 'cards/arena/terrain/terrain_arena_wall.png')
+if not os.path.exists(arena_wall):
+    arena_wall = os.path.join(IMG, 'cards/arena/obstacle/palisade_wall.png')
+if os.path.exists(arena_wall):
+    save_prefer_color(arena_wall, os.path.join(OUT, 'terrain/arena_wall.png'), 200)
+print(f'主题卡图：common {copied["common"]}，terrain {copied["terrain"]}，obstacle {copied["obstacle"]} → public/images/cards/')
 
 # ---- 道具卡（json/道具卡.json）、事件卡（json/事件卡.json）、换装卡（images/cards/dungeon/costume）、技能卡（images/cards/common/skill，桌上捡起学会）
 JSON_DIR = os.path.join(repo, 'notes/配置表/json')
@@ -121,8 +190,8 @@ for ev in load_json('事件卡.json').get('events', []):
     eid = ev['id']
     if eid == 'chest':
         continue
-    if eid == 'duck':
-        src = os.path.join(IMG, 'ui/shop/duck.png')
+    if eid in STORE_IDS:
+        src = os.path.join(IMG, f'ui/shop/{eid}.png')
     else:
         src = os.path.join(IMG, f'cards/dungeon/event/{eid}.png')
     if not os.path.exists(src):
@@ -203,10 +272,11 @@ for sid, sname in SKILL_IDS:
 palette = {
     'source': 'tools/prepare_level_art.py',
     'terrain': [
-        {'id': 'floor', 'name': '地板', 'prefab': 'terrain_floor_prefab', 'walkable': True, 'img': 'images/level/terrain/floor.png'},
-        {'id': 'wall', 'name': '墙', 'prefab': 'terrain_wall_prefab', 'walkable': False, 'img': 'images/level/terrain/wall.png'},
-        {'id': 'pit', 'name': '坑', 'prefab': 'terrain_hole_prefab', 'walkable': False, 'img': 'images/level/terrain/pit.png'},
+        {'id': 'floor', 'name': '地板', 'prefab': 'terrain_empty_prefab', 'walkable': True, 'img': 'images/level/terrain/floor.png'},
+        {'id': 'wall', 'name': '墙', 'prefab': 'obstacle_wall_prefab', 'walkable': False, 'img': 'images/level/terrain/wall.png'},
+        {'id': 'pit', 'name': '坑', 'prefab': 'obstacle_hole_prefab', 'walkable': False, 'img': 'images/level/terrain/pit.png'},
         {'id': 'stairs', 'name': '下楼楼梯', 'prefab': 'terrain_down_prefab', 'walkable': True, 'img': 'images/level/terrain/stairs.png'},
+        {'id': 'arena_wall', 'name': '竞技场墙', 'prefab': 'obstacle_arena_wall_prefab', 'walkable': False, 'img': 'images/level/terrain/arena_wall.png', 'displayOnly': True, 'note': 'JSON 仍写 ground:wall；theme=arena 时编辑器显示此卡，游戏端需按 theme 换 prefab'},
     ],
     'equipment': equipment,
     'items': [
